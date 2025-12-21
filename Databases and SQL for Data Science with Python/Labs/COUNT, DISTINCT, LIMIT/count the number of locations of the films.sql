@@ -1,0 +1,1 @@
+SELECT COUNT(Locations) FROM FilmLocations WHERE Writer="James Cameron";

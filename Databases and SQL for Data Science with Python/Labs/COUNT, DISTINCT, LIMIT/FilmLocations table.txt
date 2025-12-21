@@ -1,0 +1,13 @@
+FilmLocations(
+Title:              titles of the films, 
+ReleaseYear:        time of public release of the films, 
+Locations:          locations of San Francisco where the films were shot, 
+FunFacts:           funny facts about the filming locations, 
+ProductionCompany:  companies who produced the films, 
+Distributor:        companies who distributed the films, 
+Director:           people who directed the films, 
+Writer:             people who wrote the films, 
+Actor1:             person 1 who acted in the films, 
+Actor2:             person 2 who acted in the films, 
+Actor3:             person 3 who acted in the films
+)

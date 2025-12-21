@@ -1,0 +1,1 @@
+SELECT Count(*) FROM FilmLocations WHERE ReleaseYear<1950;

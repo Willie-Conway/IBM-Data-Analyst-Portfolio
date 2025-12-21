@@ -1,0 +1,7 @@
+Instructor (
+    ins_id:     unique identification number of the instructors,    
+    lastname:   last name of the instructors,
+    firstname:  first name of the instructors,
+    city:       name of the cities where instructors are located,
+    country:    two-letter country code of the countries where instructors are located
+)

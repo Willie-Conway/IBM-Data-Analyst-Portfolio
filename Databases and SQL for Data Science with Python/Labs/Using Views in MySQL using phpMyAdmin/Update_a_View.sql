@@ -1,0 +1,15 @@
+-- 1. Create or replace the EMPSALARY view with additional job and salary range info
+CREATE VIEW EMPSALARY AS
+SELECT EMPLOYEES.EMP_ID,
+       EMPLOYEES.F_NAME,
+       EMPLOYEES.L_NAME,
+       EMPLOYEES.B_DATE,
+       EMPLOYEES.SEX,
+       JOBS.JOB_TITLE,
+       JOBS.MIN_SALARY,
+       JOBS.MAX_SALARY
+FROM EMPLOYEES, JOBS
+WHERE EMPLOYEES.JOB_ID = JOBS.JOB_IDENT;
+
+-- 2. Query the updated view
+SELECT * FROM EMPSALARY;

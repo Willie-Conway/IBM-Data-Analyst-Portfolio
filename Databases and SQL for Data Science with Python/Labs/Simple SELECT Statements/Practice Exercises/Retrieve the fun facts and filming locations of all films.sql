@@ -1,0 +1,1 @@
+SELECT Locations, FunFacts FROM FilmLocations;

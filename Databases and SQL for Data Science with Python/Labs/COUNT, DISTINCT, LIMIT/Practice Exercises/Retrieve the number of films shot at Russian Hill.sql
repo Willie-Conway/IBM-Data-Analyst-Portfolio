@@ -1,0 +1,1 @@
+SELECT Count(Title) FROM FilmLocations WHERE Locations="Russian Hill";

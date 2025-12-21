@@ -1,0 +1,7 @@
+-- 1. Create the EMPSALARY view to display selected employee data
+CREATE VIEW IF NOT EXISTS EMPSALARY AS
+SELECT EMP_ID, F_NAME, L_NAME, B_DATE, SEX, SALARY
+FROM EMPLOYEES;
+
+-- 2. Query the EMPSALARY view
+SELECT * FROM EMPSALARY;

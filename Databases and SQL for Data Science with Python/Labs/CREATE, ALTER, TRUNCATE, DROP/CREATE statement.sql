@@ -1,0 +1,13 @@
+CREATE TABLE PETSALE (
+        ID INTEGER NOT NULL,
+        PET CHAR(20),
+        SALEPRICE DECIMAL(6,2),
+        PROFIT DECIMAL(6,2),
+        SALEDATE DATE
+        );
+
+CREATE TABLE PET (
+        ID INTEGER NOT NULL,
+        ANIMAL VARCHAR(20),
+        QUANTITY INTEGER
+        );
