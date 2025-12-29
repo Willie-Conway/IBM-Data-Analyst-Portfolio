@@ -1,0 +1,6 @@
+OrderID,Product,Category,Quantity,Price,Total,OrderDate,CustomerCity
+1,Laptop,Electronics,2,800,1600,2022-01-10,New York
+2,Smartphone,Electronics,3,600,1800,2022-02-15,Los Angeles
+3,Desk Chair,Furniture,5,150,750,2022-03-12,Chicago
+4,Notebook,Stationery,10,2,20,2022-04-05,Houston
+5,Monitor,Electronics,1,300,300,2022-05-21,Miami
