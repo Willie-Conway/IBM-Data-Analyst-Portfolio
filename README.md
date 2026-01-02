@@ -7,7 +7,7 @@
 ![SQL](https://img.shields.io/badge/SQL-4479A1?style=for-the-badge&logo=postgresql&logoColor=white)
 ![Excel](https://img.shields.io/badge/Excel-217346?style=for-the-badge&logo=microsoftexcel&logoColor=white)
 ![Dashboard](https://img.shields.io/badge/Dashboards-FF6B6B?style=for-the-badge&logo=plotly&logoColor=white)
-![GitHub](https://img.shields.io/badge/Projects-20+-brightgreen)
+
 
 ## 🎯 Overview
 
