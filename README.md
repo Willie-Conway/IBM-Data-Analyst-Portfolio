@@ -25,8 +25,8 @@ This repository showcases my comprehensive journey through the **IBM Data Analys
 
 <p float="left">
     <img src="https://github.com/Willie-Conway/IBM-Data-Analyst-Portfolio/blob/420cc03ab5d7b89c2ef0a67e0dba4e34ccc0fe83/Data%20Visualization%20and%20Dashboards%20with%20Excel%20and%20Cognos/Screenshots/Create%20a%20Sunburst%20Chart.png" width="300" />
-    <img src="https://raw.githubusercontent.com/Willie-Conway/IBM-Data-Analyst-Portfolio/refs/heads/main/Data%20Visualization%20and%20Dashboards%20with%20Excel%20and%20Cognos/Screenshots/Create%20a%20Scatter%20Chart.png?token=GHSAT0AAAAAADRSACXHBA7A52URKQZ2SUUO2KYNL6A" width="300" />
-    <img src="https://raw.githubusercontent.com/Willie-Conway/IBM-Data-Analyst-Portfolio/refs/heads/main/Data%20Visualization%20and%20Dashboards%20with%20Excel%20and%20Cognos/Screenshots/Configuring%20a%20dashboard%20layout%20in%20Excel.png?token=GHSAT0AAAAAADRSACXHEHBIOMH3JFIE6UM62KYNNCQ" width="300" />
+    <img src="https://github.com/Willie-Conway/IBM-Data-Analyst-Portfolio/blob/199ac1b60a4c7f81803a873e9e3d99a35d640815/Data%20Visualization%20and%20Dashboards%20with%20Excel%20and%20Cognos/Screenshots/Create%20a%20Scatter%20Chart.png" width="300" />
+    <img src="https://github.com/Willie-Conway/IBM-Data-Analyst-Portfolio/blob/199ac1b60a4c7f81803a873e9e3d99a35d640815/Data%20Visualization%20and%20Dashboards%20with%20Excel%20and%20Cognos/Screenshots/Configuring%20a%20dashboard%20layout%20in%20Excel.png" width="300" />
 </p>
 
 ## 📚 Course Portfolio Structure
