@@ -1,269 +1,238 @@
-# 📊 Meta Data Analyst Professional Certificate Portfolio
+its look similar to this: # 📊 IBM Data Analyst Professional Certificate Portfolio
 
-![Meta Data Analyst](https://images.credly.com/size/680x680/images/4dd82f2c-e7eb-4b64-bb24-f4351f596220/image.png)
+![IBM Data Analyst](https://images.credly.com/size/680x680/images/d9ab365d-7897-4973-a764-8acf6c277570/Coursera_20IBM_20Data_20Analyst_20Prof_20Cert_20V3.png)
 
-![Meta Data Analyst](https://img.shields.io/badge/Meta-Data_Analyst-0066E3?style=for-the-badge&logo=meta&logoColor=white)
+![IBM Data Analyst](https://img.shields.io/badge/IBM-Data_Analyst-0072CE?style=for-the-badge&logo=ibm)
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![SQL](https://img.shields.io/badge/SQL-4479A1?style=for-the-badge&logo=postgresql&logoColor=white)
-![Tableau](https://img.shields.io/badge/Tableau-E97627?style=for-the-badge&logo=tableau&logoColor=white)
-![Statistics](https://img.shields.io/badge/Statistics-FF6B6B?style=for-the-badge&logo=gnu&logoColor=white)
+![Excel](https://img.shields.io/badge/Excel-217346?style=for-the-badge&logo=microsoftexcel&logoColor=white)
+![Dashboard](https://img.shields.io/badge/Dashboards-FF6B6B?style=for-the-badge&logo=plotly&logoColor=white)
+
 
 ## 🎯 Overview
 
-This repository showcases my journey through the **Meta Data Analyst Professional Certificate** program. It contains comprehensive projects, assignments, and labs across 8 courses, demonstrating proficiency in data analysis, statistical modeling, data visualization, and business intelligence using Meta's industry-relevant curriculum.
+This repository showcases my comprehensive journey through the **IBM Data Analyst Professional Certificate** program. It contains hands-on projects, labs, cheat sheets, and final assignments across 8 core courses, demonstrating proficiency in data analysis, visualization, SQL, Python, and business intelligence tools.
 
 <p float="left">
-    <img src="https://github.com/Willie-Conway/Meta-Data-Analyst/blob/main/Statistics%20Foundations/Capstones/Modules/1%20-%20Getting%20to%20Know%20the%20Data/Screenshots/Screenshot%202024-10-11%20031407.png" width="300" />
-    <img src="https://github.com/Willie-Conway/Meta-Data-Analyst/blob/main/Statistics%20Foundations/Capstones/Modules/2%20-%20Understanding%20Your%20Data%20Samples/Screenshots/Screenshot%202024-10-16%20141833.png" width="300" />
-    <img src="https://github.com/Willie-Conway/Meta-Data-Analyst/blob/main/Statistics%20Foundations/Capstones/Modules/3%20-%20Testing%20Your%20Hypothesis/Screenshots/Screenshot%202024-10-20%20205341.png" width="300" />
-    <img src="https://github.com/Willie-Conway/Meta-Data-Analyst/blob/main/Statistics%20Foundations/Capstones/Modules/4%20-%20Data%20Modeling/Screenshots/Screenshot%202024-10-24%20113126.png" width="300" />
+    <img src="https://github.com/Willie-Conway/IBM-Data-Analyst-Portfolio/blob/7420c37c7b115ba18d2e6310edf55d7334829985/Data%20Visualizatiuon%20with%20Python/Labs/Add%20Interactivity%20-%20User%20Input%20and%20Callbacks/Airline%20Performance%20Dashboard.gif" width="300" />
+    <img src="https://github.com/Willie-Conway/IBM-Data-Analyst-Portfolio/blob/7420c37c7b115ba18d2e6310edf55d7334829985/Data%20Visualizatiuon%20with%20Python/Labs/Add%20Interactivity%20-%20User%20Input%20and%20Callbacks/Total%20number%20of%20flights%20to%20the%20destination%20state%20split%20by%20reporting%20airline.gif" width="300" />
+    <img src="https://github.com/Willie-Conway/IBM-Data-Analyst-Portfolio/blob/be0b6175c91f7437ebb11095fbdab43eb90de7d7/Data%20Visualizatiuon%20with%20Python/Labs/Airline%20Dashboard/Airline_Dashboard.gif" width="300" />
+    <img src="https://github.com/Willie-Conway/IBM-Data-Analyst-Portfolio/blob/be0b6175c91f7437ebb11095fbdab43eb90de7d7/Data%20Visualizatiuon%20with%20Python/Labs/Austraila%20Wildfire%20Dashboard/Australia%20Wildfire%20Dashboard.gif" width="300" />
+    <img src="https://github.com/Willie-Conway/IBM-Data-Analyst-Portfolio/blob/be0b6175c91f7437ebb11095fbdab43eb90de7d7/Data%20Visualizatiuon%20with%20Python/Labs/Create%20Dashboard%20using%20Plotly%20and%20Dash/Automobile%20Sales%20Statistics%20Dashboard.gif" width="300" />
+    <img src="https://github.com/Willie-Conway/IBM-Data-Analyst-Portfolio/blob/be0b6175c91f7437ebb11095fbdab43eb90de7d7/Data%20Visualizatiuon%20with%20Python/Labs/Dash%20Components/Flight%20Delaty%20Time%20Statistics.gif" width="300" />
+    <img src="https://github.com/Willie-Conway/IBM-Data-Analyst-Portfolio/blob/596dcbdde202b10dbd5a66b3b731b863e256b419/IBM%20Data%20Analyst%20Capstone%20Project/Labs/Building%20a%20Dashboard/Lab%2026%20-%20Option%20B%20-%20Building%20A%20Dashboard%20With%20Google%20Looker%20Studio/Survey_Dashboard.png" width="300" />
+    <img src="https://github.com/Willie-Conway/IBM-Data-Analyst-Portfolio/blob/9064d670d63f81972017fed3e6d9acc281129bde/Data%20Analysis%20with%20Python/Final%20Project/Screenshots/Question%205.png" width="300" />
+    <img src="https://github.com/Willie-Conway/IBM-Data-Analyst-Portfolio/blob/9064d670d63f81972017fed3e6d9acc281129bde/Data%20Analysis%20with%20Python/Final%20Project/Screenshots/Question%204.png" width="300" />
 </p>
 
 <p float="left">
-    <img src="https://github.com/Willie-Conway/Meta-Data-Analyst/blob/main/Statistics%20Foundations/Tableau/Screenshots/Screenshot%202024-10-21%20201216.png" width="300" />
-    <img src="https://github.com/Willie-Conway/Meta-Data-Analyst/blob/main/Statistics%20Foundations/Capstones/Modules/4%20-%20Data%20Modeling/Screenshots/Screenshot%202024-10-24%20235410.png" width="300" />
-    <img src="https://github.com/Willie-Conway/Meta-Data-Analyst/blob/main/Statistics%20Foundations/Capstones/Modules/4%20-%20Data%20Modeling/Screenshots/Screenshot%202024-10-24%20130601.png" width="300" />
+    <img src="https://github.com/Willie-Conway/IBM-Data-Analyst-Portfolio/blob/420cc03ab5d7b89c2ef0a67e0dba4e34ccc0fe83/Data%20Visualization%20and%20Dashboards%20with%20Excel%20and%20Cognos/Screenshots/Create%20a%20Sunburst%20Chart.png" width="300" />
+    <img src="https://github.com/Willie-Conway/IBM-Data-Analyst-Portfolio/blob/199ac1b60a4c7f81803a873e9e3d99a35d640815/Data%20Visualization%20and%20Dashboards%20with%20Excel%20and%20Cognos/Screenshots/Create%20a%20Scatter%20Chart.png" width="300" />
+    <img src="https://github.com/Willie-Conway/IBM-Data-Analyst-Portfolio/blob/199ac1b60a4c7f81803a873e9e3d99a35d640815/Data%20Visualization%20and%20Dashboards%20with%20Excel%20and%20Cognos/Screenshots/Configuring%20a%20dashboard%20layout%20in%20Excel.png" width="300" />
 </p>
 
 ## 📚 Course Portfolio Structure
 
-### 1. 📊 **Introduction to Data Analytics**
-- **Skills**: Data Analytics Foundations, OSEMN Framework, Business Intelligence
-- **Tools**: Spreadsheets, Data Analysis Frameworks
+### 1. 🐍 **Data Analysis with Python**
+- **Skills**: Data Wrangling, EDA, Model Development & Evaluation
+- **Tools**: Pandas, NumPy, Scikit-learn, Jupyter
 - **Key Projects**:
-  - 🔍 **OSEMN Framework Application**: Complete data analysis workflow
-  - 📈 **Data Analytics vs Data Science**: Comparative analysis
-  - 🤖 **Generative AI Overview**: AI applications in analytics
-- **Notable Files**:
-  - `OSEMN_Framework.py` - Structured data analysis methodology
-  - `Data_Analysis_vs_Data_Science.py` - Career path analysis
-  - `Generative_AI_Response.py` - AI-powered analytics techniques
+  - 🏠 **Final Project**: House Sales Prediction in King County
+  - 🚗 Exploratory Data Analysis on Automotive Data
+  - 💻 Laptop Pricing Analysis and Prediction
+- **Cheat Sheets**: 5 comprehensive modules covering the complete data analysis workflow
 
-### 2. 📈 **Data Analysis with Spreadsheets and SQL**
-- **Skills**: Advanced Spreadsheets, SQL Queries, Dashboard Creation
-- **Tools**: Google Sheets, SQL, Tableau
+### 2. 📈 **Data Visualization and Dashboards with Excel and Cognos**
+- **Skills**: Business Dashboards, Advanced Charts, BI Tools
+- **Tools**: Excel, IBM Cognos Analytics, Google Looker Studio
 - **Key Projects**:
-  - 🏪 **Most Profitable Stores Analysis** - Retail performance optimization
-  - 📊 **Advanced Chart Types Implementation** - Professional visualizations
-  - 🔍 **Data Exploration Techniques** - Pattern discovery methods
-- **Tableau Dashboards**:
-  - `Most_Profitable_Stores.twb` - Business performance tracking
-  - `Global_Orders.twb` - International sales analysis
-  - Interactive dashboards with drill-down capabilities
+  - 🚘 Automotive Industry Sales Dashboard (Excel)
+  - 📊 Interactive Cognos Analytics Reports
+  - 🔄 Multi-tool Visualization Comparison
+- **Hands-on Labs**: 10+ practical exercises on visualization techniques
 
-### 3. 🐍 **Python Data Analytics**
-- **Skills**: Python Programming, Data Wrangling, Statistical Analysis
-- **Tools**: Pandas, NumPy, Matplotlib, Jupyter Notebooks
+### 3. 🎨 **Data Visualization with Python**
+- **Skills**: Interactive Visualizations, Dashboard Creation
+- **Tools**: Matplotlib, Seaborn, Plotly, Dash
 - **Key Projects**:
-  - 📊 **Full OSEMN Implementation** - End-to-end Python analysis pipeline
-  - 📈 **Explanatory Visualizations** - Professional chart creation
-  - 🤖 **Modeling with Python** - Predictive analytics
-- **Jupyter Notebooks**:
-  - `Full_OSEMN.ipynb` - Complete analysis workflow
-  - `Creating_Explanatory_Visualizations.ipynb` - Advanced plotting
-  - `Modeling_with_Python.ipynb` - Machine learning basics
-  - `Exploration_-_Filtering_Data.ipynb` - Data manipulation techniques
+  - ✈️ **Airline Performance Dashboard** (Interactive Plotly Dash)
+  - 🇦🇺 Australia Wildfire Dashboard (Geospatial visualization)
+  - 🚗 Automobile Sales Statistics Dashboard
+- **Special Features**: Interactive callbacks, real-time updates, geospatial mapping
 
-### 4. 📊 **Statistics Foundations**
-- **Skills**: Statistical Analysis, Hypothesis Testing, Data Modeling
-- **Tools**: Python, Excel, Statistical Libraries
-- **Key Projects**:
-  - 🎯 **Getting to Know the Data** - Descriptive statistics and EDA
-  - 📈 **Understanding Data Samples** - Sampling techniques and distributions
-  - 🔬 **Testing Your Hypothesis** - A/B testing and statistical significance
-  - 🏗️ **Data Modeling** - Regression and predictive modeling
-- **Capstone Modules**:
-  - Complete statistical analysis workflow
-  - Real-world dataset applications
-  - Professional reporting and visualization
-
-### 5. 💾 **Data Management**
-- **Skills**: Data Governance, Security, Storage Solutions
-- **Tools**: Database Systems, Data Security Frameworks
+### 4. 🗄️ **Databases and SQL for Data Science with Python**
+- **Skills**: Database Management, Query Optimization, SQL Programming
+- **Tools**: SQLite, MySQL, Python SQL Integration
 - **Key Topics**:
-  - 🔒 **Data Security Fundamentals** - Protection and compliance
-  - 📦 **Data Storage Formats** - Optimization and selection
-  - 🏗️ **Big Data Management Systems** - Scalable solutions
-  - 📊 **Data Collection Tools** - Best practices and implementation
-- **Comprehensive Guides**:
-  - `Compliance_Best_Practices.py` - Regulatory compliance
-  - `Data_Storage_Formats.py` - File format comparisons
-  - `Machine_Learning_Tools_Roundup.py` - ML infrastructure
+  - 📝 Advanced SQL Queries (JOINs, Subqueries, CTEs)
+  - 🔧 Database Design (CREATE, ALTER, DROP)
+  - ⚡ Performance Optimization (Indexing, Views)
+  - 🔄 Transaction Management (Commit, Rollback)
+- **Final Assignment**: Complete database querying project
 
-### 6. 🎨 **Data Visualization with Tableau**
-- **Skills**: Dashboard Design, Interactive Visualizations, Business Intelligence
-- **Tools**: Tableau, Advanced Charting Techniques
+### 5. 📊 **Excel Basics for Data Analysis**
+- **Skills**: Spreadsheet Mastery, Pivot Tables, Data Cleaning
+- **Tools**: Microsoft Excel, Advanced Formulas
 - **Key Projects**:
-  - 📈 **Time Series Analysis** - Trend identification and forecasting
-  - 👥 **Cluster Analysis** - Customer segmentation techniques
-  - 📊 **Advanced Dashboard Creation** - Professional reporting
-- **Tableau Workbooks**:
-  - `Time_Series.twb` - Temporal data analysis
-  - `Age_and_Income_-_Cluster_Analysis.twb` - Demographic segmentation
-  - Interactive filters and calculated fields
+  - 🚛 Montgomery Fleet Equipment Inventory Analysis
+  - 💰 Personal Monthly Expenditure Dashboard
+  - 🇮🇳 Indian Startup Funding Analysis
+- **Features**: Advanced formulas (XLOOKUP, SUMIFS), Pivot Tables with Slicers
 
-### 7. 📊 **Excel for Data Analysis**
-- **Skills**: Advanced Excel, PivotTables, Business Analytics
-- **Tools**: Microsoft Excel, Statistical Functions
-- **Key Projects**:
-  - 🔬 **A/B Testing Analysis** - Experimental design and evaluation
-  - 📈 **Data Modeling Capstone** - Comprehensive analytics project
-  - 📊 **Business Performance Analysis** - KPI tracking and optimization
-- **Advanced Features**:
-  - Advanced formulas and functions
-  - PivotTables with dynamic ranges
-  - Data validation and conditional formatting
+### 6. 🤖 **Generative AI - Enhance your Data Analytics Career**
+- **Skills**: AI-Powered Analytics, Prompt Engineering, AI Integration
+- **Tools**: Generative AI Tools, Microsoft Copilot
+- **Key Applications**:
+  - 🛠️ AI-assisted Data Preparation and Cleaning
+  - 📖 Automated Storytelling from Data Insights
+  - 🎯 Intelligent Query Generation for Databases
+  - 📊 AI-generated Dashboard Creation
+- **Case Studies**: Healthcare analytics considerations, responsible AI practices
 
-### 8. 📈 **Data Analytics Capstone Project**
-- **Skills**: End-to-End Analysis, Business Insights, Presentation
-- **Tools**: Full Analytics Toolkit Integration
-- **Project Components**:
-  1. 📥 **Data Acquisition** - Multiple source integration
-  2. 🧹 **Data Preparation** - Cleaning and transformation
-  3. 🔍 **Exploratory Analysis** - Pattern discovery and insight generation
-  4. 📊 **Visualization Development** - Dashboard and report creation
-  5. 🎤 **Business Presentation** - Stakeholder communication
+### 7. 🏆 **IBM Data Analyst Capstone Project**
+- **Skills**: End-to-End Data Analysis, Presentation, Business Insights
+- **Tools**: Full-stack Data Analytics Toolkit
+- **Project Phases**:
+  1. 📥 **Data Collection**: APIs and Web Scraping
+  2. 🧹 **Data Wrangling**: Cleaning, Normalization, Missing Value Treatment
+  3. 🔍 **Exploratory Data Analysis**: Distributions, Outliers, Correlations
+  4. 📈 **Data Visualization**: 8+ visualization types
+  5. 📊 **Dashboard Building**: Google Looker Studio implementation
+  6. 🎤 **Final Presentation**: Business insights and recommendations
+
+### 8. 🔬 **Python Project for Data Science**
+- **Skills**: Web Scraping, API Integration, Stock Data Analysis
+- **Tools**: yfinance, BeautifulSoup, Pandas
+- **Projects**:
+  - 📈 Stock Data Extraction and Analysis
+  - 🌐 Web Scraping Financial Data
+  - 📊 Financial Data Visualization
+
+### 9. 🐍 **Python for Data Science, AI & Development**
+- **Skills**: Python Programming, Data Structures, OOP
+- **Topics**:
+  - 📚 Python Fundamentals and Syntax
+  - 🏗️ Data Structures (Lists, Sets, Dictionaries)
+  - 🔄 Control Flow and Functions
+  - 📁 File I/O and Data Loading
+  - 🔌 API Integration and HTTP Requests
 
 ## 🛠️ Technical Skills Demonstrated
 
-### Programming & Analysis
-- **Python**: Pandas, NumPy, Matplotlib, Seaborn, Statistical Analysis
-- **SQL**: Complex queries, data aggregation, performance optimization
-- **Statistics**: Hypothesis testing, regression analysis, experimental design
+### Programming & Databases
+- **Python**: Pandas, NumPy, Scikit-learn, Plotly, Dash
+- **SQL**: Complex queries, database design, optimization
+- **R**: Statistical analysis and visualization
 
-### Visualization & Reporting
-- **Tableau**: Interactive dashboards, advanced charting, business intelligence
-- **Excel**: PivotTables, advanced formulas, data modeling
-- **Python Visualization**: Matplotlib, Seaborn, Plotly integration
+### Visualization Tools
+- **Python Libraries**: Matplotlib, Seaborn, Plotly
+- **BI Tools**: IBM Cognos Analytics, Google Looker Studio
+- **Spreadsheets**: Advanced Excel, Pivot Tables, Dashboards
 
-### Data Management
-- **Data Governance**: Security, compliance, quality assurance
-- **Database Management**: Schema design, optimization, maintenance
-- **ETL Processes**: Extraction, transformation, loading workflows
+### Data Analysis Techniques
+- 📈 Statistical Analysis and Hypothesis Testing
+- 🤖 Machine Learning Models (Regression, Classification)
+- 🧹 Data Cleaning and Preprocessing
+- 🔍 Exploratory Data Analysis (EDA)
+- 📊 Dashboard Design and Storytelling
 
 ## 📁 Repository Structure
 
 ```
-📂 Meta-Data-Analyst-Portfolio/
+📂 IBM-Data-Analyst-Portfolio/
 │
-├── 📂 Data_Analysis_with_Spreadsheets_and_SQL/
-│   ├── 📊 Tableau_Dashboards/          # Interactive business dashboards
-│   ├── 📈 Sales_Analysis/              # Profitability and performance
-│   ├── 🔍 Data_Exploration/            # Pattern discovery
-│   └── 📋 SQL_Queries/                 # Database analysis scripts
+├── 📂 1. Data Analysis with Python/
+│   ├── 📂 Final Project/          # House sales prediction
+│   ├── 📂 Labs/                  # Practice notebooks
+│   ├── 📂 Cheatsheet/           # Module summaries
+│   └── 📂 Screenshots/          # Project outputs
 │
-├── 📂 Python_Data_Analytics/
-│   ├── 📓 Jupyter_Notebooks/           # Complete analysis workflows
-│   │   ├── 📊 Exploratory_Data_Analysis/
-│   │   ├── 📈 Data_Visualization/
-│   │   ├️ 🤖 Machine_Learning/
-│   │   └️ 🔍 Statistical_Analysis/
-│   └️ 🐍 Python_Scripts/               # Modular analysis scripts
+├── 📂 2. Data Visualization and Dashboards/
+│   ├── 📂 Automotive_Industry/   # Car sales analysis
+│   ├── 📂 Cheatsheet/           # Visualization guides
+│   └── 📂 Screenshots/          # Dashboard images
 │
-├── 📂 Statistics_Foundations/
-│   ├️ 📊 Capstone_Modules/
-│   │   ├️ 🎯 1_Getting_to_Know_the_Data/
-│   │   ├️ 📈 2_Understanding_Data_Samples/
-│   │   ├️ 🔬 3_Testing_Your_Hypothesis/
-│   │   └️ 🏗️ 4_Data_Modeling/
-│   └️ 📋 Statistical_Analysis/         # Hypothesis testing and modeling
+├── 📂 3. Data Visualization with Python/
+│   ├── 📂 Project/              # Interactive dashboards
+│   ├── 📂 Labs/                 # Plotting exercises
+│   └── 📂 Cheatsheet/          # Visualization libraries
 │
-├── 📂 Data_Management/
-│   ├️ 🔒 Security_Compliance/          # Data governance frameworks
-│   ├️ 📦 Storage_Solutions/            # Database and file management
-│   └️ 🏗️ Infrastructure/              # System architecture
+├── 📂 4. Databases and SQL/
+│   ├── 📂 Final Assignment/     # Complete SQL project
+│   └── 📂 Labs/                # 15+ SQL practice labs
 │
-├── 📂 Tableau_Visualizations/
-│   ├️ 📈 Business_Dashboards/          # Interactive reports
-│   ├️ 📊 Time_Series_Analysis/         # Trend visualization
-│   └️ 👥 Cluster_Analysis/             # Segmentation dashboards
+├── 📂 5. Excel Basics/
+│   ├── 📂 Final Project/        # Fleet inventory analysis
+│   └── 📂 Screenshots/         # Excel workbook examples
 │
-├️ 📂 Excel_Analytics/
-│   ├️ 📊 Advanced_Models/              # Complex data analysis
-│   ├️ 🔬 A_B_Testing/                  # Experimental analysis
-│   └️ 📈 Business_Intelligence/        # KPI tracking
+├── 📂 6. Generative AI/
+│   ├── 📂 Labs/                # AI-assisted analytics
+│   └── 📂 Final Project/       # Guided practice project
 │
-├── 📂 Sample_Data/
-│   ├️ 📊 Cleaned_Datasets/            # Analysis-ready data
-│   └️ 📈 Raw_Data/                    # Original data sources
+├── 📂 7. Capstone Project/
+│   ├── 📂 Data Collection/     # API and web scraping
+│   ├── 📂 Data Wrangling/      # Cleaning and preparation
+│   ├── 📂 EDA/                # Statistical analysis
+│   ├── 📂 Data Visualization/  # Multiple chart types
+│   └── 📂 Building a Dashboard/# Final dashboard
+│
+├── 📂 8. Python Project for Data Science/
+│   └── 📂 Labs/               # Stock data projects
+│
+├── 📂 9. Python Fundamentals/
+│   └── 📂 Labs/               # Python programming basics
 │
 ├── 📜 LICENSE
-├️ 📜 requirements.txt
-└️ 📜 README.md
+└── 📜 README.md
 ```
 
 ## 🚀 How to Use This Portfolio
 
 ### For Recruiters & Hiring Managers:
-1. **Review Capstone Projects**: Start with Statistics Foundations modules for complete workflow examples
-2. **Examine Technical Implementation**: Check Python notebooks and SQL scripts for coding proficiency
-3. **View Dashboard Outputs**: Explore Tableau workbooks and Excel models for visualization skills
-4. **Assess Analytical Thinking**: Review hypothesis testing and statistical analysis projects
+1. **Review Projects**: Start with the Capstone Project and Data Analysis with Python final projects
+2. **Check Technical Skills**: Examine SQL queries, Python notebooks, and dashboard implementations
+3. **View Outputs**: Screenshots and GIFs demonstrate practical application skills
 
-### For Fellow Data Analysts:
-1. **Follow Learning Path**: Study modules in sequence from foundations to advanced topics
-2. **Replicate Analyses**: Use provided datasets and scripts for hands-on practice
-3. **Reference Implementations**: Use code as templates for similar analysis projects
+### For Fellow Learners:
+1. **Study Structure**: Follow the learning path from basics to advanced topics
+2. **Practice with Labs**: Use the lab notebooks for hands-on practice
+3. **Reference Cheat Sheets**: Quick guides for each topic are available
 
-### For Technical Review:
+### For Developers:
 ```bash
 # Clone the repository
-git clone https://github.com/Willie-Conway/Meta-Data-Analyst.git
+git clone https://github.com/yourusername/IBM-Data-Analyst-Portfolio.git
 
-# Navigate to specific analysis projects
-cd "Meta-Data-Analyst/Statistics Foundations/Capstones/Modules/4 - Data Modeling"
+# Navigate to specific projects
+cd "IBM-Data-Analyst-Portfolio/1. Data Analysis with Python/Final Project"
 
 # Open Jupyter notebooks
-jupyter notebook "Data Modeling Analysis.ipynb"
-
-# Explore Tableau dashboards
-# Open .twb files in Tableau Desktop or Tableau Reader
+jupyter notebook House_Sales_in_King_Count_USA.ipynb
 ```
 
 ## 📈 Key Achievements
 
-✅ **Complete 8-Course Certificate** from Meta  
-✅ **50+ Hands-on Projects** covering real business scenarios  
-✅ **Advanced Statistical Analysis** including hypothesis testing and modeling  
-✅ **Interactive Tableau Dashboards** with professional design  
-✅ **End-to-End Python Analytics** from data ingestion to visualization  
-✅ **Comprehensive Data Management** including security and governance  
-
-## 🛠️ Tools & Technologies Mastered
-
-### Core Technologies
-- **Programming**: Python (Advanced), SQL (Advanced), R (Basic)
-- **Databases**: SQLite, MySQL, PostgreSQL fundamentals
-- **Statistical Analysis**: Hypothesis testing, regression, A/B testing
-
-### Visualization Tools
-- **Business Intelligence**: Tableau (Advanced), Excel (Advanced)
-- **Python Libraries**: Matplotlib, Seaborn, Plotly
-- **Dashboard Creation**: Interactive reporting and KPI tracking
-
-### Data Management
-- **Governance**: Security frameworks, compliance standards
-- **Storage**: Database design, optimization strategies
-- **Quality**: Data validation, cleaning pipelines
+✅ **8 Professional Courses** completed with hands-on projects  
+✅ **50+ Practical Labs** covering real-world scenarios  
+✅ **10+ Interactive Dashboards** built across multiple tools  
+✅ **Comprehensive SQL Mastery** from basics to advanced queries  
+✅ **AI-Enhanced Analytics** using cutting-edge generative AI tools  
+✅ **End-to-End Capstone Project** demonstrating full analytics workflow  
 
 ## 🏆 Certifications
 
-This portfolio demonstrates mastery in:
-- Meta Data Analyst Professional Certificate
-- Advanced Statistical Analysis and Modeling
-- Business Intelligence with Tableau
-- Python for Data Analytics
-- Data Management and Governance
+This portfolio represents mastery in:
+- IBM Data Analyst Professional Certificate
+- Python for Data Science and AI
+- SQL and Database Management
+- Data Visualization and Dashboard Creation
+- Generative AI for Data Analytics
 
-## 📞 Contact & Professional Links
+## 🤝 Connect With Me
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/willieconway/)
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Willie-Conway)
-[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:hire.willie.conway@gmail.com)
-
-**Email**: [hire.willie.conway@gmail.com](mailto:hire.willie.conway@gmail.com)  
-**LinkedIn**: [Willie Conway](https://www.linkedin.com/in/willieconway/)  
-**GitHub**: [Willie-Conway](https://github.com/Willie-Conway)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/yourprofile)
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/yourusername)
+[![Portfolio](https://img.shields.io/badge/Portfolio-FF6B6B?style=for-the-badge&logo=about.me&logoColor=white)](https://yourportfolio.com)
 
 ## 📄 License
 
@@ -271,12 +240,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- Meta for the comprehensive data analytics curriculum
-- Coursera for providing the learning platform
-- All instructors and mentors throughout the program
+- IBM for the comprehensive curriculum
+- Coursera for the learning platform
+- The open-source community for amazing tools and libraries
 
 ---
 
-⭐ **If you find this portfolio valuable, please consider giving it a star!** ⭐
+⭐ **If you find this portfolio helpful, please give it a star!** ⭐
 
-*Last updated: December 2024 | Portfolio Version: 2.0 | Certificate Completion: November 2024*
+*Last updated: December 2025*
