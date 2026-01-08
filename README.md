@@ -117,22 +117,55 @@ This repository showcases my comprehensive journey through the **IBM Data Analys
 
 ## 🛠️ Technical Skills Demonstrated
 
-### Programming & Databases
-- **Python**: Pandas, NumPy, Scikit-learn, Plotly, Dash
-- **SQL**: Complex queries, database design, optimization
-- **R**: Statistical analysis and visualization
+### **Programming & Data Analysis**
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![SQL](https://img.shields.io/badge/SQL-4479A1?style=for-the-badge&logo=postgresql&logoColor=white)
+![Jupyter](https://img.shields.io/badge/Jupyter-F37626?style=for-the-badge&logo=jupyter&logoColor=white)
+![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)
+![NumPy](https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white)
 
-### Visualization Tools
-- **Python Libraries**: Matplotlib, Seaborn, Plotly
-- **BI Tools**: IBM Cognos Analytics, Google Looker Studio
-- **Spreadsheets**: Advanced Excel, Pivot Tables, Dashboards
+### **Data Visualization & BI Tools**
+![Excel](https://img.shields.io/badge/Excel-217346?style=for-the-badge&logo=microsoft-excel&logoColor=white)
+![Plotly](https://img.shields.io/badge/Plotly-3F4F75?style=for-the-badge&logo=plotly&logoColor=white)
+![Dash](https://img.shields.io/badge/Dash-008DE4?style=for-the-badge&logo=dash&logoColor=white)
+![IBM Cognos](https://img.shields.io/badge/IBM_Cognos-054ADA?style=for-the-badge&logo=ibm&logoColor=white)
+![Google Looker](https://img.shields.io/badge/Google_Looker-4285F4?style=for-the-badge&logo=google&logoColor=white)
 
-### Data Analysis Techniques
-- 📈 Statistical Analysis and Hypothesis Testing
-- 🤖 Machine Learning Models (Regression, Classification)
-- 🧹 Data Cleaning and Preprocessing
-- 🔍 Exploratory Data Analysis (EDA)
-- 📊 Dashboard Design and Storytelling
+### **Database & Data Science**
+![Scikit-learn](https://img.shields.io/badge/Scikit_learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)
+![Matplotlib](https://img.shields.io/badge/Matplotlib-11557C?style=for-the-badge&logo=python&logoColor=white)
+![Seaborn](https://img.shields.io/badge/Seaborn-5A9BD5?style=for-the-badge&logo=python&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+
+### **Data Analysis Techniques**
+![Data Wrangling](https://img.shields.io/badge/Data_Wrangling-FF6B35?style=for-the-badge)
+![Exploratory Data Analysis](https://img.shields.io/badge/EDA-3498DB?style=for-the-badge)
+![Statistical Analysis](https://img.shields.io/badge/Statistical_Analysis-FF6B6B?style=for-the-badge)
+![Machine Learning](https://img.shields.io/badge/Machine_Learning-01D277?style=for-the-badge)
+![Predictive Modeling](https://img.shields.io/badge/Predictive_Modeling-9B59B6?style=for-the-badge)
+
+### **Dashboard & Visualization**
+![Interactive Dashboards](https://img.shields.io/badge/Interactive_Dashboards-FF6384?style=for-the-badge)
+![Business Intelligence](https://img.shields.io/badge/Business_Intelligence-FF9E0F?style=for-the-badge)
+![Data Storytelling](https://img.shields.io/badge/Data_Storytelling-27AE60?style=for-the-badge)
+![Chart Design](https://img.shields.io/badge/Chart_Design-8E44AD?style=for-the-badge)
+![Geospatial Visualization](https://img.shields.io/badge/Geospatial_Visualization-FF9900?style=for-the-badge)
+
+### **AI & Advanced Tools**
+![Generative AI](https://img.shields.io/badge/Generative_AI-FF6B6B?style=for-the-badge&logo=openai&logoColor=white)
+![AI-Powered Analytics](https://img.shields.io/badge/AI_Powered_Analytics-3498DB?style=for-the-badge)
+![Prompt Engineering](https://img.shields.io/badge/Prompt_Engineering-9B59B6?style=for-the-badge)
+![Web Scraping](https://img.shields.io/badge/Web_Scraping-E74C3C?style=for-the-badge)
+![API Integration](https://img.shields.io/badge/API_Integration-2C3E50?style=for-the-badge)
+
+### **Development & Tools**
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)
+![BeautifulSoup](https://img.shields.io/badge/BeautifulSoup-4B8BBE?style=for-the-badge&logo=python&logoColor=white)
+![yfinance](https://img.shields.io/badge/yfinance-00BFFF?style=for-the-badge)
+![Pivot Tables](https://img.shields.io/badge/Pivot_Tables-5B9BD5?style=for-the-badge)
+
 
 ## 📁 Repository Structure
 
@@ -226,7 +259,7 @@ This portfolio represents mastery in:
 - Data Visualization and Dashboard Creation
 - Generative AI for Data Analytics
 
-## 🤝 Connect With Me
+## 🫱🏿‍🫲🏿 Connect With Me
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/yourprofile)
 [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/yourusername)
@@ -236,7 +269,7 @@ This portfolio represents mastery in:
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+## 🙏🏿 Acknowledgments
 
 - IBM for the comprehensive curriculum
 - Coursera for the learning platform
