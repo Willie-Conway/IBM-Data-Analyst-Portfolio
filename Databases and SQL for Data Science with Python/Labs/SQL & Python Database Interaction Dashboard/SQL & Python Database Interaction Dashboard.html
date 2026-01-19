@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL & Python Database Interaction Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #10b981;
+            --accent: #8b5cf6;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --light-gray: #e2e8f0;
+            --border-radius: 8px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        h1 i {
+            font-size: 2.2rem;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Search and Controls */
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 14px 20px 14px 50px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            box-shadow: var(--shadow);
+            background-color: white;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 12px 20px;
+            background-color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--dark);
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-btn:hover {
+            background-color: var(--light-gray);
+        }
+
+        .filter-btn.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Dashboard Layout */
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            padding: 20px;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .card-header h2 {
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-btn.rotated {
+            transform: rotate(180deg);
+        }
+
+        .card-content {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.5s ease;
+        }
+
+        .card-content.expanded {
+            padding: 25px;
+            max-height: 2000px;
+        }
+
+        /* Table Styling */
+        .command-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .command-table th {
+            background-color: var(--light-gray);
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid var(--gray);
+        }
+
+        .command-table td {
+            padding: 15px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .command-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .command-table tr:hover {
+            background-color: #f8fafc;
+        }
+
+        /* Code Examples */
+        .code-container {
+            background-color: #1e293b;
+            color: #e2e8f0;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #94a3b8;
+        }
+
+        .copy-btn {
+            background-color: #475569;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+        }
+
+        .copy-btn:hover {
+            background-color: #64748b;
+        }
+
+        .code-container code {
+            display: block;
+            line-height: 1.5;
+        }
+
+        .sql-keyword {
+            color: #f97316;
+        }
+
+        .sql-function {
+            color: #22d3ee;
+        }
+
+        .sql-string {
+            color: #10b981;
+        }
+
+        .sql-comment {
+            color: #94a3b8;
+            font-style: italic;
+        }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .tag-sqlite {
+            background-color: #dbeafe;
+            color: #1e40af;
+        }
+
+        .tag-db2 {
+            background-color: #f0f9ff;
+            color: #0369a1;
+        }
+
+        .tag-python {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+
+        .tag-mysql {
+            background-color: #dcfce7;
+            color: #166534;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--gray);
+            border-top: 1px solid var(--light-gray);
+            margin-top: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
+            
+            .search-box {
+                min-width: 100%;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Highlight search results */
+        .highlight {
+            background-color: #fef3c7;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-database"></i> SQL & Python Database Interaction Dashboard</h1>
+            <p class="subtitle">Interactive cheat sheet with SQL commands, Python database access examples, and practical code snippets for SQLite and Db2</p>
+            
+            <div class="controls">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search for commands, keywords, or examples...">
+                </div>
+                
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">
+                        <i class="fas fa-layer-group"></i> All
+                    </button>
+                    <button class="filter-btn" data-filter="sql">
+                        <i class="fas fa-table"></i> SQL Commands
+                    </button>
+                    <button class="filter-btn" data-filter="python">
+                        <i class="fab fa-python"></i> Python Examples
+                    </button>
+                    <button class="filter-btn" data-filter="sqlite">
+                        <i class="fas fa-server"></i> SQLite
+                    </button>
+                    <button class="filter-btn" data-filter="db2">
+                        <i class="fas fa-database"></i> DB2
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <div class="dashboard">
+            <!-- SQL Basics Card -->
+            <div class="card" data-category="sql">
+                <div class="card-header">
+                    <h2><i class="fas fa-code"></i> SQL Basics</h2>
+                    <button class="toggle-btn"><i class="fas fa-chevron-down"></i></button>
+                </div>
+                <div class="card-content">
+                    <p>Fundamental SQL commands for data manipulation and retrieval.</p>
+                    
+                    <table class="command-table">
+                        <thead>
+                            <tr>
+                                <th>Command</th>
+                                <th>Syntax</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>SELECT</strong></td>
+                                <td>SELECT column1, column2 FROM table</td>
+                                <td>SELECT city FROM placeofinterest</td>
+                            </tr>
+                            <tr>
+                                <td><strong>WHERE</strong></td>
+                                <td>SELECT ... WHERE condition</td>
+                                <td>SELECT * FROM placeofinterest WHERE city = 'Rome'</td>
+                            </tr>
+                            <tr>
+                                <td><strong>INSERT</strong></td>
+                                <td>INSERT INTO table(columns) VALUES(values)</td>
+                                <td>INSERT INTO placeofinterest(name,type) VALUES('Niagara','Nature')</td>
+                            </tr>
+                            <tr>
+                                <td><strong>UPDATE</strong></td>
+                                <td>UPDATE table SET column=value WHERE condition</td>
+                                <td>UPDATE placeofinterest SET name='Niagara Falls' WHERE name='Niagara'</td>
+                            </tr>
+                            <tr>
+                                <td><strong>DELETE</strong></td>
+                                <td>DELETE FROM table WHERE condition</td>
+                                <td>DELETE FROM placeofinterest WHERE city IN('Rome','Vienna')</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Table Management Card -->
+            <div class="card" data-category="sql">
+                <div class="card-header">
+                    <h2><i class="fas fa-table-cells"></i> Table Management</h2>
+                    <button class="toggle-btn"><i class="fas fa-chevron-down"></i></button>
+                </div>
+                <div class="card-content">
+                    <p>Commands for creating, modifying, and deleting database tables.</p>
+                    
+                    <table class="command-table">
+                        <thead>
+                            <tr>
+                                <th>Operation</th>
+                                <th>Syntax</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>CREATE TABLE</strong></td>
+                                <td>CREATE TABLE table_name (col1 datatype, ...)</td>
+                                <td>Create new table</td>
+                            </tr>
+                            <tr>
+                                <td><strong>ALTER TABLE - ADD</strong></td>
+                                <td>ALTER TABLE table ADD column datatype</td>
+                                <td>Add new column</td>
+                            </tr>
+                            <tr>
+                                <td><strong>ALTER TABLE - MODIFY</strong></td>
+                                <td>ALTER TABLE MODIFY column new_type</td>
+                                <td>Change column type (MySQL)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>DROP TABLE</strong></td>
+                                <td>DROP TABLE table_name</td>
+                                <td>Delete table and data</td>
+                            </tr>
+                            <tr>
+                                <td><strong>TRUNCATE</strong></td>
+                                <td>TRUNCATE TABLE table</td>
+                                <td>Delete all rows</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- SQLite with Python Card -->
+            <div class="card" data-category="python sqlite">
+                <div class="card-header">
+                    <h2><i class="fab fa-python"></i> SQLite with Python</h2>
+                    <button class="toggle-btn"><i class="fas fa-chevron-down"></i></button>
+                </div>
+                <div class="card-content">
+                    <p>Python code examples for working with SQLite databases.</p>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span>Basic SQLite Operations</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                        </div>
+                        <code><span class="sql-keyword">import</span> sqlite3
+<span class="sql-keyword">import</span> pandas <span class="sql-keyword">as</span> pd
+
+<span class="sql-comment"># Create connection and cursor</span>
+con = sqlite3.connect(<span class="sql-string">"INSTRUCTOR.db"</span>)
+cursor_obj = con.cursor()
+
+<span class="sql-comment"># Create table</span>
+cursor_obj.execute(<span class="sql-string">'''CREATE TABLE IF NOT EXISTS INSTRUCTOR (
+    id INT PRIMARY KEY,
+    first_name VARCHAR(20),
+    last_name VARCHAR(20))'''</span>)
+
+<span class="sql-comment"># Insert data</span>
+cursor_obj.execute(<span class="sql-string">'''INSERT INTO INSTRUCTOR VALUES (1, 'Rav', 'Ahuja')'''</span>)
+con.commit()
+
+<span class="sql-comment"># Query data</span>
+cursor_obj.execute(<span class="sql-string">'SELECT * FROM INSTRUCTOR'</span>)
+output_all = cursor_obj.fetchall()  <span class="sql-comment"># All rows</span>
+output_many = cursor_obj.fetchmany(<span class="sql-function">2</span>)  <span class="sql-comment"># First 2 rows</span>
+
+<span class="sql-comment"># Close connection</span>
+con.close()</code>
+                    </div>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span>Pandas Integration with SQLite</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                        </div>
+                        <code><span class="sql-keyword">import</span> pandas <span class="sql-keyword">as</span> pd
+<span class="sql-keyword">import</span> sqlite3
+
+<span class="sql-comment"># Read SQL query into DataFrame</span>
+con = sqlite3.connect(<span class="sql-string">"INSTRUCTOR.db"</span>)
+df = pd.read_sql_query(<span class="sql-string">"SELECT * FROM INSTRUCTOR"</span>, con)
+<span class="sql-comment">print</span>(<span class="sql-string">"DataFrame shape:"</span>, df.shape)
+
+<span class="sql-comment"># Write DataFrame to SQL table</span>
+df.to_sql(<span class="sql-string">"new_table"</span>, con, if_exists=<span class="sql-string">'replace'</span>, index=<span class="sql-keyword">False</span>)
+con.close()</code>
+                    </div>
+                    
+                    <div class="tags">
+                        <span class="tag tag-python">Python</span>
+                        <span class="tag tag-sqlite">SQLite</span>
+                        <span class="tag tag-pandas">Pandas</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DB2 with Python Card -->
+            <div class="card" data-category="python db2">
+                <div class="card-header">
+                    <h2><i class="fas fa-database"></i> DB2 with Python</h2>
+                    <button class="toggle-btn"><i class="fas fa-chevron-down"></i></button>
+                </div>
+                <div class="card-content">
+                    <p>Python code examples for connecting to and working with IBM DB2 databases.</p>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span>DB2 Connection and Basic Operations</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                        </div>
+                        <code><span class="sql-keyword">import</span> ibm_db
+
+<span class="sql-comment"># Connection string for DB2</span>
+conn = ibm_db.connect(
+    <span class="sql-string">'DATABASE=mydb;'</span>
+    <span class="sql-string">'HOST=hostname;'</span>
+    <span class="sql-string">'PORT=50000;'</span>
+    <span class="sql-string">'UID=username;'</span>
+    <span class="sql-string">'PWD=password;'</span>,
+    <span class="sql-string">''</span>, <span class="sql-string">''</span>
+)
+
+<span class="sql-comment"># Get server information</span>
+<span class="sql-keyword">if</span> conn:
+    server = ibm_db.server_info(conn)
+    <span class="sql-comment">print</span>(<span class="sql-string">f"DBMS: {server.DBMS_NAME}, Version: {server.DBMS_VER}"</span>)
+    
+    <span class="sql-comment"># Execute SQL statement</span>
+    sql = <span class="sql-string">"CREATE TABLE instructor (id INT, name VARCHAR(50))"</span>
+    stmt = ibm_db.exec_immediate(conn, sql)
+    
+    <span class="sql-comment"># Close connection</span>
+    ibm_db.close(conn)</code>
+                    </div>
+                    
+                    <div class="tags">
+                        <span class="tag tag-python">Python</span>
+                        <span class="tag tag-db2">DB2</span>
+                        <span class="tag tag-ibm">IBM</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SQL Functions Card -->
+            <div class="card" data-category="sql">
+                <div class="card-header">
+                    <h2><i class="fas fa-calculator"></i> SQL Functions</h2>
+                    <button class="toggle-btn"><i class="fas fa-chevron-down"></i></button>
+                </div>
+                <div class="card-content">
+                    <p>Common SQL aggregate and string functions for data analysis.</p>
+                    
+                    <table class="command-table">
+                        <thead>
+                            <tr>
+                                <th>Function</th>
+                                <th>Syntax</th>
+                                <th>Description</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>COUNT</strong></td>
+                                <td>SELECT COUNT(column) FROM table</td>
+                                <td>Count rows</td>
+                                <td>SELECT COUNT(dep_id) FROM employees</td>
+                            </tr>
+                            <tr>
+                                <td><strong>AVG</strong></td>
+                                <td>SELECT AVG(column) FROM table</td>
+                                <td>Average value</td>
+                                <td>SELECT AVG(salary) FROM employees</td>
+                            </tr>
+                            <tr>
+                                <td><strong>SUM</strong></td>
+                                <td>SELECT SUM(column) FROM table</td>
+                                <td>Sum of values</td>
+                                <td>SELECT SUM(salary) FROM employees</td>
+                            </tr>
+                            <tr>
+                                <td><strong>MIN/MAX</strong></td>
+                                <td>SELECT MIN(column) FROM table</td>
+                                <td>Minimum/Maximum value</td>
+                                <td>SELECT MIN(salary), MAX(salary) FROM employees</td>
+                            </tr>
+                            <tr>
+                                <td><strong>ROUND</strong></td>
+                                <td>SELECT ROUND(number, decimals)</td>
+                                <td>Round to decimal places</td>
+                                <td>SELECT ROUND(salary, 2) FROM employees</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Joins Card -->
+            <div class="card" data-category="sql">
+                <div class="card-header">
+                    <h2><i class="fas fa-link"></i> SQL Joins</h2>
+                    <button class="toggle-btn"><i class="fas fa-chevron-down"></i></button>
+                </div>
+                <div class="card-content">
+                    <p>Different types of SQL joins for combining data from multiple tables.</p>
+                    
+                    <table class="command-table">
+                        <thead>
+                            <tr>
+                                <th>Join Type</th>
+                                <th>Syntax</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>INNER JOIN</strong></td>
+                                <td>SELECT ... FROM table1 INNER JOIN table2 ON condition</td>
+                                <td>Returns matching rows from both tables</td>
+                            </tr>
+                            <tr>
+                                <td><strong>LEFT JOIN</strong></td>
+                                <td>SELECT ... FROM table1 LEFT JOIN table2 ON condition</td>
+                                <td>Returns all rows from left table, matched rows from right</td>
+                            </tr>
+                            <tr>
+                                <td><strong>RIGHT JOIN</strong></td>
+                                <td>SELECT ... FROM table1 RIGHT JOIN table2 ON condition</td>
+                                <td>Returns all rows from right table, matched rows from left</td>
+                            </tr>
+                            <tr>
+                                <td><strong>FULL OUTER JOIN</strong></td>
+                                <td>SELECT ... FROM table1 FULL OUTER JOIN table2 ON condition</td>
+                                <td>Returns all rows when there's a match in either table</td>
+                            </tr>
+                            <tr>
+                                <td><strong>CROSS JOIN</strong></td>
+                                <td>SELECT ... FROM table1 CROSS JOIN table2</td>
+                                <td>Returns Cartesian product of both tables</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="code-container" style="margin-top: 20px;">
+                        <div class="code-header">
+                            <span>Join Example</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                        </div>
+                        <code><span class="sql-comment">-- Join employees with departments</span>
+<span class="sql-keyword">SELECT</span> E.emp_id, E.f_name, D.dept_name
+<span class="sql-keyword">FROM</span> employees E
+<span class="sql-keyword">INNER JOIN</span> departments D
+<span class="sql-keyword">ON</span> E.dep_id = D.dept_id
+<span class="sql-keyword">WHERE</span> E.salary > <span class="sql-function">50000</span>
+<span class="sql-keyword">ORDER BY</span> E.f_name;</code>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>SQL & Python Database Interaction Dashboard | Created for Learning & Reference</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">
+                <i class="fas fa-code"></i> Interactive Cheat Sheet | 
+                <i class="fas fa-search"></i> Searchable Content | 
+                <i class="fas fa-copy"></i> Copy Code Examples
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Toggle card expansion
+        document.querySelectorAll('.card-header').forEach(header => {
+            header.addEventListener('click', function() {
+                const cardContent = this.nextElementSibling;
+                const toggleBtn = this.querySelector('.toggle-btn');
+                
+                cardContent.classList.toggle('expanded');
+                toggleBtn.classList.toggle('rotated');
+            });
+        });
+
+        // Filter cards by category
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                // Update active button
+                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                
+                const filter = this.getAttribute('data-filter');
+                const cards = document.querySelectorAll('.card');
+                
+                cards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category').includes(filter)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const cards = document.querySelectorAll('.card');
+            
+            cards.forEach(card => {
+                const cardContent = card.textContent.toLowerCase();
+                const cardHeader = card.querySelector('.card-header h2').textContent.toLowerCase();
+                
+                // Highlight matching text
+                if (searchTerm.length > 0) {
+                    const contentElement = card.querySelector('.card-content');
+                    if (contentElement) {
+                        const originalText = contentElement.textContent;
+                        const regex = new RegExp(`(${searchTerm})`, 'gi');
+                        const highlightedText = originalText.replace(regex, '<span class="highlight">$1</span>');
+                        
+                        // We need to be careful not to break HTML structure
+                        // For simplicity, we'll just show/hide based on match
+                    }
+                }
+                
+                // Show/hide card based on search
+                if (cardHeader.includes(searchTerm) || cardContent.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Copy code to clipboard
+        function copyCode(button) {
+            const codeContainer = button.closest('.code-container');
+            const codeElement = codeContainer.querySelector('code');
+            const codeText = codeElement.textContent;
+            
+            navigator.clipboard.writeText(codeText).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.style.backgroundColor = '#10b981';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.backgroundColor = '#475569';
+                }, 2000);
+            });
+        }
+
+        // Expand all cards on page load
+        window.addEventListener('load', function() {
+            // Expand the first two cards by default
+            document.querySelectorAll('.card-header').forEach((header, index) => {
+                if (index < 2) {
+                    const cardContent = header.nextElementSibling;
+                    const toggleBtn = header.querySelector('.toggle-btn');
+                    
+                    cardContent.classList.add('expanded');
+                    toggleBtn.classList.add('rotated');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

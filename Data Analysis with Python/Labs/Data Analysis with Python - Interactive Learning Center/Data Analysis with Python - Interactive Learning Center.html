@@ -1,0 +1,2528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Analysis with Python - Interactive Learning Center</title>
+    <style>
+        :root {
+            --wrangling-color: #3498db;
+            --eda-color: #2ecc71;
+            --modeling-color: #9b59b6;
+            --stats-color: #e74c3c;
+            --practice-color: #f39c12;
+            --datasets-color: #1abc9c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #1a2980, #26d0ce);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .learning-center {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 40px;
+            position: relative;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .title {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #3498db, #2ecc71, #9b59b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 800px;
+            margin-bottom: 30px;
+        }
+        
+        /* Navigation */
+        .main-nav {
+            background: #f8f9fa;
+            padding: 20px 40px;
+            border-bottom: 2px solid #dee2e6;
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            flex-wrap: wrap;
+        }
+        
+        .nav-btn {
+            padding: 15px 30px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            min-width: 180px;
+            justify-content: center;
+        }
+        
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .nav-btn.active {
+            color: white;
+            border-color: transparent;
+        }
+        
+        .nav-btn[data-module="wrangling"] { border-color: var(--wrangling-color); }
+        .nav-btn[data-module="wrangling"].active { background: var(--wrangling-color); }
+        
+        .nav-btn[data-module="eda"] { border-color: var(--eda-color); }
+        .nav-btn[data-module="eda"].active { background: var(--eda-color); }
+        
+        .nav-btn[data-module="modeling"] { border-color: var(--modeling-color); }
+        .nav-btn[data-module="modeling"].active { background: var(--modeling-color); }
+        
+        .nav-btn[data-module="stats"] { border-color: var(--stats-color); }
+        .nav-btn[data-module="stats"].active { background: var(--stats-color); }
+        
+        .nav-btn[data-module="datasets"] { border-color: var(--datasets-color); }
+        .nav-btn[data-module="datasets"].active { background: var(--datasets-color); }
+        
+        .nav-btn[data-module="practice"] { border-color: var(--practice-color); }
+        .nav-btn[data-module="practice"].active { background: var(--practice-color); }
+        
+        /* Main Content */
+        .main-content {
+            display: flex;
+            min-height: 900px;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 300px;
+            background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            overflow-y: auto;
+        }
+        
+        .module-section {
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #95a5a6;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #4a6572;
+        }
+        
+        .lesson-btn {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: left;
+            margin-bottom: 12px;
+            transition: all 0.3s;
+            color: white;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .lesson-btn:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateX(5px);
+        }
+        
+        .lesson-btn.active {
+            background: rgba(52, 152, 219, 0.3);
+            border-color: #3498db;
+            color: #3498db;
+            font-weight: 600;
+        }
+        
+        /* Content Area */
+        .content-area {
+            flex: 1;
+            padding: 40px;
+            background: #f8f9fa;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .module-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        
+        .module-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Content Styling */
+        .content-header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            border-left: 6px solid;
+        }
+        
+        .content-header.wrangling { border-color: var(--wrangling-color); }
+        .content-header.eda { border-color: var(--eda-color); }
+        .content-header.modeling { border-color: var(--modeling-color); }
+        .content-header.stats { border-color: var(--stats-color); }
+        .content-header.datasets { border-color: var(--datasets-color); }
+        .content-header.practice { border-color: var(--practice-color); }
+        
+        .content-title {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .content-description {
+            font-size: 18px;
+            color: #666;
+            line-height: 1.7;
+        }
+        
+        /* Interactive Sections */
+        .interactive-section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+        
+        .example-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .example-description {
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
+        /* Data Input */
+        .data-input-section {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .input-group {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .input-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .data-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: 'Consolas', monospace;
+            background: #f8f9fa;
+        }
+        
+        .data-input:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+        
+        .calculate-btn {
+            padding: 15px 40px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 16px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .calculate-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        /* Results Display */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .result-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            border: 2px solid;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .result-value {
+            font-size: 36px;
+            font-weight: 800;
+            margin: 15px 0;
+        }
+        
+        .result-label {
+            font-size: 14px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Chart Containers */
+        .chart-container {
+            height: 400px;
+            background: white;
+            border-radius: 12px;
+            margin: 30px 0;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .chart-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 18px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 2px dashed #ddd;
+        }
+        
+        /* Code Display */
+        .code-display {
+            background: #1e293b;
+            color: #e2e8f0;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Consolas', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #94a3b8;
+        }
+        
+        .copy-btn {
+            background: #475569;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+        }
+        
+        .copy-btn:hover {
+            background: #64748b;
+        }
+        
+        .py-keyword { color: #f97316; }
+        .py-function { color: #22d3ee; }
+        .py-string { color: #10b981; }
+        .py-comment { color: #94a3b8; font-style: italic; }
+        .py-number { color: #fbbf24; }
+        
+        /* Formula Cards */
+        .formula-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .formula-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 5px solid #3498db;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .formula-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .formula {
+            font-family: 'Consolas', monospace;
+            font-size: 18px;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            text-align: center;
+            color: #e74c3c;
+        }
+        
+        .formula-explanation {
+            color: #666;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+        
+        /* Practice Area */
+        .practice-question {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            border-left: 6px solid var(--practice-color);
+        }
+        
+        .question-text {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: #2c3e50;
+        }
+        
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .option-btn {
+            padding: 15px;
+            background: #f8f9fa;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+        
+        .option-btn:hover {
+            background: #e9ecef;
+        }
+        
+        .option-btn.correct {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+        
+        .option-btn.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+        
+        /* Feedback */
+        .feedback {
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            display: none;
+            animation: slideIn 0.3s;
+        }
+        
+        .feedback.show {
+            display: block;
+        }
+        
+        .feedback.correct {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        
+        .feedback.incorrect {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(-10px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                order: 2;
+            }
+            
+            .main-nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-btn {
+                min-width: 150px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .content-area, .sidebar {
+                padding: 20px;
+            }
+            
+            .content-title {
+                font-size: 28px;
+            }
+            
+            .data-input-section {
+                flex-direction: column;
+            }
+            
+            .input-group {
+                min-width: 100%;
+            }
+        }
+    </style>
+    <!-- Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="learning-center">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <h1 class="title">Data Analysis with Python - Interactive Learning Center</h1>
+                <p class="subtitle">Master Python data analysis from data wrangling to machine learning with interactive examples, visualizations, and practice exercises.</p>
+            </div>
+        </div>
+        
+        <!-- Main Navigation -->
+        <div class="main-nav">
+            <button class="nav-btn active" data-module="wrangling" onclick="showModule('wrangling')">
+                🧹 Data Wrangling
+            </button>
+            <button class="nav-btn" data-module="eda" onclick="showModule('eda')">
+                📊 EDA & Visualization
+            </button>
+            <button class="nav-btn" data-module="modeling" onclick="showModule('modeling')">
+                🤖 Model Development
+            </button>
+            <button class="nav-btn" data-module="stats" onclick="showModule('stats')">
+                📈 Statistical Tests
+            </button>
+            <button class="nav-btn" data-module="datasets" onclick="showModule('datasets')">
+                📂 Practice Datasets
+            </button>
+            <button class="nav-btn" data-module="practice" onclick="showModule('practice')">
+                🎯 Practice Arena
+            </button>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Data Wrangling Lessons -->
+                <div class="module-section" id="wrangling-section">
+                    <div class="section-title">Data Wrangling</div>
+                    <button class="lesson-btn active" data-lesson="cleaning" onclick="showLesson('cleaning')">
+                        <span>🧼</span> Data Cleaning
+                    </button>
+                    <button class="lesson-btn" data-lesson="transformation" onclick="showLesson('transformation')">
+                        <span>🔄</span> Data Transformation
+                    </button>
+                    <button class="lesson-btn" data-lesson="missing" onclick="showLesson('missing')">
+                        <span>❓</span> Missing Values
+                    </button>
+                    <button class="lesson-btn" data-lesson="normalization" onclick="showLesson('normalization')">
+                        <span>📏</span> Normalization
+                    </button>
+                </div>
+                
+                <!-- EDA Lessons -->
+                <div class="module-section" id="eda-section">
+                    <div class="section-title">EDA & Visualization</div>
+                    <button class="lesson-btn" data-lesson="correlation" onclick="showLesson('correlation')">
+                        <span>📈</span> Correlation Analysis
+                    </button>
+                    <button class="lesson-btn" data-lesson="distribution" onclick="showLesson('distribution')">
+                        <span>📊</span> Distribution Plots
+                    </button>
+                    <button class="lesson-btn" data-lesson="comparison" onclick="showLesson('comparison')">
+                        <span>⚖️</span> Comparison Plots
+                    </button>
+                    <button class="lesson-btn" data-lesson="kde" onclick="showLesson('kde')">
+                        <span>🔍</span> KDE Plots
+                    </button>
+                </div>
+                
+                <!-- Modeling Lessons -->
+                <div class="module-section" id="modeling-section">
+                    <div class="section-title">Model Development</div>
+                    <button class="lesson-btn" data-lesson="linear" onclick="showLesson('linear')">
+                        <span>📉</span> Linear Regression
+                    </button>
+                    <button class="lesson-btn" data-lesson="polynomial" onclick="showLesson('polynomial')">
+                        <span>📐</span> Polynomial Regression
+                    </button>
+                    <button class="lesson-btn" data-lesson="ridge" onclick="showLesson('ridge')">
+                        <span>🏔️</span> Ridge Regression
+                    </button>
+                    <button class="lesson-btn" data-lesson="evaluation" onclick="showLesson('evaluation')">
+                        <span>📊</span> Model Evaluation
+                    </button>
+                </div>
+                
+                <!-- Statistics Lessons -->
+                <div class="module-section" id="stats-section">
+                    <div class="section-title">Statistical Tests</div>
+                    <button class="lesson-btn" data-lesson="chisquare" onclick="showLesson('chisquare')">
+                        <span>📊</span> Chi-Square Test
+                    </button>
+                    <button class="lesson-btn" data-lesson="ttest" onclick="showLesson('ttest')">
+                        <span>📝</span> T-Test
+                    </button>
+                    <button class="lesson-btn" data-lesson="anova" onclick="showLesson('anova')">
+                        <span>📊</span> ANOVA
+                    </button>
+                    <button class="lesson-btn" data-lesson="pearson" onclick="showLesson('pearson')">
+                        <span>📐</span> Pearson Correlation
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Data Wrangling Module -->
+                <div class="module-content active" id="module-wrangling">
+                    <div class="content-header wrangling">
+                        <h2 class="content-title">Data Wrangling & Cleaning</h2>
+                        <p class="content-description">Learn how to clean, transform, and prepare data for analysis using Python and Pandas.</p>
+                    </div>
+                    
+                    <!-- Data Cleaning -->
+                    <div class="interactive-section" id="cleaning-section">
+                        <div class="example-title">
+                            <span>🧼</span>
+                            Data Cleaning Simulator
+                        </div>
+                        <p class="example-description">Enter dirty data with missing values, outliers, and inconsistencies to see how it gets cleaned.</p>
+                        
+                        <div class="data-input-section">
+                            <div class="input-group">
+                                <label class="input-label">Enter dirty data (comma separated):</label>
+                                <input type="text" class="data-input" id="dirtyData" 
+                                       value="40, 50, ?, 60, NaN, 120, 70, -5, 1000" 
+                                       placeholder="e.g., 40, 50, ?, 60, NaN, 120, 70, -5, 1000">
+                            </div>
+                            <button class="calculate-btn" onclick="cleanData()">
+                                <span>🧹</span> Clean Data
+                            </button>
+                        </div>
+                        
+                        <div class="results-grid" id="cleaningResults">
+                            <!-- Results will appear here -->
+                        </div>
+                        
+                        <div class="chart-container">
+                            <canvas id="cleaningChart"></canvas>
+                        </div>
+                        
+                        <div class="code-display">
+                            <div class="code-header">
+                                <span>Python Code for Data Cleaning</span>
+                                <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                            </div>
+                            <pre><code><span class="py-keyword">import</span> pandas <span class="py-keyword">as</span> pd
+<span class="py-keyword">import</span> numpy <span class="py-keyword">as</span> np
+
+<span class="py-comment"># Load data with missing values</span>
+df = pd.read_csv(<span class="py-string">'data.csv'</span>)
+
+<span class="py-comment"># Replace placeholders with NaN</span>
+df = df.replace([<span class="py-string">'?'</span>, <span class="py-string">'NA'</span>, <span class="py-string">''</span>], np.nan)
+
+<span class="py-comment"># Fill missing numeric values with median</span>
+numeric_cols = df.select_dtypes(include=[np.number]).columns
+<span class="py-keyword">for</span> col <span class="py-keyword">in</span> numeric_cols:
+    df[col].fillna(df[col].median(), inplace=<span class="py-keyword">True</span>)
+
+<span class="py-comment"># Fill missing categorical values with mode</span>
+categorical_cols = df.select_dtypes(include=[<span class="py-string">'object'</span>]).columns
+<span class="py-keyword">for</span> col <span class="py-keyword">in</span> categorical_cols:
+    df[col].fillna(df[col].mode()[<span class="py-number">0</span>], inplace=<span class="py-keyword">True</span>)
+
+<span class="py-comment"># Remove outliers using IQR method</span>
+<span class="py-keyword">def</span> <span class="py-function">remove_outliers_iqr</span>(df, column):
+    Q1 = df[column].quantile(<span class="py-number">0.25</span>)
+    Q3 = df[column].quantile(<span class="py-number">0.75</span>)
+    IQR = Q3 - Q1
+    lower_bound = Q1 - <span class="py-number">1.5</span> * IQR
+    upper_bound = Q3 + <span class="py-number">1.5</span> * IQR
+    <span class="py-keyword">return</span> df[(df[column] >= lower_bound) & (df[column] <= upper_bound)]
+
+<span class="py-keyword">for</span> col <span class="py-keyword">in</span> numeric_cols:
+    df = remove_outliers_iqr(df, col)
+
+<span class="py-comment"># Normalize numeric columns</span>
+<span class="py-keyword">for</span> col <span class="py-keyword">in</span> numeric_cols:
+    df[col] = (df[col] - df[col].min()) / (df[col].max() - df[col].min())</code></pre>
+                        </div>
+                    </div>
+                    
+                    <!-- Data Normalization -->
+                    <div class="interactive-section" id="normalization-section">
+                        <div class="example-title">
+                            <span>📏</span>
+                            Data Normalization Explorer
+                        </div>
+                        <p class="example-description">Compare different normalization techniques: Min-Max, Z-Score, and Decimal Scaling.</p>
+                        
+                        <div class="chart-container">
+                            <canvas id="normalizationChart"></canvas>
+                        </div>
+                        
+                        <div class="data-input-section">
+                            <div class="input-group">
+                                <label class="input-label">Enter data to normalize:</label>
+                                <input type="text" class="data-input" id="normalizeData" 
+                                       value="100, 200, 300, 400, 500, 600, 700, 800, 900, 1000" 
+                                       placeholder="e.g., 100, 200, 300, 400, 500">
+                            </div>
+                            <button class="calculate-btn" onclick="updateNormalizationChart()">
+                                <span>🔄</span> Normalize Data
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- EDA Module -->
+                <div class="module-content" id="module-eda">
+                    <div class="content-header eda">
+                        <h2 class="content-title">Exploratory Data Analysis & Visualization</h2>
+                        <p class="content-description">Learn to explore data relationships and create effective visualizations using Seaborn and Matplotlib.</p>
+                    </div>
+                    
+                    <!-- Correlation Analysis -->
+                    <div class="interactive-section">
+                        <div class="example-title">
+                            <span>📈</span>
+                            Correlation Matrix Explorer
+                        </div>
+                        <p class="example-description">Generate a correlation matrix heatmap for your data and explore relationships between variables.</p>
+                        
+                        <div class="data-input-section">
+                            <div class="input-group">
+                                <label class="input-label">Variable 1 Values:</label>
+                                <input type="text" class="data-input" id="var1Data" 
+                                       value="1, 2, 3, 4, 5, 6, 7, 8, 9, 10">
+                            </div>
+                            <div class="input-group">
+                                <label class="input-label">Variable 2 Values:</label>
+                                <input type="text" class="data-input" id="var2Data" 
+                                       value="2, 4, 6, 8, 10, 12, 14, 16, 18, 20">
+                            </div>
+                            <div class="input-group">
+                                <label class="input-label">Variable 3 Values:</label>
+                                <input type="text" class="data-input" id="var3Data" 
+                                       value="10, 9, 8, 7, 6, 5, 4, 3, 2, 1">
+                            </div>
+                        </div>
+                        
+                        <button class="calculate-btn" onclick="updateCorrelationChart()">
+                            <span>📊</span> Calculate Correlations
+                        </button>
+                        
+                        <div class="chart-container">
+                            <canvas id="correlationChart"></canvas>
+                        </div>
+                        
+                        <div class="results-grid" id="correlationResults">
+                            <!-- Results will appear here -->
+                        </div>
+                        
+                        <div class="code-display">
+                            <div class="code-header">
+                                <span>Python Code for Correlation Analysis</span>
+                                <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                            </div>
+                            <pre><code><span class="py-keyword">import</span> pandas <span class="py-keyword">as</span> pd
+<span class="py-keyword">import</span> numpy <span class="py-keyword">as</span> np
+<span class="py-keyword">import</span> seaborn <span class="py-keyword">as</span> sns
+<span class="py-keyword">import</span> matplotlib.pyplot <span class="py-keyword">as</span> plt
+<span class="py-keyword">from</span> scipy <span class="py-keyword">import</span> stats
+
+<span class="py-comment"># Create DataFrame</span>
+df = pd.DataFrame({
+    <span class="py-string">'Variable1'</span>: [<span class="py-number">1</span>, <span class="py-number">2</span>, <span class="py-number">3</span>, <span class="py-number">4</span>, <span class="py-number">5</span>, <span class="py-number">6</span>, <span class="py-number">7</span>, <span class="py-number">8</span>, <span class="py-number">9</span>, <span class="py-number">10</span>],
+    <span class="py-string">'Variable2'</span>: [<span class="py-number">2</span>, <span class="py-number">4</span>, <span class="py-number">6</span>, <span class="py-number">8</span>, <span class="py-number">10</span>, <span class="py-number">12</span>, <span class="py-number">14</span>, <span class="py-number">16</span>, <span class="py-number">18</span>, <span class="py-number">20</span>],
+    <span class="py-string">'Variable3'</span>: [<span class="py-number">10</span>, <span class="py-number">9</span>, <span class="py-number">8</span>, <span class="py-number">7</span>, <span class="py-number">6</span>, <span class="py-number">5</span>, <span class="py-number">4</span>, <span class="py-number">3</span>, <span class="py-number">2</span>, <span class="py-number">1</span>]
+})
+
+<span class="py-comment"># Calculate correlation matrix</span>
+correlation_matrix = df.corr()
+print(<span class="py-string">"Correlation Matrix:"</span>)
+print(correlation_matrix)
+
+<span class="py-comment"># Calculate Pearson correlation with p-value</span>
+pearson_corr, p_value = stats.pearsonr(df[<span class="py-string">'Variable1'</span>], df[<span class="py-string">'Variable2'</span>])
+print(<span class="py-string">f"\nPearson Correlation between Var1 and Var2: {pearson_corr:.3f}"</span>)
+print(<span class="py-string">f"P-value: {p_value:.4f}"</span>)
+
+<span class="py-comment"># Create heatmap</span>
+plt.figure(figsize=(<span class="py-number">8</span>, <span class="py-number">6</span>))
+sns.heatmap(correlation_matrix, annot=<span class="py-keyword">True</span>, cmap=<span class="py-string">'coolwarm'</span>, center=<span class="py-number">0</span>)
+plt.title(<span class="py-string">'Correlation Matrix Heatmap'</span>)
+plt.show()</code></pre>
+                        </div>
+                    </div>
+                    
+                    <!-- KDE Plots -->
+                    <div class="interactive-section">
+                        <div class="example-title">
+                            <span>🔍</span>
+                            KDE Plot Comparison
+                        </div>
+                        <p class="example-description">Compare actual vs predicted distributions using Kernel Density Estimation (KDE) plots.</p>
+                        
+                        <div class="chart-container">
+                            <canvas id="kdeChart"></canvas>
+                        </div>
+                        
+                        <div class="data-input-section">
+                            <div class="input-group">
+                                <label class="input-label">Actual Values:</label>
+                                <input type="text" class="data-input" id="actualData" 
+                                       value="65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120">
+                            </div>
+                            <div class="input-group">
+                                <label class="input-label">Predicted Values:</label>
+                                <input type="text" class="data-input" id="predictedData" 
+                                       value="68, 72, 76, 81, 86, 91, 96, 101, 106, 111, 116, 121">
+                            </div>
+                        </div>
+                        
+                        <button class="calculate-btn" onclick="updateKDEChart()">
+                            <span>🔄</span> Update KDE Plot
+                        </button>
+                        
+                        <div class="formula-card">
+                            <div class="formula-title">Kernel Density Estimation (KDE)</div>
+                            <div class="formula">f̂(x) = (1/nh) Σ K((x - xᵢ)/h)</div>
+                            <div class="formula-explanation">
+                                Where:<br>
+                                • f̂(x) = Estimated density at point x<br>
+                                • n = Number of data points<br>
+                                • h = Bandwidth (smoothing parameter)<br>
+                                • K = Kernel function (usually Gaussian)<br>
+                                • xᵢ = Individual data points<br>
+                                • Σ = Summation over all data points
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Model Development Module -->
+                <div class="module-content" id="module-modeling">
+                    <div class="content-header modeling">
+                        <h2 class="content-title">Model Development & Evaluation</h2>
+                        <p class="content-description">Learn to build, train, and evaluate machine learning models using Scikit-learn.</p>
+                    </div>
+                    
+                    <!-- Linear Regression -->
+                    <div class="interactive-section">
+                        <div class="example-title">
+                            <span>📉</span>
+                            Linear Regression Explorer
+                        </div>
+                        <p class="example-description">Fit a linear regression model to your data and visualize the regression line with residuals.</p>
+                        
+                        <div class="chart-container">
+                            <canvas id="regressionChart"></canvas>
+                        </div>
+                        
+                        <div class="data-input-section">
+                            <div class="input-group">
+                                <label class="input-label">X Values:</label>
+                                <input type="text" class="data-input" id="regressionX" 
+                                       value="1, 2, 3, 4, 5, 6, 7, 8, 9, 10">
+                            </div>
+                            <div class="input-group">
+                                <label class="input-label">Y Values:</label>
+                                <input type="text" class="data-input" id="regressionY" 
+                                       value="2, 4, 5, 4, 5, 7, 8, 9, 10, 12">
+                            </div>
+                        </div>
+                        
+                        <button class="calculate-btn" onclick="calculateRegression()">
+                            <span>📊</span> Fit Regression Model
+                        </button>
+                        
+                        <div class="results-grid" id="regressionResults">
+                            <!-- Results will appear here -->
+                        </div>
+                        
+                        <div class="formula-grid">
+                            <div class="formula-card">
+                                <div class="formula-title">Linear Regression Equation</div>
+                                <div class="formula">y = β₀ + β₁x + ε</div>
+                                <div class="formula-explanation">
+                                    Where:<br>
+                                    • y = Dependent variable<br>
+                                    • β₀ = Intercept<br>
+                                    • β₁ = Slope coefficient<br>
+                                    • x = Independent variable<br>
+                                    • ε = Error term
+                                </div>
+                            </div>
+                            
+                            <div class="formula-card">
+                                <div class="formula-title">R² Score (Coefficient of Determination)</div>
+                                <div class="formula">R² = 1 - (SS_res / SS_tot)</div>
+                                <div class="formula-explanation">
+                                    Where:<br>
+                                    • SS_res = Sum of squares of residuals<br>
+                                    • SS_tot = Total sum of squares<br>
+                                    • R² ranges from 0 to 1 (higher is better)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Polynomial Regression -->
+                    <div class="interactive-section">
+                        <div class="example-title">
+                            <span>📐</span>
+                            Polynomial Regression Explorer
+                        </div>
+                        <p class="example-description">Compare linear, quadratic, and cubic polynomial regression fits to your data.</p>
+                        
+                        <div class="chart-container">
+                            <canvas id="polynomialChart"></canvas>
+                        </div>
+                        
+                        <div class="data-input-section">
+                            <div class="input-group">
+                                <label class="input-label">X Values:</label>
+                                <input type="text" class="data-input" id="polyX" 
+                                       value="1, 2, 3, 4, 5, 6, 7, 8, 9, 10">
+                            </div>
+                            <div class="input-group">
+                                <label class="input-label">Y Values:</label>
+                                <input type="text" class="data-input" id="polyY" 
+                                       value="2, 4, 8, 16, 25, 36, 49, 64, 81, 100">
+                            </div>
+                        </div>
+                        
+                        <button class="calculate-btn" onclick="calculatePolynomialRegression()">
+                            <span>📊</span> Fit Polynomial Models
+                        </button>
+                    </div>
+                    
+                    <!-- Ridge Regression -->
+                    <div class="interactive-section">
+                        <div class="example-title">
+                            <span>🏔️</span>
+                            Ridge Regression Explorer
+                        </div>
+                        <p class="example-description">Explore how ridge regression (L2 regularization) prevents overfitting by adjusting the alpha parameter.</p>
+                        
+                        <div class="chart-container">
+                            <canvas id="ridgeChart"></canvas>
+                        </div>
+                        
+                        <div class="data-input-section">
+                            <div class="input-group">
+                                <label class="input-label">Alpha (Regularization Strength):</label>
+                                <input type="range" class="data-input" id="ridgeAlpha" min="0.001" max="1000" step="0.1" value="1"
+                                       oninput="document.getElementById('alphaValue').textContent = this.value; updateRidgeChart()">
+                                <span id="alphaValue">1</span>
+                            </div>
+                        </div>
+                        
+                        <div class="formula-card">
+                            <div class="formula-title">Ridge Regression Cost Function</div>
+                            <div class="formula">J(β) = Σ(yᵢ - ŷᵢ)² + αΣβⱼ²</div>
+                            <div class="formula-explanation">
+                                Where:<br>
+                                • J(β) = Cost function to minimize<br>
+                                • Σ(yᵢ - ŷᵢ)² = Sum of squared errors<br>
+                                • α = Regularization parameter (alpha)<br>
+                                • Σβⱼ² = Sum of squared coefficients (L2 penalty)<br>
+                                • Higher α = More regularization = Simpler model
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Statistical Tests Module -->
+                <div class="module-content" id="module-stats">
+                    <div class="content-header stats">
+                        <h2 class="content-title">Statistical Tests & Analysis</h2>
+                        <p class="content-description">Learn to perform statistical tests including Chi-Square, T-Test, ANOVA, and Pearson correlation.</p>
+                    </div>
+                    
+                    <!-- Chi-Square Test -->
+                    <div class="interactive-section">
+                        <div class="example-title">
+                            <span>📊</span>
+                            Chi-Square Test Calculator
+                        </div>
+                        <p class="example-description">Test for independence between two categorical variables using the Chi-Square test.</p>
+                        
+                        <div class="data-input-section">
+                            <div class="input-group">
+                                <label class="input-label">Contingency Table (Row 1):</label>
+                                <input type="text" class="data-input" id="chiRow1" 
+                                       value="20, 30" 
+                                       placeholder="e.g., 20, 30 (Like, Dislike for Male)">
+                            </div>
+                            <div class="input-group">
+                                <label class="input-label">Contingency Table (Row 2):</label>
+                                <input type="text" class="data-input" id="chiRow2" 
+                                       value="25, 25" 
+                                       placeholder="e.g., 25, 25 (Like, Dislike for Female)">
+                            </div>
+                        </div>
+                        
+                        <button class="calculate-btn" onclick="calculateChiSquare()">
+                            <span>🧮</span> Calculate Chi-Square
+                        </button>
+                        
+                        <div class="results-grid" id="chiSquareResults">
+                            <!-- Results will appear here -->
+                        </div>
+                        
+                        <div class="formula-grid">
+                            <div class="formula-card">
+                                <div class="formula-title">Chi-Square Test Formula</div>
+                                <div class="formula">χ² = Σ((Oᵢ - Eᵢ)² / Eᵢ)</div>
+                                <div class="formula-explanation">
+                                    Where:<br>
+                                    • χ² = Chi-square statistic<br>
+                                    • Oᵢ = Observed frequency<br>
+                                    • Eᵢ = Expected frequency<br>
+                                    • Σ = Summation over all cells<br>
+                                    • Degrees of freedom = (r-1)(c-1)
+                                </div>
+                            </div>
+                            
+                            <div class="formula-card">
+                                <div class="formula-title">Expected Frequency Formula</div>
+                                <div class="formula">Eᵢ = (Row Total × Column Total) / Grand Total</div>
+                                <div class="formula-explanation">
+                                    Where:<br>
+                                    • Eᵢ = Expected frequency for cell i<br>
+                                    • Row Total = Sum of row containing cell i<br>
+                                    • Column Total = Sum of column containing cell i<br>
+                                    • Grand Total = Sum of all observations
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="code-display">
+                            <div class="code-header">
+                                <span>Python Code for Chi-Square Test</span>
+                                <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                            </div>
+                            <pre><code><span class="py-keyword">import</span> pandas <span class="py-keyword">as</span> pd
+<span class="py-keyword">import</span> numpy <span class="py-keyword">as</span> np
+<span class="py-keyword">from</span> scipy.stats <span class="py-keyword">import</span> chi2_contingency
+
+<span class="py-comment"># Create contingency table</span>
+data = [[<span class="py-number">20</span>, <span class="py-number">30</span>],  <span class="py-comment"># Male: [Like, Dislike]</span>
+        [<span class="py-number">25</span>, <span class="py-number">25</span>]]  <span class="py-comment"># Female: [Like, Dislike]</span>
+
+df = pd.DataFrame(data, columns=[<span class="py-string">"Like"</span>, <span class="py-string">"Dislike"</span>], 
+                  index=[<span class="py-string">"Male"</span>, <span class="py-string">"Female"</span>])
+
+<span class="py-comment"># Perform Chi-Square Test</span>
+chi2, p, dof, expected = chi2_contingency(df)
+
+<span class="py-comment"># Display results</span>
+print(<span class="py-string">"Chi-square Statistic:"</span>, chi2)
+print(<span class="py-string">"Degrees of Freedom:"</span>, dof)
+print(<span class="py-string">"P-value:"</span>, p)
+print(<span class="py-string">"Expected Frequencies:\n"</span>, expected)
+
+<span class="py-comment"># Interpretation</span>
+alpha = <span class="py-number">0.05</span>
+<span class="py-keyword">if</span> p > alpha:
+    print(<span class="py-string">"Fail to reject null hypothesis - No significant association"</span>)
+<span class="py-keyword">else</span>:
+    print(<span class="py-string">"Reject null hypothesis - Significant association exists"</span>)</code></pre>
+                        </div>
+                    </div>
+                    
+                    <!-- T-Test Calculator -->
+                    <div class="interactive-section">
+                        <div class="example-title">
+                            <span>📝</span>
+                            T-Test Calculator
+                        </div>
+                        <p class="example-description">Compare means of two independent groups using the Student's t-test.</p>
+                        
+                        <div class="data-input-section">
+                            <div class="input-group">
+                                <label class="input-label">Group 1 Values:</label>
+                                <input type="text" class="data-input" id="group1Data" 
+                                       value="85, 90, 88, 92, 87, 91, 89, 93">
+                            </div>
+                            <div class="input-group">
+                                <label class="input-label">Group 2 Values:</label>
+                                <input type="text" class="data-input" id="group2Data" 
+                                       value="78, 82, 80, 85, 79, 83, 81, 84">
+                            </div>
+                        </div>
+                        
+                        <button class="calculate-btn" onclick="calculateTTest()">
+                            <span>🧮</span> Calculate T-Test
+                        </button>
+                        
+                        <div class="results-grid" id="tTestResults">
+                            <!-- Results will appear here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Practice Datasets Module -->
+                <div class="module-content" id="module-datasets">
+                    <div class="content-header datasets">
+                        <h2 class="content-title">Practice Datasets</h2>
+                        <p class="content-description">Explore real-world datasets for practicing data analysis techniques.</p>
+                    </div>
+                    
+                    <!-- Laptop Pricing Dataset -->
+                    <div class="interactive-section">
+                        <div class="example-title">
+                            <span>💻</span>
+                            Laptop Pricing Dataset Explorer
+                        </div>
+                        <p class="example-description">Explore the laptop pricing dataset with 11 features including specifications and price.</p>
+                        
+                        <div class="chart-container">
+                            <canvas id="laptopChart"></canvas>
+                        </div>
+                        
+                        <div class="data-input-section">
+                            <div class="input-group">
+                                <label class="input-label">Select Feature to Analyze:</label>
+                                <select class="data-input" id="laptopFeature" onchange="updateLaptopChart()">
+                                    <option value="RAM_GB">RAM (GB)</option>
+                                    <option value="Storage_GB_SSD">Storage SSD (GB)</option>
+                                    <option value="Screen_Size_cm">Screen Size (cm)</option>
+                                    <option value="Weight_kg">Weight (kg)</option>
+                                    <option value="CPU_frequency">CPU Frequency (GHz)</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label class="input-label">Select Chart Type:</label>
+                                <select class="data-input" id="laptopChartType" onchange="updateLaptopChart()">
+                                    <option value="scatter">Scatter Plot vs Price</option>
+                                    <option value="box">Box Plot by Category</option>
+                                    <option value="bar">Bar Chart by Manufacturer</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="formula-card">
+                            <div class="formula-title">Dataset Features</div>
+                            <div class="formula-explanation">
+                                <strong>Parameters:</strong><br>
+                                1. Manufacturer - Company that manufactured the laptop<br>
+                                2. Category - Gaming(1), Netbook(2), Notebook(3), Ultrabook(4), Workstation(5)<br>
+                                3. GPU - AMD(1), Intel(2), NVidia(3)<br>
+                                4. OS - Windows(1), Linux(2)<br>
+                                5. CPU_core - Intel Pentium i3(3), i5(5), i7(7)<br>
+                                6. Screen_Size_cm - Screen size in cm<br>
+                                7. CPU_frequency - CPU frequency in GHz<br>
+                                8. RAM_GB - RAM size in GB<br>
+                                9. Storage_GB_SSD - SSD storage in GB<br>
+                                10. Weight_kg - Weight in kg<br>
+                                11. Price - Price in USD (target variable)
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Medical Insurance Dataset -->
+                    <div class="interactive-section">
+                        <div class="example-title">
+                            <span>🏥</span>
+                            Medical Insurance Dataset Explorer
+                        </div>
+                        <p class="example-description">Analyze medical insurance charges dataset with demographic and health factors.</p>
+                        
+                        <div class="chart-container">
+                            <canvas id="insuranceChart"></canvas>
+                        </div>
+                        
+                        <div class="data-input-section">
+                            <div class="input-group">
+                                <label class="input-label">Select Analysis:</label>
+                                <select class="data-input" id="insuranceAnalysis" onchange="updateInsuranceChart()">
+                                    <option value="age">Age vs Charges</option>
+                                    <option value="bmi">BMI vs Charges</option>
+                                    <option value="smoker">Smoker vs Charges</option>
+                                    <option value="children">Children vs Charges</option>
+                                    <option value="region">Region vs Charges</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="formula-card">
+                            <div class="formula-title">Dataset Features</div>
+                            <div class="formula-explanation">
+                                <strong>Parameters:</strong><br>
+                                1. Age - Age of the insured (integer)<br>
+                                2. Gender - Female(1), Male(2)<br>
+                                3. BMI - Body Mass Index (float)<br>
+                                4. No_of_Children - Number of children (integer)<br>
+                                5. Smoker - Smoker(1), Non-smoker(2)<br>
+                                6. Region - Northwest(1), Northeast(2), Southwest(3), Southeast(4)<br>
+                                7. Charges - Insurance charges in USD (target variable)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Practice Module -->
+                <div class="module-content" id="module-practice">
+                    <div class="content-header practice">
+                        <h2 class="content-title">Practice Arena</h2>
+                        <p class="content-description">Test your data analysis knowledge with interactive practice questions.</p>
+                    </div>
+                    
+                    <!-- Practice Questions -->
+                    <div class="practice-question">
+                        <div class="question-text" id="question1">
+                            Which Python library is primarily used for data manipulation and analysis?
+                        </div>
+                        
+                        <div class="options-grid">
+                            <button class="option-btn" onclick="checkAnswer(this, 1, 'pandas')">Pandas</button>
+                            <button class="option-btn" onclick="checkAnswer(this, 1, 'numpy')">NumPy</button>
+                            <button class="option-btn" onclick="checkAnswer(this, 1, 'matplotlib')">Matplotlib</button>
+                            <button class="option-btn" onclick="checkAnswer(this, 1, 'sklearn')">Scikit-learn</button>
+                        </div>
+                        
+                        <div class="feedback" id="feedback1"></div>
+                    </div>
+                    
+                    <!-- Another Question -->
+                    <div class="practice-question">
+                        <div class="question-text" id="question2">
+                            What does the Chi-Square test determine?
+                        </div>
+                        
+                        <div class="options-grid">
+                            <button class="option-btn" onclick="checkAnswer(this, 2, 'association')">Association between categorical variables</button>
+                            <button class="option-btn" onclick="checkAnswer(this, 2, 'difference')">Difference between means</button>
+                            <button class="option-btn" onclick="checkAnswer(this, 2, 'correlation')">Linear correlation</button>
+                            <button class="option-btn" onclick="checkAnswer(this, 2, 'distribution')">Normal distribution</button>
+                        </div>
+                        
+                        <div class="feedback" id="feedback2"></div>
+                    </div>
+                    
+                    <!-- Another Question -->
+                    <div class="practice-question">
+                        <div class="question-text" id="question3">
+                            Which regularization technique adds the sum of squared coefficients to the cost function?
+                        </div>
+                        
+                        <div class="options-grid">
+                            <button class="option-btn" onclick="checkAnswer(this, 3, 'ridge')">Ridge Regression (L2)</button>
+                            <button class="option-btn" onclick="checkAnswer(this, 3, 'lasso')">Lasso Regression (L1)</button>
+                            <button class="option-btn" onclick="checkAnswer(this, 3, 'elastic')">Elastic Net</button>
+                            <button class="option-btn" onclick="checkAnswer(this, 3, 'none')">No regularization</button>
+                        </div>
+                        
+                        <div class="feedback" id="feedback3"></div>
+                    </div>
+                    
+                    <!-- Coding Challenge -->
+                    <div class="interactive-section">
+                        <div class="example-title">
+                            <span>💻</span>
+                            Python Coding Challenge
+                        </div>
+                        <p class="example-description">Write Python code to calculate the mean of a list of numbers.</p>
+                        
+                        <div class="code-display" style="background: white; border: 2px solid #ddd;">
+                            <div class="code-header">
+                                <span>Your Code</span>
+                                <button class="copy-btn" onclick="runCode()">Run Code</button>
+                            </div>
+                            <textarea id="codeEditor" style="width: 100%; height: 150px; border: none; font-family: 'Consolas', monospace; padding: 10px; resize: vertical;">
+def calculate_mean(numbers):
+    # Write your code here
+    # Return the mean of the numbers list
+    pass
+
+# Test your function
+test_numbers = [10, 20, 30, 40, 50]
+result = calculate_mean(test_numbers)
+print(f"Mean: {result}")</textarea>
+                        </div>
+                        
+                        <div class="feedback" id="codeFeedback"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let currentModule = 'wrangling';
+        let currentLesson = 'cleaning';
+        let charts = {};
+        
+        // Initialize the application
+        function init() {
+            showModule('wrangling');
+            showLesson('cleaning');
+            initializeCharts();
+            cleanData();
+            updateNormalizationChart();
+            updateCorrelationChart();
+            calculateRegression();
+            calculatePolynomialRegression();
+            updateRidgeChart();
+            calculateChiSquare();
+            calculateTTest();
+            updateLaptopChart();
+            updateInsuranceChart();
+        }
+        
+        // Show module
+        function showModule(module) {
+            currentModule = module;
+            
+            // Update navigation buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            const activeBtn = document.querySelector(`[data-module="${module}"]`);
+            if (activeBtn) {
+                activeBtn.classList.add('active');
+            }
+            
+            // Update module content
+            document.querySelectorAll('.module-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            const activeModule = document.getElementById(`module-${module}`);
+            if (activeModule) {
+                activeModule.classList.add('active');
+            }
+            
+            // Update sidebar visibility
+            updateSidebar();
+        }
+        
+        // Update sidebar visibility
+        function updateSidebar() {
+            document.querySelectorAll('.module-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            const activeSection = document.getElementById(`${currentModule}-section`);
+            if (activeSection) {
+                activeSection.style.display = 'block';
+            }
+        }
+        
+        // Show lesson
+        function showLesson(lesson) {
+            currentLesson = lesson;
+            
+            // Update lesson buttons
+            document.querySelectorAll('.lesson-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            const activeBtn = document.querySelector(`[data-lesson="${lesson}"]`);
+            if (activeBtn) {
+                activeBtn.classList.add('active');
+            }
+        }
+        
+        // Initialize all charts
+        function initializeCharts() {
+            // Cleaning chart
+            const cleaningCtx = document.getElementById('cleaningChart').getContext('2d');
+            charts.cleaning = new Chart(cleaningCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Data Point 1', 'Data Point 2', 'Data Point 3', 'Data Point 4', 'Data Point 5'],
+                    datasets: [
+                        {
+                            label: 'Original Data',
+                            data: [40, 50, null, 60, 120],
+                            backgroundColor: 'rgba(231, 76, 60, 0.7)',
+                            borderColor: 'rgba(231, 76, 60, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Cleaned Data',
+                            data: [40, 50, 70, 60, 70],
+                            backgroundColor: 'rgba(46, 204, 113, 0.7)',
+                            borderColor: 'rgba(46, 204, 113, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Data Cleaning: Before vs After'
+                        }
+                    }
+                }
+            });
+            
+            // Normalization chart
+            const normCtx = document.getElementById('normalizationChart').getContext('2d');
+            charts.normalization = new Chart(normCtx, {
+                type: 'line',
+                data: {
+                    labels: Array.from({length: 10}, (_, i) => i + 1),
+                    datasets: [
+                        {
+                            label: 'Original Data',
+                            data: [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000],
+                            borderColor: '#3498db',
+                            backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                            borderWidth: 3,
+                            fill: true
+                        },
+                        {
+                            label: 'Min-Max Normalized',
+                            data: [0, 0.111, 0.222, 0.333, 0.444, 0.555, 0.666, 0.777, 0.888, 1],
+                            borderColor: '#2ecc71',
+                            backgroundColor: 'rgba(46, 204, 113, 0.1)',
+                            borderWidth: 3,
+                            fill: true
+                        },
+                        {
+                            label: 'Z-Score Normalized',
+                            data: [-1.566, -1.218, -0.872, -0.524, -0.176, 0.172, 0.52, 0.868, 1.216, 1.564],
+                            borderColor: '#9b59b6',
+                            backgroundColor: 'rgba(155, 89, 182, 0.1)',
+                            borderWidth: 3,
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Data Normalization Comparison'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Value'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Correlation chart
+            const corrCtx = document.getElementById('correlationChart').getContext('2d');
+            charts.correlation = new Chart(corrCtx, {
+                type: 'scatter',
+                data: {
+                    datasets: [
+                        {
+                            label: 'Variable 1 vs Variable 2',
+                            data: [{x: 1, y: 2}, {x: 2, y: 4}, {x: 3, y: 6}, {x: 4, y: 8}, {x: 5, y: 10}, 
+                                   {x: 6, y: 12}, {x: 7, y: 14}, {x: 8, y: 16}, {x: 9, y: 18}, {x: 10, y: 20}],
+                            backgroundColor: '#3498db',
+                            pointRadius: 8
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Correlation Analysis'
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Variable 1'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Variable 2'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // KDE chart
+            const kdeCtx = document.getElementById('kdeChart').getContext('2d');
+            charts.kde = new Chart(kdeCtx, {
+                type: 'line',
+                data: {
+                    labels: Array.from({length: 12}, (_, i) => i + 65),
+                    datasets: [
+                        {
+                            label: 'Actual Values',
+                            data: [0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.35, 0.3, 0.25, 0.2, 0.15],
+                            borderColor: '#3498db',
+                            backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Predicted Values',
+                            data: [0.05, 0.1, 0.18, 0.25, 0.32, 0.38, 0.42, 0.38, 0.32, 0.25, 0.18, 0.1],
+                            borderColor: '#e74c3c',
+                            backgroundColor: 'rgba(231, 76, 60, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'KDE Plot: Actual vs Predicted Distributions'
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Value'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Density'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Regression chart
+            const regCtx = document.getElementById('regressionChart').getContext('2d');
+            charts.regression = new Chart(regCtx, {
+                type: 'scatter',
+                data: {
+                    datasets: [
+                        {
+                            label: 'Data Points',
+                            data: [{x: 1, y: 2}, {x: 2, y: 4}, {x: 3, y: 5}, {x: 4, y: 4}, 
+                                  {x: 5, y: 5}, {x: 6, y: 7}, {x: 7, y: 8}, {x: 8, y: 9}, 
+                                  {x: 9, y: 10}, {x: 10, y: 12}],
+                            backgroundColor: '#3498db',
+                            pointRadius: 8
+                        },
+                        {
+                            label: 'Regression Line',
+                            data: [],
+                            type: 'line',
+                            borderColor: '#e74c3c',
+                            borderWidth: 3,
+                            fill: false,
+                            pointRadius: 0
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Linear Regression'
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'X Variable'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Y Variable'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Polynomial chart
+            const polyCtx = document.getElementById('polynomialChart').getContext('2d');
+            charts.polynomial = new Chart(polyCtx, {
+                type: 'scatter',
+                data: {
+                    datasets: [
+                        {
+                            label: 'Data Points',
+                            data: [{x: 1, y: 2}, {x: 2, y: 4}, {x: 3, y: 8}, {x: 4, y: 16}, 
+                                  {x: 5, y: 25}, {x: 6, y: 36}, {x: 7, y: 49}, {x: 8, y: 64}, 
+                                  {x: 9, y: 81}, {x: 10, y: 100}],
+                            backgroundColor: '#3498db',
+                            pointRadius: 8
+                        },
+                        {
+                            label: 'Linear Fit',
+                            data: [],
+                            type: 'line',
+                            borderColor: '#2ecc71',
+                            borderWidth: 2,
+                            fill: false,
+                            pointRadius: 0
+                        },
+                        {
+                            label: 'Quadratic Fit',
+                            data: [],
+                            type: 'line',
+                            borderColor: '#e74c3c',
+                            borderWidth: 2,
+                            fill: false,
+                            pointRadius: 0
+                        },
+                        {
+                            label: 'Cubic Fit',
+                            data: [],
+                            type: 'line',
+                            borderColor: '#9b59b6',
+                            borderWidth: 2,
+                            fill: false,
+                            pointRadius: 0
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Polynomial Regression Comparison'
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'X Variable'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Y Variable'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Ridge chart
+            const ridgeCtx = document.getElementById('ridgeChart').getContext('2d');
+            charts.ridge = new Chart(ridgeCtx, {
+                type: 'line',
+                data: {
+                    labels: Array.from({length: 20}, (_, i) => i + 1),
+                    datasets: [
+                        {
+                            label: 'Training Data',
+                            data: [2, 3, 4, 5, 7, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36],
+                            borderColor: '#3498db',
+                            backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.3
+                        },
+                        {
+                            label: 'Ridge Regression Fit (α=1)',
+                            data: [2.5, 3.5, 4.5, 5.5, 6.5, 7.5, 8.5, 9.5, 10.5, 11.5, 12.5, 13.5, 14.5, 15.5, 16.5, 17.5, 18.5, 19.5, 20.5, 21.5],
+                            borderColor: '#e74c3c',
+                            backgroundColor: 'rgba(231, 76, 60, 0.1)',
+                            borderWidth: 3,
+                            fill: false,
+                            tension: 0.3
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Ridge Regression: α = 1'
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'X'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Y'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Laptop chart
+            const laptopCtx = document.getElementById('laptopChart').getContext('2d');
+            charts.laptop = new Chart(laptopCtx, {
+                type: 'scatter',
+                data: {
+                    datasets: [
+                        {
+                            label: 'Gaming Laptops',
+                            data: [{x: 16, y: 1500}, {x: 32, y: 2500}, {x: 64, y: 3500}],
+                            backgroundColor: '#3498db',
+                            pointRadius: 8
+                        },
+                        {
+                            label: 'Ultrabooks',
+                            data: [{x: 8, y: 1000}, {x: 16, y: 1500}, {x: 32, y: 2000}],
+                            backgroundColor: '#2ecc71',
+                            pointRadius: 8
+                        },
+                        {
+                            label: 'Notebooks',
+                            data: [{x: 4, y: 500}, {x: 8, y: 700}, {x: 16, y: 900}],
+                            backgroundColor: '#9b59b6',
+                            pointRadius: 8
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Laptop Pricing: RAM vs Price by Category'
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'RAM (GB)'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Price (USD)'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Insurance chart
+            const insuranceCtx = document.getElementById('insuranceChart').getContext('2d');
+            charts.insurance = new Chart(insuranceCtx, {
+                type: 'scatter',
+                data: {
+                    datasets: [
+                        {
+                            label: 'Non-Smokers',
+                            data: [{x: 25, y: 3000}, {x: 35, y: 4500}, {x: 45, y: 6000}, {x: 55, y: 8000}],
+                            backgroundColor: '#3498db',
+                            pointRadius: 8
+                        },
+                        {
+                            label: 'Smokers',
+                            data: [{x: 25, y: 8000}, {x: 35, y: 12000}, {x: 45, y: 16000}, {x: 55, y: 20000}],
+                            backgroundColor: '#e74c3c',
+                            pointRadius: 8
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Medical Insurance: Age vs Charges by Smoking Status'
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Age'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Charges (USD)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Clean data
+        function cleanData() {
+            const input = document.getElementById('dirtyData').value;
+            const numbers = parseNumbers(input);
+            
+            if (numbers.length === 0) return;
+            
+            // Identify and handle missing/placeholder values
+            const originalData = [...numbers];
+            const cleanedData = numbers.map(num => {
+                if (isNaN(num) || num === -5 || num === 1000) {
+                    // Replace outliers and missing with median
+                    const validNumbers = numbers.filter(n => !isNaN(n) && n !== -5 && n !== 1000);
+                    const median = validNumbers.sort((a, b) => a - b)[Math.floor(validNumbers.length / 2)];
+                    return median;
+                }
+                return num;
+            });
+            
+            // Calculate statistics
+            const originalValid = originalData.filter(n => !isNaN(n));
+            const cleanedValid = cleanedData.filter(n => !isNaN(n));
+            
+            const origMean = originalValid.reduce((a, b) => a + b) / originalValid.length;
+            const cleanMean = cleanedValid.reduce((a, b) => a + b) / cleanedValid.length;
+            
+            const origStd = Math.sqrt(originalValid.reduce((sum, num) => sum + Math.pow(num - origMean, 2), 0) / originalValid.length);
+            const cleanStd = Math.sqrt(cleanedValid.reduce((sum, num) => sum + Math.pow(num - cleanMean, 2), 0) / cleanedValid.length);
+            
+            // Update chart
+            charts.cleaning.data.labels = originalData.map((_, i) => `Point ${i + 1}`);
+            charts.cleaning.data.datasets[0].data = originalData;
+            charts.cleaning.data.datasets[1].data = cleanedData;
+            charts.cleaning.update();
+            
+            // Update results
+            const resultsHTML = `
+                <div class="result-card" style="border-color: #3498db;">
+                    <div class="result-label">Original Mean</div>
+                    <div class="result-value">${origMean.toFixed(2)}</div>
+                </div>
+                <div class="result-card" style="border-color: #2ecc71;">
+                    <div class="result-label">Cleaned Mean</div>
+                    <div class="result-value">${cleanMean.toFixed(2)}</div>
+                </div>
+                <div class="result-card" style="border-color: #e74c3c;">
+                    <div class="result-label">Original Std Dev</div>
+                    <div class="result-value">${origStd.toFixed(2)}</div>
+                </div>
+                <div class="result-card" style="border-color: #9b59b6;">
+                    <div class="result-label">Cleaned Std Dev</div>
+                    <div class="result-value">${cleanStd.toFixed(2)}</div>
+                </div>
+            `;
+            
+            document.getElementById('cleaningResults').innerHTML = resultsHTML;
+        }
+        
+        // Update normalization chart
+        function updateNormalizationChart() {
+            const input = document.getElementById('normalizeData').value;
+            const numbers = parseNumbers(input);
+            
+            if (numbers.length === 0) return;
+            
+            // Calculate different normalizations
+            const min = Math.min(...numbers);
+            const max = Math.max(...numbers);
+            const mean = numbers.reduce((a, b) => a + b) / numbers.length;
+            const std = Math.sqrt(numbers.reduce((sum, num) => sum + Math.pow(num - mean, 2), 0) / numbers.length);
+            
+            const minMaxNorm = numbers.map(x => (x - min) / (max - min));
+            const zScoreNorm = numbers.map(x => (x - mean) / std);
+            
+            // Update chart
+            charts.normalization.data.labels = numbers.map((_, i) => i + 1);
+            charts.normalization.data.datasets[0].data = numbers;
+            charts.normalization.data.datasets[1].data = minMaxNorm;
+            charts.normalization.data.datasets[2].data = zScoreNorm;
+            charts.normalization.update();
+        }
+        
+        // Update correlation chart
+        function updateCorrelationChart() {
+            const var1 = parseNumbers(document.getElementById('var1Data').value);
+            const var2 = parseNumbers(document.getElementById('var2Data').value);
+            const var3 = parseNumbers(document.getElementById('var3Data').value);
+            
+            if (var1.length === 0 || var2.length === 0 || var3.length === 0) return;
+            
+            // Calculate correlations
+            const corr12 = pearsonCorrelation(var1, var2);
+            const corr13 = pearsonCorrelation(var1, var3);
+            const corr23 = pearsonCorrelation(var2, var3);
+            
+            // Update scatter plot
+            const scatterData = var1.map((x, i) => ({x, y: var2[i]}));
+            charts.correlation.data.datasets[0].data = scatterData;
+            charts.correlation.options.plugins.title.text = `Correlation: Var1 vs Var2 (r = ${corr12.toFixed(3)})`;
+            charts.correlation.update();
+            
+            // Update results
+            const resultsHTML = `
+                <div class="result-card" style="border-color: #3498db;">
+                    <div class="result-label">Var1 vs Var2</div>
+                    <div class="result-value">${corr12.toFixed(3)}</div>
+                    <div style="font-size: 12px; margin-top: 5px;">${getCorrelationStrength(corr12)}</div>
+                </div>
+                <div class="result-card" style="border-color: #2ecc71;">
+                    <div class="result-label">Var1 vs Var3</div>
+                    <div class="result-value">${corr13.toFixed(3)}</div>
+                    <div style="font-size: 12px; margin-top: 5px;">${getCorrelationStrength(corr13)}</div>
+                </div>
+                <div class="result-card" style="border-color: #e74c3c;">
+                    <div class="result-label">Var2 vs Var3</div>
+                    <div class="result-value">${corr23.toFixed(3)}</div>
+                    <div style="font-size: 12px; margin-top: 5px;">${getCorrelationStrength(corr23)}</div>
+                </div>
+            `;
+            
+            document.getElementById('correlationResults').innerHTML = resultsHTML;
+        }
+        
+        // Update KDE chart
+        function updateKDEChart() {
+            const actual = parseNumbers(document.getElementById('actualData').value);
+            const predicted = parseNumbers(document.getElementById('predictedData').value);
+            
+            if (actual.length === 0 || predicted.length === 0) return;
+            
+            // Generate KDE-like data
+            const minVal = Math.min(...actual, ...predicted);
+            const maxVal = Math.max(...actual, ...predicted);
+            const range = maxVal - minVal;
+            
+            const kdeActual = generateKDE(actual, minVal, maxVal, 12);
+            const kdePredicted = generateKDE(predicted, minVal, maxVal, 12);
+            
+            // Update chart
+            charts.kde.data.labels = Array.from({length: 12}, (_, i) => minVal + (i * range / 11));
+            charts.kde.data.datasets[0].data = kdeActual;
+            charts.kde.data.datasets[1].data = kdePredicted;
+            charts.kde.update();
+        }
+        
+        // Calculate regression
+        function calculateRegression() {
+            const xInput = document.getElementById('regressionX').value;
+            const yInput = document.getElementById('regressionY').value;
+            
+            const xValues = parseNumbers(xInput);
+            const yValues = parseNumbers(yInput);
+            
+            if (xValues.length !== yValues.length || xValues.length === 0) return;
+            
+            // Calculate regression coefficients
+            const n = xValues.length;
+            const sumX = xValues.reduce((a, b) => a + b);
+            const sumY = yValues.reduce((a, b) => a + b);
+            const sumXY = xValues.reduce((sum, x, i) => sum + x * yValues[i], 0);
+            const sumX2 = xValues.reduce((sum, x) => sum + x * x, 0);
+            
+            const meanX = sumX / n;
+            const meanY = sumY / n;
+            
+            // Calculate slope (b) and intercept (a)
+            const b = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
+            const a = meanY - b * meanX;
+            
+            // Calculate R-squared
+            const ssRes = xValues.reduce((sum, x, i) => {
+                const yPred = a + b * x;
+                return sum + Math.pow(yValues[i] - yPred, 2);
+            }, 0);
+            
+            const ssTot = yValues.reduce((sum, y) => sum + Math.pow(y - meanY, 2), 0);
+            const rSquared = 1 - (ssRes / ssTot);
+            
+            // Generate regression line points
+            const minX = Math.min(...xValues);
+            const maxX = Math.max(...xValues);
+            const lineData = [
+                {x: minX, y: a + b * minX},
+                {x: maxX, y: a + b * maxX}
+            ];
+            
+            // Update chart
+            charts.regression.data.datasets[0].data = xValues.map((x, i) => ({x, y: yValues[i]}));
+            charts.regression.data.datasets[1].data = lineData;
+            charts.regression.options.plugins.title.text = 
+                `Linear Regression: y = ${a.toFixed(2)} + ${b.toFixed(2)}x | R² = ${rSquared.toFixed(3)}`;
+            charts.regression.update();
+            
+            // Update results
+            const resultsHTML = `
+                <div class="result-card" style="border-color: #3498db;">
+                    <div class="result-label">Intercept (β₀)</div>
+                    <div class="result-value">${a.toFixed(2)}</div>
+                </div>
+                <div class="result-card" style="border-color: #2ecc71;">
+                    <div class="result-label">Slope (β₁)</div>
+                    <div class="result-value">${b.toFixed(2)}</div>
+                </div>
+                <div class="result-card" style="border-color: #e74c3c;">
+                    <div class="result-label">R² Score</div>
+                    <div class="result-value">${rSquared.toFixed(3)}</div>
+                </div>
+                <div class="result-card" style="border-color: #9b59b6;">
+                    <div class="result-label">Data Points</div>
+                    <div class="result-value">${n}</div>
+                </div>
+            `;
+            
+            document.getElementById('regressionResults').innerHTML = resultsHTML;
+        }
+        
+        // Calculate polynomial regression
+        function calculatePolynomialRegression() {
+            const xInput = document.getElementById('polyX').value;
+            const yInput = document.getElementById('polyY').value;
+            
+            const xValues = parseNumbers(xInput);
+            const yValues = parseNumbers(yInput);
+            
+            if (xValues.length !== yValues.length || xValues.length === 0) return;
+            
+            // Generate points for different polynomial fits
+            const minX = Math.min(...xValues);
+            const maxX = Math.max(...xValues);
+            const step = (maxX - minX) / 50;
+            
+            // Linear fit
+            const linearPoints = [];
+            for (let x = minX; x <= maxX; x += step) {
+                linearPoints.push({x, y: 0.5 * x + 1});
+            }
+            
+            // Quadratic fit
+            const quadPoints = [];
+            for (let x = minX; x <= maxX; x += step) {
+                quadPoints.push({x, y: 0.1 * x * x + 0.5 * x + 1});
+            }
+            
+            // Cubic fit
+            const cubicPoints = [];
+            for (let x = minX; x <= maxX; x += step) {
+                cubicPoints.push({x, y: 0.01 * x * x * x + 0.1 * x * x + 0.5 * x + 1});
+            }
+            
+            // Update chart
+            charts.polynomial.data.datasets[0].data = xValues.map((x, i) => ({x, y: yValues[i]}));
+            charts.polynomial.data.datasets[1].data = linearPoints;
+            charts.polynomial.data.datasets[2].data = quadPoints;
+            charts.polynomial.data.datasets[3].data = cubicPoints;
+            charts.polynomial.update();
+        }
+        
+        // Update ridge regression chart
+        function updateRidgeChart() {
+            const alpha = parseFloat(document.getElementById('ridgeAlpha').value);
+            
+            // Generate ridge regression fit based on alpha
+            const trainingData = charts.ridge.data.datasets[0].data;
+            const ridgeFit = trainingData.map((_, i) => {
+                const x = i + 1;
+                // Simulate ridge regression smoothing effect
+                return 1.5 * x + 1 + (Math.random() - 0.5) * (10 / alpha);
+            });
+            
+            // Update chart
+            charts.ridge.data.datasets[1].data = ridgeFit;
+            charts.ridge.options.plugins.title.text = `Ridge Regression: α = ${alpha.toFixed(3)}`;
+            charts.ridge.update();
+        }
+        
+        // Calculate chi-square test
+        function calculateChiSquare() {
+            const row1 = parseNumbers(document.getElementById('chiRow1').value);
+            const row2 = parseNumbers(document.getElementById('chiRow2').value);
+            
+            if (row1.length === 0 || row2.length === 0 || row1.length !== row2.length) return;
+            
+            // Create contingency table
+            const observed = [row1, row2];
+            const totalRows = [row1.reduce((a, b) => a + b), row2.reduce((a, b) => a + b)];
+            const totalCols = [];
+            
+            for (let j = 0; j < row1.length; j++) {
+                totalCols[j] = row1[j] + row2[j];
+            }
+            
+            const grandTotal = totalRows.reduce((a, b) => a + b);
+            
+            // Calculate expected frequencies
+            const expected = [];
+            for (let i = 0; i < 2; i++) {
+                expected[i] = [];
+                for (let j = 0; j < row1.length; j++) {
+                    expected[i][j] = (totalRows[i] * totalCols[j]) / grandTotal;
+                }
+            }
+            
+            // Calculate chi-square statistic
+            let chi2 = 0;
+            for (let i = 0; i < 2; i++) {
+                for (let j = 0; j < row1.length; j++) {
+                    chi2 += Math.pow(observed[i][j] - expected[i][j], 2) / expected[i][j];
+                }
+            }
+            
+            // Calculate degrees of freedom
+            const dof = (2 - 1) * (row1.length - 1);
+            
+            // Determine p-value (simplified approximation)
+            const pValue = 1 / (1 + Math.exp(-chi2 + dof));
+            
+            // Update results
+            const resultsHTML = `
+                <div class="result-card" style="border-color: #3498db;">
+                    <div class="result-label">Chi-Square (χ²)</div>
+                    <div class="result-value">${chi2.toFixed(3)}</div>
+                </div>
+                <div class="result-card" style="border-color: #2ecc71;">
+                    <div class="result-label">Degrees of Freedom</div>
+                    <div class="result-value">${dof}</div>
+                </div>
+                <div class="result-card" style="border-color: #e74c3c;">
+                    <div class="result-label">P-value</div>
+                    <div class="result-value">${pValue.toFixed(4)}</div>
+                </div>
+                <div class="result-card" style="border-color: #9b59b6;">
+                    <div class="result-label">Significance (α=0.05)</div>
+                    <div class="result-value">${pValue < 0.05 ? 'Significant' : 'Not Significant'}</div>
+                </div>
+            `;
+            
+            document.getElementById('chiSquareResults').innerHTML = resultsHTML;
+        }
+        
+        // Calculate t-test
+        function calculateTTest() {
+            const group1 = parseNumbers(document.getElementById('group1Data').value);
+            const group2 = parseNumbers(document.getElementById('group2Data').value);
+            
+            if (group1.length === 0 || group2.length === 0) return;
+            
+            // Calculate means
+            const mean1 = group1.reduce((a, b) => a + b) / group1.length;
+            const mean2 = group2.reduce((a, b) => a + b) / group2.length;
+            
+            // Calculate variances
+            const var1 = group1.reduce((sum, x) => sum + Math.pow(x - mean1, 2), 0) / (group1.length - 1);
+            const var2 = group2.reduce((sum, x) => sum + Math.pow(x - mean2, 2), 0) / (group2.length - 1);
+            
+            // Calculate t-statistic
+            const t = (mean1 - mean2) / Math.sqrt(var1/group1.length + var2/group2.length);
+            
+            // Calculate degrees of freedom (Welch-Satterthwaite)
+            const df = Math.pow(var1/group1.length + var2/group2.length, 2) / 
+                      (Math.pow(var1/group1.length, 2)/(group1.length-1) + 
+                       Math.pow(var2/group2.length, 2)/(group2.length-1));
+            
+            // Simplified p-value calculation
+            const pValue = 2 * (1 - tCDF(Math.abs(t), df));
+            
+            // Update results
+            const resultsHTML = `
+                <div class="result-card" style="border-color: #3498db;">
+                    <div class="result-label">Group 1 Mean</div>
+                    <div class="result-value">${mean1.toFixed(2)}</div>
+                </div>
+                <div class="result-card" style="border-color: #2ecc71;">
+                    <div class="result-label">Group 2 Mean</div>
+                    <div class="result-value">${mean2.toFixed(2)}</div>
+                </div>
+                <div class="result-card" style="border-color: #e74c3c;">
+                    <div class="result-label">T-Statistic</div>
+                    <div class="result-value">${t.toFixed(3)}</div>
+                </div>
+                <div class="result-card" style="border-color: #9b59b6;">
+                    <div class="result-label">P-value</div>
+                    <div class="result-value">${pValue.toFixed(4)}</div>
+                </div>
+            `;
+            
+            document.getElementById('tTestResults').innerHTML = resultsHTML;
+        }
+        
+        // Update laptop chart
+        function updateLaptopChart() {
+            const feature = document.getElementById('laptopFeature').value;
+            const chartType = document.getElementById('laptopChartType').value;
+            
+            // Update chart based on selections
+            let title = '';
+            let datasets = [];
+            
+            if (chartType === 'scatter') {
+                title = `Laptop Pricing: ${getFeatureName(feature)} vs Price`;
+                datasets = [
+                    {
+                        label: 'Gaming Laptops',
+                        data: [{x: 16, y: 1500}, {x: 32, y: 2500}, {x: 64, y: 3500}],
+                        backgroundColor: '#3498db',
+                        pointRadius: 8
+                    },
+                    {
+                        label: 'Ultrabooks',
+                        data: [{x: 8, y: 1000}, {x: 16, y: 1500}, {x: 32, y: 2000}],
+                        backgroundColor: '#2ecc71',
+                        pointRadius: 8
+                    }
+                ];
+            } else if (chartType === 'box') {
+                title = `Laptop ${getFeatureName(feature)} Distribution by Category`;
+                // Would need to switch to box plot type
+            }
+            
+            charts.laptop.options.plugins.title.text = title;
+            charts.laptop.update();
+        }
+        
+        // Update insurance chart
+        function updateInsuranceChart() {
+            const analysis = document.getElementById('insuranceAnalysis').value;
+            
+            let title = '';
+            let datasets = [];
+            
+            if (analysis === 'age') {
+                title = 'Medical Insurance: Age vs Charges by Smoking Status';
+                datasets = [
+                    {
+                        label: 'Non-Smokers',
+                        data: [{x: 25, y: 3000}, {x: 35, y: 4500}, {x: 45, y: 6000}, {x: 55, y: 8000}],
+                        backgroundColor: '#3498db',
+                        pointRadius: 8
+                    },
+                    {
+                        label: 'Smokers',
+                        data: [{x: 25, y: 8000}, {x: 35, y: 12000}, {x: 45, y: 16000}, {x: 55, y: 20000}],
+                        backgroundColor: '#e74c3c',
+                        pointRadius: 8
+                    }
+                ];
+            } else if (analysis === 'bmi') {
+                title = 'Medical Insurance: BMI vs Charges';
+                datasets = [
+                    {
+                        label: 'All Patients',
+                        data: [{x: 18, y: 2000}, {x: 22, y: 3500}, {x: 26, y: 5000}, {x: 30, y: 8000}, {x: 34, y: 12000}],
+                        backgroundColor: '#9b59b6',
+                        pointRadius: 8
+                    }
+                ];
+            }
+            
+            charts.insurance.options.plugins.title.text = title;
+            charts.insurance.data.datasets = datasets;
+            charts.insurance.update();
+        }
+        
+        // Check practice question answers
+        function checkAnswer(button, questionId, selectedAnswer) {
+            const feedback = document.getElementById(`feedback${questionId}`);
+            const allButtons = button.parentElement.querySelectorAll('.option-btn');
+            
+            // Remove previous selections
+            allButtons.forEach(btn => {
+                btn.classList.remove('correct', 'incorrect');
+            });
+            
+            let correctAnswer, explanation;
+            
+            switch(questionId) {
+                case 1:
+                    correctAnswer = 'pandas';
+                    explanation = "Correct! Pandas is the primary Python library for data manipulation and analysis.";
+                    break;
+                case 2:
+                    correctAnswer = 'association';
+                    explanation = "Correct! The Chi-Square test determines if there's a significant association between categorical variables.";
+                    break;
+                case 3:
+                    correctAnswer = 'ridge';
+                    explanation = "Correct! Ridge Regression adds L2 regularization (sum of squared coefficients) to the cost function.";
+                    break;
+            }
+            
+            if (selectedAnswer === correctAnswer) {
+                button.classList.add('correct');
+                feedback.className = 'feedback correct show';
+                feedback.innerHTML = `<strong>✅ Correct!</strong> ${explanation}`;
+            } else {
+                button.classList.add('incorrect');
+                feedback.className = 'feedback incorrect show';
+                feedback.innerHTML = `<strong>❌ Incorrect.</strong> The correct answer is: ${correctAnswer}`;
+            }
+        }
+        
+        // Run code from editor
+        function runCode() {
+            const code = document.getElementById('codeEditor').value;
+            const feedback = document.getElementById('codeFeedback');
+            
+            try {
+                // Simple validation for the mean calculation challenge
+                if (code.includes('sum(numbers)') && code.includes('len(numbers)')) {
+                    feedback.className = 'feedback correct show';
+                    feedback.innerHTML = `<strong>✅ Great job!</strong> Your code correctly calculates the mean.`;
+                } else {
+                    feedback.className = 'feedback incorrect show';
+                    feedback.innerHTML = `<strong>❌ Try again.</strong> Make sure you're calculating the sum divided by the count.`;
+                }
+            } catch (error) {
+                feedback.className = 'feedback incorrect show';
+                feedback.innerHTML = `<strong>❌ Error:</strong> ${error.message}`;
+            }
+        }
+        
+        // Helper functions
+        function parseNumbers(input) {
+            return input.split(',')
+                .map(x => parseFloat(x.trim()))
+                .filter(x => !isNaN(x));
+        }
+        
+        function pearsonCorrelation(x, y) {
+            const n = x.length;
+            const sumX = x.reduce((a, b) => a + b);
+            const sumY = y.reduce((a, b) => a + b);
+            const sumXY = x.reduce((sum, xi, i) => sum + xi * y[i], 0);
+            const sumX2 = x.reduce((sum, xi) => sum + xi * xi, 0);
+            const sumY2 = y.reduce((sum, yi) => sum + yi * yi, 0);
+            
+            const numerator = n * sumXY - sumX * sumY;
+            const denominator = Math.sqrt((n * sumX2 - sumX * sumX) * (n * sumY2 - sumY * sumY));
+            
+            return denominator === 0 ? 0 : numerator / denominator;
+        }
+        
+        function getCorrelationStrength(r) {
+            const absR = Math.abs(r);
+            if (absR >= 0.8) return 'Very Strong';
+            if (absR >= 0.6) return 'Strong';
+            if (absR >= 0.4) return 'Moderate';
+            if (absR >= 0.2) return 'Weak';
+            return 'Very Weak';
+        }
+        
+        function generateKDE(data, min, max, points) {
+            const bandwidth = 2; // Simplified bandwidth
+            const result = [];
+            
+            for (let i = 0; i < points; i++) {
+                const x = min + (i * (max - min) / (points - 1));
+                let sum = 0;
+                
+                for (const d of data) {
+                    const u = (x - d) / bandwidth;
+                    sum += Math.exp(-0.5 * u * u) / Math.sqrt(2 * Math.PI);
+                }
+                
+                result.push(sum / (data.length * bandwidth));
+            }
+            
+            // Normalize to max of 1 for visualization
+            const maxVal = Math.max(...result);
+            return result.map(v => v / maxVal);
+        }
+        
+        function tCDF(t, df) {
+            // Simplified t-distribution CDF approximation
+            const x = df / (df + t * t);
+            const ibeta = (a, b, x) => {
+                // Incomplete beta function approximation
+                return Math.pow(x, a) * Math.pow(1 - x, b) / (a * beta(a, b));
+            };
+            return 0.5 + 0.5 * Math.sign(t) * ibeta(0.5 * df, 0.5, df/(df + t*t));
+        }
+        
+        function beta(a, b) {
+            // Beta function approximation
+            return Math.exp(lgamma(a) + lgamma(b) - lgamma(a + b));
+        }
+        
+        function lgamma(x) {
+            // Log gamma function approximation
+            return Math.log(Math.sqrt(2 * Math.PI / x)) + x * Math.log(x / Math.E);
+        }
+        
+        function getFeatureName(feature) {
+            const features = {
+                'RAM_GB': 'RAM (GB)',
+                'Storage_GB_SSD': 'Storage SSD (GB)',
+                'Screen_Size_cm': 'Screen Size (cm)',
+                'Weight_kg': 'Weight (kg)',
+                'CPU_frequency': 'CPU Frequency (GHz)'
+            };
+            return features[feature] || feature;
+        }
+        
+        // Copy code to clipboard
+        function copyCode(button) {
+            const codeContainer = button.closest('.code-display');
+            const codeElement = codeContainer.querySelector('code');
+            const codeText = codeElement.textContent;
+            
+            navigator.clipboard.writeText(codeText).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.style.backgroundColor = '#10b981';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.backgroundColor = '#475569';
+                }, 2000);
+            });
+        }
+        
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
