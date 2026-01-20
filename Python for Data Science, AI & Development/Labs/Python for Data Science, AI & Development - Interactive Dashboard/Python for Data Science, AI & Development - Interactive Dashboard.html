@@ -1,0 +1,1588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python for Data Science, AI & Development - Interactive Dashboard</title>
+    <style>
+        :root {
+            --python-blue: #306998;
+            --python-yellow: #FFD43B;
+            --python-light: #4B8BBE;
+            --python-dark: #FFE873;
+            --ds-color: #3498db;
+            --ai-color: #2ecc71;
+            --dev-color: #9b59b6;
+            --basics-color: #e74c3c;
+            --advanced-color: #f39c12;
+            --cheatsheet-color: #1abc9c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            min-height: 100vh;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+        
+        .dashboard {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--python-blue) 0%, var(--python-light) 100%);
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: "🐍";
+            font-size: 200px;
+            position: absolute;
+            right: 50px;
+            top: -50px;
+            opacity: 0.1;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .title {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .subtitle {
+            font-size: 20px;
+            opacity: 0.9;
+            max-width: 800px;
+            margin-bottom: 30px;
+        }
+        
+        .stats {
+            display: flex;
+            gap: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            max-width: 600px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            display: block;
+            color: var(--python-yellow);
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Navigation */
+        .main-nav {
+            background: #1e293b;
+            padding: 20px 40px;
+            border-bottom: 2px solid #334155;
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+        }
+        
+        .nav-btn {
+            padding: 15px 30px;
+            background: #334155;
+            border: 2px solid #475569;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #e2e8f0;
+            font-size: 16px;
+            min-width: 180px;
+            justify-content: center;
+            white-space: nowrap;
+        }
+        
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .nav-btn.active {
+            border-color: transparent;
+        }
+        
+        .nav-btn[data-module="basics"] { border-color: var(--basics-color); }
+        .nav-btn[data-module="basics"].active { background: var(--basics-color); }
+        
+        .nav-btn[data-module="data-science"] { border-color: var(--ds-color); }
+        .nav-btn[data-module="data-science"].active { background: var(--ds-color); }
+        
+        .nav-btn[data-module="ai-ml"] { border-color: var(--ai-color); }
+        .nav-btn[data-module="ai-ml"].active { background: var(--ai-color); }
+        
+        .nav-btn[data-module="development"] { border-color: var(--dev-color); }
+        .nav-btn[data-module="development"].active { background: var(--dev-color); }
+        
+        .nav-btn[data-module="advanced"] { border-color: var(--advanced-color); }
+        .nav-btn[data-module="advanced"].active { background: var(--advanced-color); }
+        
+        .nav-btn[data-module="cheatsheets"] { border-color: var(--cheatsheet-color); }
+        .nav-btn[data-module="cheatsheets"].active { background: var(--cheatsheet-color); }
+        
+        /* Main Content */
+        .main-content {
+            display: flex;
+            min-height: 800px;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 300px;
+            background: #0f172a;
+            border-right: 2px solid #1e293b;
+            padding: 30px;
+            overflow-y: auto;
+        }
+        
+        .module-section {
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #334155;
+        }
+        
+        .lesson-btn {
+            width: 100%;
+            padding: 15px 20px;
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: left;
+            margin-bottom: 12px;
+            transition: all 0.3s;
+            color: #e2e8f0;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .lesson-btn:hover {
+            background: #334155;
+            transform: translateX(5px);
+        }
+        
+        .lesson-btn.active {
+            background: linear-gradient(135deg, var(--python-blue) 0%, var(--python-light) 100%);
+            border-color: transparent;
+            color: white;
+            font-weight: 600;
+        }
+        
+        /* Content Area */
+        .content-area {
+            flex: 1;
+            padding: 40px;
+            background: #0f172a;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .module-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        
+        .module-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Content Styling */
+        .content-header {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-left: 6px solid;
+        }
+        
+        .content-header.basics { border-color: var(--basics-color); }
+        .content-header.data-science { border-color: var(--ds-color); }
+        .content-header.ai-ml { border-color: var(--ai-color); }
+        .content-header.development { border-color: var(--dev-color); }
+        .content-header.advanced { border-color: var(--advanced-color); }
+        .content-header.cheatsheets { border-color: var(--cheatsheet-color); }
+        
+        .content-title {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: #e2e8f0;
+        }
+        
+        .content-description {
+            font-size: 18px;
+            color: #94a3b8;
+            line-height: 1.7;
+        }
+        
+        /* Interactive Sections */
+        .interactive-section {
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border: 1px solid #334155;
+        }
+        
+        .example-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .example-description {
+            color: #94a3b8;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
+        /* Concept Cards */
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .concept-card {
+            background: #0f172a;
+            border-radius: 12px;
+            padding: 25px;
+            border: 1px solid #334155;
+            transition: all 0.3s;
+        }
+        
+        .concept-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--python-yellow);
+            box-shadow: 0 15px 30px rgba(255, 212, 59, 0.1);
+        }
+        
+        .concept-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--python-blue) 0%, var(--python-light) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        
+        .concept-name {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #e2e8f0;
+        }
+        
+        .concept-desc {
+            color: #94a3b8;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .concept-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .tag {
+            padding: 5px 12px;
+            background: #334155;
+            border-radius: 20px;
+            font-size: 12px;
+            color: #94a3b8;
+        }
+        
+        /* Code Display */
+        .code-display {
+            background: #1e293b;
+            color: #e2e8f0;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            line-height: 1.8;
+            border: 1px solid #334155;
+        }
+        
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            color: #94a3b8;
+        }
+        
+        .copy-btn {
+            background: #334155;
+            color: #e2e8f0;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .copy-btn:hover {
+            background: var(--python-blue);
+        }
+        
+        .py-keyword { color: #ff79c6; }
+        .py-function { color: #50fa7b; }
+        .py-string { color: #f1fa8c; }
+        .py-comment { color: #6272a4; font-style: italic; }
+        .py-number { color: #bd93f9; }
+        .py-class { color: #8be9fd; }
+        .py-builtin { color: #ffb86c; }
+        
+        /* Practice Area */
+        .practice-question {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border: 2px solid #334155;
+        }
+        
+        .question-text {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: #e2e8f0;
+        }
+        
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .option-btn {
+            padding: 20px;
+            background: #1e293b;
+            border: 2px solid #334155;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: left;
+            font-size: 16px;
+            transition: all 0.2s;
+            color: #e2e8f0;
+        }
+        
+        .option-btn:hover {
+            background: #334155;
+            border-color: var(--python-yellow);
+        }
+        
+        .option-btn.correct {
+            background: rgba(46, 204, 113, 0.2);
+            border-color: #2ecc71;
+            color: #2ecc71;
+        }
+        
+        .option-btn.incorrect {
+            background: rgba(231, 76, 60, 0.2);
+            border-color: #e74c3c;
+            color: #e74c3c;
+        }
+        
+        /* Feedback */
+        .feedback {
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            display: none;
+            animation: slideIn 0.3s;
+        }
+        
+        .feedback.show {
+            display: block;
+        }
+        
+        .feedback.correct {
+            background: rgba(46, 204, 113, 0.1);
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            color: #2ecc71;
+        }
+        
+        .feedback.incorrect {
+            background: rgba(231, 76, 60, 0.1);
+            border: 1px solid rgba(231, 76, 60, 0.3);
+            color: #e74c3c;
+        }
+        
+        /* Progress Tracking */
+        .progress-section {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+        
+        .progress-item {
+            margin-bottom: 20px;
+        }
+        
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            color: #e2e8f0;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background: #334155;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            border-radius: 5px;
+            transition: width 1s ease-in-out;
+        }
+        
+        /* Cheat Sheets */
+        .cheatsheet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .cheatsheet-card {
+            background: #0f172a;
+            border-radius: 12px;
+            padding: 0;
+            border: 1px solid #334155;
+            overflow: hidden;
+        }
+        
+        .cheatsheet-header {
+            background: linear-gradient(135deg, var(--cheatsheet-color) 0%, #0f172a 100%);
+            padding: 20px;
+            border-bottom: 1px solid #334155;
+        }
+        
+        .cheatsheet-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .cheatsheet-content {
+            padding: 20px;
+        }
+        
+        .cheatsheet-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #334155;
+            align-items: center;
+        }
+        
+        .cheatsheet-item:last-child {
+            border-bottom: none;
+        }
+        
+        .cheatsheet-method {
+            font-family: 'Consolas', monospace;
+            color: var(--python-yellow);
+        }
+        
+        .cheatsheet-desc {
+            color: #94a3b8;
+            flex: 1;
+            margin-left: 20px;
+        }
+        
+        .cheatsheet-example {
+            font-family: 'Consolas', monospace;
+            color: #64748b;
+            font-size: 12px;
+        }
+        
+        /* Interactive Console */
+        .console-container {
+            background: #0f172a;
+            border-radius: 12px;
+            margin: 30px 0;
+            border: 1px solid #334155;
+            overflow: hidden;
+        }
+        
+        .console-header {
+            background: #1e293b;
+            padding: 15px 20px;
+            border-bottom: 1px solid #334155;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .console-title {
+            font-weight: 600;
+            color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .console-controls {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .console-btn {
+            padding: 8px 15px;
+            background: #334155;
+            border: none;
+            border-radius: 6px;
+            color: #e2e8f0;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .console-btn:hover {
+            background: var(--python-blue);
+        }
+        
+        .console-body {
+            padding: 20px;
+        }
+        
+        #consoleOutput {
+            font-family: 'Consolas', monospace;
+            color: #e2e8f0;
+            min-height: 200px;
+            background: #0f172a;
+            border-radius: 6px;
+            padding: 15px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            border: 1px solid #334155;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                order: 2;
+                border-right: none;
+                border-top: 2px solid #1e293b;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .title {
+                font-size: 36px;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .main-nav {
+                padding: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-btn {
+                min-width: 150px;
+            }
+            
+            .content-area {
+                padding: 20px;
+            }
+            
+            .content-title {
+                font-size: 28px;
+            }
+            
+            .concept-grid, .cheatsheet-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <!-- Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <h1 class="title">
+                    <span style="color: var(--python-yellow);">🐍</span>
+                    Python for Data Science, AI & Development
+                </h1>
+                <p class="subtitle">Interactive Learning Dashboard - Master Python programming from basics to advanced data science, AI, and development concepts</p>
+                
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="stat-value" id="total-concepts">78</span>
+                        <span class="stat-label">Concepts</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="completed">45</span>
+                        <span class="stat-label">Completed</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="hours-spent">24</span>
+                        <span class="stat-label">Hours Spent</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="progress">68%</span>
+                        <span class="stat-label">Progress</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Navigation -->
+        <div class="main-nav">
+            <button class="nav-btn active" data-module="basics" onclick="showModule('basics')">
+                📚 Python Basics
+            </button>
+            <button class="nav-btn" data-module="data-science" onclick="showModule('data-science')">
+                📊 Data Science
+            </button>
+            <button class="nav-btn" data-module="ai-ml" onclick="showModule('ai-ml')">
+                🤖 AI & Machine Learning
+            </button>
+            <button class="nav-btn" data-module="development" onclick="showModule('development')">
+                💻 Development
+            </button>
+            <button class="nav-btn" data-module="advanced" onclick="showModule('advanced')">
+                🚀 Advanced Topics
+            </button>
+            <button class="nav-btn" data-module="cheatsheets" onclick="showModule('cheatsheets')">
+                📋 Cheat Sheets
+            </button>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Python Basics Lessons -->
+                <div class="module-section" id="basics-section">
+                    <div class="section-title">Python Basics</div>
+                    <button class="lesson-btn active" data-lesson="syntax" onclick="showLesson('syntax')">
+                        <span>📝</span> Basic Syntax
+                    </button>
+                    <button class="lesson-btn" data-lesson="data-structures" onclick="showLesson('data-structures')">
+                        <span>🧮</span> Data Structures
+                    </button>
+                    <button class="lesson-btn" data-lesson="control-flow" onclick="showLesson('control-flow')">
+                        <span>🔄</span> Control Flow
+                    </button>
+                    <button class="lesson-btn" data-lesson="functions" onclick="showLesson('functions')">
+                        <span>⚙️</span> Functions
+                    </button>
+                    <button class="lesson-btn" data-lesson="oop" onclick="showLesson('oop')">
+                        <span>🏗️</span> OOP Concepts
+                    </button>
+                </div>
+                
+                <!-- Data Science Lessons -->
+                <div class="module-section" id="data-science-section">
+                    <div class="section-title">Data Science</div>
+                    <button class="lesson-btn" data-lesson="numpy" onclick="showLesson('numpy')">
+                        <span>🔢</span> NumPy Arrays
+                    </button>
+                    <button class="lesson-btn" data-lesson="pandas" onclick="showLesson('pandas')">
+                        <span>📊</span> Pandas DataFrames
+                    </button>
+                    <button class="lesson-btn" data-lesson="visualization" onclick="showLesson('visualization')">
+                        <span>📈</span> Data Visualization
+                    </button>
+                    <button class="lesson-btn" data-lesson="cleaning" onclick="showLesson('cleaning')">
+                        <span>🧹</span> Data Cleaning
+                    </button>
+                    <button class="lesson-btn" data-lesson="analysis" onclick="showLesson('analysis')">
+                        <span>🔍</span> Data Analysis
+                    </button>
+                </div>
+                
+                <!-- AI & ML Lessons -->
+                <div class="module-section" id="ai-ml-section">
+                    <div class="section-title">AI & Machine Learning</div>
+                    <button class="lesson-btn" data-lesson="scikit" onclick="showLesson('scikit')">
+                        <span>🤖</span> Scikit-learn
+                    </button>
+                    <button class="lesson-btn" data-lesson="tensorflow" onclick="showLesson('tensorflow')">
+                        <span>🧠</span> TensorFlow/PyTorch
+                    </button>
+                    <button class="lesson-btn" data-lesson="nlp" onclick="showLesson('nlp')">
+                        <span>💬</span> NLP Basics
+                    </button>
+                    <button class="lesson-btn" data-lesson="cv" onclick="showLesson('cv')">
+                        <span>👁️</span> Computer Vision
+                    </button>
+                </div>
+                
+                <!-- Development Lessons -->
+                <div class="module-section" id="development-section">
+                    <div class="section-title">Development</div>
+                    <button class="lesson-btn" data-lesson="web-dev" onclick="showLesson('web-dev')">
+                        <span>🌐</span> Web Development
+                    </button>
+                    <button class="lesson-btn" data-lesson="apis" onclick="showLesson('apis')">
+                        <span>🔌</span> APIs & REST
+                    </button>
+                    <button class="lesson-btn" data-lesson="scraping" onclick="showLesson('scraping')">
+                        <span>🕷️</span> Web Scraping
+                    </button>
+                    <button class="lesson-btn" data-lesson="testing" onclick="showLesson('testing')">
+                        <span>🧪</span> Testing & Debugging
+                    </button>
+                </div>
+                
+                <!-- Advanced Topics -->
+                <div class="module-section" id="advanced-section">
+                    <div class="section-title">Advanced Topics</div>
+                    <button class="lesson-btn" data-lesson="async" onclick="showLesson('async')">
+                        <span>⚡</span> Async Programming
+                    </button>
+                    <button class="lesson-btn" data-lesson="optimization" onclick="showLesson('optimization')">
+                        <span>🚀</span> Performance
+                    </button>
+                    <button class="lesson-btn" data-lesson="deployment" onclick="showLesson('deployment')">
+                        <span>🚢</span> Deployment
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Python Basics Module -->
+                <div class="module-content active" id="module-basics">
+                    <div class="content-header basics">
+                        <h2 class="content-title">Python Basics - Foundation for Everything</h2>
+                        <p class="content-description">Master the fundamental building blocks of Python programming that form the foundation for data science, AI, and development.</p>
+                    </div>
+                    
+                    <!-- Syntax Lesson -->
+                    <div class="interactive-section" id="syntax-section">
+                        <div class="example-title">
+                            <span>📝</span>
+                            Basic Syntax & Variables
+                        </div>
+                        <p class="example-description">Learn Python's clean syntax, variable assignment, and basic operations.</p>
+                        
+                        <div class="concept-grid">
+                            <div class="concept-card">
+                                <div class="concept-icon">🎯</div>
+                                <h3 class="concept-name">Variables & Types</h3>
+                                <p class="concept-desc">Understanding Python's dynamic typing system and variable assignment.</p>
+                                <div class="concept-tags">
+                                    <span class="tag">Beginner</span>
+                                    <span class="tag">Syntax</span>
+                                </div>
+                            </div>
+                            
+                            <div class="concept-card">
+                                <div class="concept-icon">🔤</div>
+                                <h3 class="concept-name">Strings</h3>
+                                <p class="concept-desc">String manipulation, formatting, and common operations.</p>
+                                <div class="concept-tags">
+                                    <span class="tag">Beginner</span>
+                                    <span class="tag">Text Processing</span>
+                                </div>
+                            </div>
+                            
+                            <div class="concept-card">
+                                <div class="concept-icon">🔢</div>
+                                <h3 class="concept-name">Numbers & Operators</h3>
+                                <p class="concept-desc">Mathematical operations, type conversion, and numerical computing basics.</p>
+                                <div class="concept-tags">
+                                    <span class="tag">Beginner</span>
+                                    <span class="tag">Math</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="code-display">
+                            <div class="code-header">
+                                <span>Basic Python Syntax Examples</span>
+                                <button class="copy-btn" onclick="copyCode('basicsCode')">
+                                    <span>📋</span> Copy Code
+                                </button>
+                            </div>
+                            <pre id="basicsCode"><code><span class="py-comment"># Variables and Data Types</span>
+<span class="py-keyword">name</span> = <span class="py-string">"Data Scientist"</span>  <span class="py-comment"># String</span>
+<span class="py-keyword">age</span> = <span class="py-number">28</span>                <span class="py-comment"># Integer</span>
+<span class="py-keyword">salary</span> = <span class="py-number">75000.50</span>       <span class="py-comment"># Float</span>
+<span class="py-keyword">is_employed</span> = <span class="py-keyword">True</span>      <span class="py-comment"># Boolean</span>
+
+<span class="py-comment"># String Operations</span>
+<span class="py-keyword">greeting</span> = <span class="py-function">f</span><span class="py-string">"Hello, {name}! You are {age} years old."</span>
+<span class="py-keyword">name_upper</span> = <span class="py-keyword">name</span>.<span class="py-function">upper</span>()
+<span class="py-keyword">name_length</span> = <span class="py-builtin">len</span>(<span class="py-keyword">name</span>)
+
+<span class="py-comment"># Mathematical Operations</span>
+<span class="py-keyword">annual_bonus</span> = <span class="py-keyword">salary</span> * <span class="py-number">0.15</span>
+<span class="py-keyword">total_compensation</span> = <span class="py-keyword">salary</span> + <span class="py-keyword">annual_bonus</span>
+<span class="py-keyword">rounded_salary</span> = <span class="py-builtin">round</span>(<span class="py-keyword">salary</span>, <span class="py-number">0</span>)
+
+<span class="py-comment"># Type Conversion</span>
+<span class="py-keyword">age_string</span> = <span class="py-builtin">str</span>(<span class="py-keyword">age</span>)
+<span class="py-keyword">salary_int</span> = <span class="py-builtin">int</span>(<span class="py-keyword">salary</span>)
+
+<span class="py-builtin">print</span>(<span class="py-keyword">greeting</span>)
+<span class="py-builtin">print</span>(<span class="py-function">f</span><span class="py-string">"Total Compensation: ${total_compensation:,.2f}"</span>)</code></pre>
+                        </div>
+                        
+                        <div class="console-container">
+                            <div class="console-header">
+                                <div class="console-title">
+                                    <span>💻</span> Interactive Python Console
+                                </div>
+                                <div class="console-controls">
+                                    <button class="console-btn" onclick="runConsoleCode()">
+                                        <span>▶️</span> Run Code
+                                    </button>
+                                    <button class="console-btn" onclick="clearConsole()">
+                                        <span>🗑️</span> Clear
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="console-body">
+                                <textarea id="consoleInput" style="width: 100%; height: 100px; background: #0f172a; color: #e2e8f0; border: 1px solid #334155; border-radius: 6px; padding: 10px; font-family: 'Consolas', monospace; margin-bottom: 15px;" placeholder="Type Python code here...">name = "Python Developer"
+age = 30
+salary = 85000.75
+bonus = salary * 0.10
+
+print(f"Name: {name}")
+print(f"Age: {age}")
+print(f"Total Compensation: ${salary + bonus:,.2f}")</textarea>
+                                <div id="consoleOutput" style="height: 150px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Data Science Module -->
+                <div class="module-content" id="module-data-science">
+                    <div class="content-header data-science">
+                        <h2 class="content-title">Data Science with Python</h2>
+                        <p class="content-description">Transform raw data into insights using NumPy, Pandas, Matplotlib, and Seaborn for data analysis and visualization.</p>
+                    </div>
+                    
+                    <!-- Pandas Lesson -->
+                    <div class="interactive-section" id="pandas-section">
+                        <div class="example-title">
+                            <span>📊</span>
+                            Pandas DataFrames
+                        </div>
+                        <p class="example-description">Learn to manipulate, analyze, and visualize data using Pandas DataFrames.</p>
+                        
+                        <div class="code-display">
+                            <div class="code-header">
+                                <span>Pandas Data Analysis Example</span>
+                                <button class="copy-btn" onclick="copyCode('pandasCode')">
+                                    <span>📋</span> Copy Code
+                                </button>
+                            </div>
+                            <pre id="pandasCode"><code><span class="py-keyword">import</span> pandas <span class="py-keyword">as</span> pd
+<span class="py-keyword">import</span> numpy <span class="py-keyword">as</span> np
+
+<span class="py-comment"># Create a sample DataFrame</span>
+<span class="py-keyword">data</span> = {
+    <span class="py-string">'Name'</span>: [<span class="py-string">'Alice'</span>, <span class="py-string">'Bob'</span>, <span class="py-string">'Charlie'</span>, <span class="py-string">'Diana'</span>],
+    <span class="py-string">'Age'</span>: [<span class="py-number">25</span>, <span class="py-number">30</span>, <span class="py-number">35</span>, <span class="py-number">28</span>],
+    <span class="py-string">'Salary'</span>: [<span class="py-number">50000</span>, <span class="py-number">65000</span>, <span class="py-number">80000</span>, <span class="py-number">55000</span>],
+    <span class="py-string">'Department'</span>: [<span class="py-string">'Engineering'</span>, <span class="py-string">'Marketing'</span>, <span class="py-string">'Engineering'</span>, <span class="py-string">'HR'</span>]
+}
+<span class="py-keyword">df</span> = pd.DataFrame(<span class="py-keyword">data</span>)
+
+<span class="py-comment"># Basic DataFrame operations</span>
+<span class="py-builtin">print</span>(<span class="py-string">"Original DataFrame:"</span>)
+<span class="py-builtin">print</span>(<span class="py-keyword">df</span>)
+<span class="py-builtin">print</span>(<span class="py-string">"\n"</span> + <span class="py-string">"="</span>*<span class="py-number">50</span>)
+
+<span class="py-comment"># Data selection and filtering</span>
+<span class="py-keyword">engineering_dept</span> = <span class="py-keyword">df</span>[<span class="py-keyword">df</span>[<span class="py-string">'Department'</span>] == <span class="py-string">'Engineering'</span>]
+<span class="py-keyword">high_salary</span> = <span class="py-keyword">df</span>[<span class="py-keyword">df</span>[<span class="py-string">'Salary'</span>] &gt; <span class="py-number">60000</span>]
+
+<span class="py-comment"># Group by operations</span>
+<span class="py-keyword">dept_stats</span> = <span class="py-keyword">df</span>.<span class="py-function">groupby</span>(<span class="py-string">'Department'</span>).<span class="py-function">agg</span>({
+    <span class="py-string">'Age'</span>: <span class="py-string">'mean'</span>,
+    <span class="py-string">'Salary'</span>: [<span class="py-string">'mean'</span>, <span class="py-string">'sum'</span>, <span class="py-string">'count'</span>]
+})
+
+<span class="py-builtin">print</span>(<span class="py-string">"\nEngineering Department Employees:"</span>)
+<span class="py-builtin">print</span>(<span class="py-keyword">engineering_dept</span>)
+<span class="py-builtin">print</span>(<span class="py-string">"\nHigh Salary Employees:"</span>)
+<span class="py-builtin">print</span>(<span class="py-keyword">high_salary</span>)
+<span class="py-builtin">print</span>(<span class="py-string">"\nDepartment Statistics:"</span>)
+<span class="py-builtin">print</span>(<span class="py-keyword">dept_stats</span>)</code></pre>
+                        </div>
+                        
+                        <div class="progress-section">
+                            <h3 class="example-title" style="font-size: 20px; margin-bottom: 20px;">Learning Progress</h3>
+                            <div class="progress-item">
+                                <div class="progress-label">
+                                    <span>Pandas Basics</span>
+                                    <span>85%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 85%; background: var(--ds-color);"></div>
+                                </div>
+                            </div>
+                            <div class="progress-item">
+                                <div class="progress-label">
+                                    <span>Data Visualization</span>
+                                    <span>70%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 70%; background: var(--ds-color);"></div>
+                                </div>
+                            </div>
+                            <div class="progress-item">
+                                <div class="progress-label">
+                                    <span>Data Cleaning</span>
+                                    <span>60%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 60%; background: var(--ds-color);"></div>
+                                </div>
+                            </div>
+                            <div class="progress-item">
+                                <div class="progress-label">
+                                    <span>Advanced Analysis</span>
+                                    <span>40%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 40%; background: var(--ds-color);"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- AI & ML Module -->
+                <div class="module-content" id="module-ai-ml">
+                    <div class="content-header ai-ml">
+                        <h2 class="content-title">AI & Machine Learning</h2>
+                        <p class="content-description">Build intelligent systems using Scikit-learn, TensorFlow, and PyTorch for predictive modeling and AI applications.</p>
+                    </div>
+                    
+                    <!-- Scikit-learn Lesson -->
+                    <div class="interactive-section" id="scikit-section">
+                        <div class="example-title">
+                            <span>🤖</span>
+                            Machine Learning with Scikit-learn
+                        </div>
+                        <p class="example-description">Implement machine learning algorithms for classification, regression, and clustering.</p>
+                        
+                        <div class="concept-grid">
+                            <div class="concept-card">
+                                <div class="concept-icon">🎯</div>
+                                <h3 class="concept-name">Supervised Learning</h3>
+                                <p class="concept-desc">Classification and regression algorithms with labeled data.</p>
+                                <div class="concept-tags">
+                                    <span class="tag">ML</span>
+                                    <span class="tag">Scikit-learn</span>
+                                </div>
+                            </div>
+                            
+                            <div class="concept-card">
+                                <div class="concept-icon">🔍</div>
+                                <h3 class="concept-name">Unsupervised Learning</h3>
+                                <p class="concept-desc">Clustering and dimensionality reduction techniques.</p>
+                                <div class="concept-tags">
+                                    <span class="tag">ML</span>
+                                    <span class="tag">Clustering</span>
+                                </div>
+                            </div>
+                            
+                            <div class="concept-card">
+                                <div class="concept-icon">📊</div>
+                                <h3 class="concept-name">Model Evaluation</h3>
+                                <p class="concept-desc">Metrics and techniques for evaluating ML model performance.</p>
+                                <div class="concept-tags">
+                                    <span class="tag">Evaluation</span>
+                                    <span class="tag">Metrics</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="practice-question">
+                            <div class="question-text">
+                                Which machine learning algorithm would you use for predicting house prices based on features like square footage, number of bedrooms, and location?
+                            </div>
+                            
+                            <div class="options-grid">
+                                <button class="option-btn" onclick="checkAnswer(this, 'correct')">
+                                    Linear Regression
+                                </button>
+                                <button class="option-btn" onclick="checkAnswer(this, 'incorrect')">
+                                    K-Means Clustering
+                                </button>
+                                <button class="option-btn" onclick="checkAnswer(this, 'incorrect')">
+                                    Decision Tree Classifier
+                                </button>
+                                <button class="option-btn" onclick="checkAnswer(this, 'incorrect')">
+                                    Support Vector Machine
+                                </button>
+                            </div>
+                            
+                            <div class="feedback" id="mlFeedback"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Development Module -->
+                <div class="module-content" id="module-development">
+                    <div class="content-header development">
+                        <h2 class="content-title">Python Development</h2>
+                        <p class="content-description">Build web applications, APIs, and automation scripts using Python's extensive development ecosystem.</p>
+                    </div>
+                    
+                    <!-- APIs Lesson -->
+                    <div class="interactive-section" id="apis-section">
+                        <div class="example-title">
+                            <span>🔌</span>
+                            Working with APIs
+                        </div>
+                        <p class="example-description">Learn to consume and build RESTful APIs using Python libraries.</p>
+                        
+                        <div class="code-display">
+                            <div class="code-header">
+                                <span>API Requests Example</span>
+                                <button class="copy-btn" onclick="copyCode('apiCode')">
+                                    <span>📋</span> Copy Code
+                                </button>
+                            </div>
+                            <pre id="apiCode"><code><span class="py-keyword">import</span> requests
+<span class="py-keyword">import</span> json
+<span class="py-keyword">import</span> pandas <span class="py-keyword">as</span> pd
+
+<span class="py-keyword">def</span> <span class="py-function">fetch_weather_data</span>(city, api_key):
+    <span class="py-string">"""Fetch weather data from OpenWeatherMap API"""</span>
+    <span class="py-keyword">base_url</span> = <span class="py-string">"https://api.openweathermap.org/data/2.5/weather"</span>
+    <span class="py-keyword">params</span> = {
+        <span class="py-string">'q'</span>: city,
+        <span class="py-string">'appid'</span>: api_key,
+        <span class="py-string">'units'</span>: <span class="py-string">'metric'</span>
+    }
+    
+    <span class="py-keyword">try</span>:
+        <span class="py-keyword">response</span> = requests.<span class="py-function">get</span>(<span class="py-keyword">base_url</span>, params=<span class="py-keyword">params</span>)
+        <span class="py-keyword">response</span>.<span class="py-function">raise_for_status</span>()  <span class="py-comment"># Raise exception for bad status codes</span>
+        
+        <span class="py-keyword">data</span> = <span class="py-keyword">response</span>.<span class="py-function">json</span>()
+        <span class="py-keyword">return</span> {
+            <span class="py-string">'city'</span>: city,
+            <span class="py-string">'temperature'</span>: <span class="py-keyword">data</span>[<span class="py-string">'main'</span>][<span class="py-string">'temp'</span>],
+            <span class="py-string">'humidity'</span>: <span class="py-keyword">data</span>[<span class="py-string">'main'</span>][<span class="py-string">'humidity'</span>],
+            <span class="py-string">'description'</span>: <span class="py-keyword">data</span>[<span class="py-string">'weather'</span>][<span class="py-number">0</span>][<span class="py-string">'description'</span>],
+            <span class="py-string">'wind_speed'</span>: <span class="py-keyword">data</span>[<span class="py-string">'wind'</span>][<span class="py-string">'speed'</span>]
+        }
+        
+    <span class="py-keyword">except</span> requests.exceptions.<span class="py-class">RequestException</span> <span class="py-keyword">as</span> e:
+        <span class="py-builtin">print</span>(<span class="py-function">f</span><span class="py-string">"Error fetching weather data: {e}"</span>)
+        <span class="py-keyword">return</span> <span class="py-keyword">None</span>
+
+<span class="py-comment"># Example usage</span>
+<span class="py-keyword">cities</span> = [<span class="py-string">'London'</span>, <span class="py-string">'New York'</span>, <span class="py-string">'Tokyo'</span>, <span class="py-string">'Sydney'</span>]
+<span class="py-keyword">weather_data</span> = []
+
+<span class="py-keyword">for</span> <span class="py-keyword">city</span> <span class="py-keyword">in</span> <span class="py-keyword">cities</span>:
+    <span class="py-keyword">data</span> = <span class="py-function">fetch_weather_data</span>(<span class="py-keyword">city</span>, <span class="py-string">"YOUR_API_KEY"</span>)
+    <span class="py-keyword">if</span> <span class="py-keyword">data</span>:
+        <span class="py-keyword">weather_data</span>.<span class="py-function">append</span>(<span class="py-keyword">data</span>)
+
+<span class="py-comment"># Convert to DataFrame for analysis</span>
+<span class="py-keyword">if</span> <span class="py-keyword">weather_data</span>:
+    <span class="py-keyword">df</span> = pd.DataFrame(<span class="py-keyword">weather_data</span>)
+    <span class="py-builtin">print</span>(<span class="py-string">"\nWeather Data for Major Cities:"</span>)
+    <span class="py-builtin">print</span>(<span class="py-keyword">df</span>.<span class="py-function">to_string</span>(index=<span class="py-keyword">False</span>))</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Advanced Module -->
+                <div class="module-content" id="module-advanced">
+                    <div class="content-header advanced">
+                        <h2 class="content-title">Advanced Python Topics</h2>
+                        <p class="content-description">Master advanced Python concepts for high-performance computing, asynchronous programming, and production deployment.</p>
+                    </div>
+                    
+                    <!-- Async Lesson -->
+                    <div class="interactive-section" id="async-section">
+                        <div class="example-title">
+                            <span>⚡</span>
+                            Asynchronous Programming
+                        </div>
+                        <p class="example-description">Learn to write concurrent code using async/await for improved performance in I/O-bound applications.</p>
+                        
+                        <div class="code-display">
+                            <div class="code-header">
+                                <span>Async/Await Example</span>
+                                <button class="copy-btn" onclick="copyCode('asyncCode')">
+                                    <span>📋</span> Copy Code
+                                </button>
+                            </div>
+                            <pre id="asyncCode"><code><span class="py-keyword">import</span> asyncio
+<span class="py-keyword">import</span> aiohttp
+<span class="py-keyword">import</span> time
+
+<span class="py-keyword">async</span> <span class="py-keyword">def</span> <span class="py-function">fetch_data</span>(session, url):
+    <span class="py-string">"""Fetch data from a URL asynchronously"""</span>
+    <span class="py-keyword">async</span> <span class="py-keyword">with</span> session.<span class="py-function">get</span>(url) <span class="py-keyword">as</span> response:
+        <span class="py-keyword">data</span> = <span class="py-keyword">await</span> response.<span class="py-function">text</span>()
+        <span class="py-keyword">return</span> <span class="py-builtin">len</span>(<span class="py-keyword">data</span>)
+
+<span class="py-keyword">async</span> <span class="py-keyword">def</span> <span class="py-function">main</span>():
+    <span class="py-string">"""Main async function to fetch multiple URLs concurrently"""</span>
+    <span class="py-keyword">urls</span> = [
+        <span class="py-string">'https://api.github.com'</span>,
+        <span class="py-string">'https://jsonplaceholder.typicode.com/posts'</span>,
+        <span class="py-string">'https://api.open-meteo.com/v1/forecast'</span>,
+        <span class="py-string">'https://api.coingecko.com/api/v3/ping'</span>
+    ]
+    
+    <span class="py-keyword">async</span> <span class="py-keyword">with</span> aiohttp.ClientSession() <span class="py-keyword">as</span> session:
+        <span class="py-comment"># Create tasks for all URLs</span>
+        <span class="py-keyword">tasks</span> = [<span class="py-function">fetch_data</span>(session, url) <span class="py-keyword">for</span> url <span class="py-keyword">in</span> <span class="py-keyword">urls</span>]
+        
+        <span class="py-comment"># Run all tasks concurrently</span>
+        <span class="py-keyword">start_time</span> = time.<span class="py-function">time</span>()
+        <span class="py-keyword">results</span> = <span class="py-keyword">await</span> asyncio.<span class="py-function">gather</span>(*<span class="py-keyword">tasks</span>)
+        <span class="py-keyword">end_time</span> = time.<span class="py-function">time</span>()
+        
+        <span class="py-builtin">print</span>(<span class="py-string">"Async Results:"</span>)
+        <span class="py-keyword">for</span> <span class="py-keyword">url</span>, <span class="py-keyword">result</span> <span class="py-keyword">in</span> <span class="py-builtin">zip</span>(<span class="py-keyword">urls</span>, <span class="py-keyword">results</span>):
+            <span class="py-builtin">print</span>(<span class="py-function">f</span><span class="py-string">"{url}: {result} characters"</span>)
+        
+        <span class="py-builtin">print</span>(<span class="py-function">f</span><span class="py-string">"\nTotal time: {end_time - start_time:.2f} seconds"</span>)
+
+<span class="py-comment"># Run the async function</span>
+<span class="py-keyword">if</span> __name__ == <span class="py-string">'__main__'</span>:
+    asyncio.<span class="py-function">run</span>(<span class="py-function">main</span>())</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cheat Sheets Module -->
+                <div class="module-content" id="module-cheatsheets">
+                    <div class="content-header cheatsheets">
+                        <h2 class="content-title">Python Cheat Sheets</h2>
+                        <p class="content-description">Quick reference guides for Python syntax, libraries, and best practices.</p>
+                    </div>
+                    
+                    <div class="cheatsheet-grid">
+                        <!-- Data Structures Cheat Sheet -->
+                        <div class="cheatsheet-card">
+                            <div class="cheatsheet-header">
+                                <h3 class="cheatsheet-title">
+                                    <span>📚</span> Data Structures
+                                </h3>
+                            </div>
+                            <div class="cheatsheet-content">
+                                <div class="cheatsheet-item">
+                                    <span class="cheatsheet-method">list.append(x)</span>
+                                    <span class="cheatsheet-desc">Add element to end of list</span>
+                                    <span class="cheatsheet-example">fruits.append('mango')</span>
+                                </div>
+                                <div class="cheatsheet-item">
+                                    <span class="cheatsheet-method">list.extend(iter)</span>
+                                    <span class="cheatsheet-desc">Add multiple elements</span>
+                                    <span class="cheatsheet-example">nums.extend([4,5,6])</span>
+                                </div>
+                                <div class="cheatsheet-item">
+                                    <span class="cheatsheet-method">dict[key] = value</span>
+                                    <span class="cheatsheet-desc">Add/update dictionary entry</span>
+                                    <span class="cheatsheet-example">person['age'] = 30</span>
+                                </div>
+                                <div class="cheatsheet-item">
+                                    <span class="cheatsheet-method">set.add(element)</span>
+                                    <span class="cheatsheet-desc">Add element to set</span>
+                                    <span class="cheatsheet-example">unique.add(42)</span>
+                                </div>
+                                <div class="cheatsheet-item">
+                                    <span class="cheatsheet-method">list comprehension</span>
+                                    <span class="cheatsheet-desc">Create lists concisely</span>
+                                    <span class="cheatsheet-example">[x**2 for x in range(10)]</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Pandas Cheat Sheet -->
+                        <div class="cheatsheet-card">
+                            <div class="cheatsheet-header">
+                                <h3 class="cheatsheet-title">
+                                    <span>🐼</span> Pandas Operations
+                                </h3>
+                            </div>
+                            <div class="cheatsheet-content">
+                                <div class="cheatsheet-item">
+                                    <span class="cheatsheet-method">df.head()</span>
+                                    <span class="cheatsheet-desc">First 5 rows</span>
+                                    <span class="cheatsheet-example">df.head()</span>
+                                </div>
+                                <div class="cheatsheet-item">
+                                    <span class="cheatsheet-method">df.describe()</span>
+                                    <span class="cheatsheet-desc">Summary statistics</span>
+                                    <span class="cheatsheet-example">df.describe()</span>
+                                </div>
+                                <div class="cheatsheet-item">
+                                    <span class="cheatsheet-method">df.groupby()</span>
+                                    <span class="cheatsheet-desc">Group data</span>
+                                    <span class="cheatsheet-example">df.groupby('col')</span>
+                                </div>
+                                <div class="cheatsheet-item">
+                                    <span class="cheatsheet-method">df.merge()</span>
+                                    <span class="cheatsheet-desc">Join DataFrames</span>
+                                    <span class="cheatsheet-example">df1.merge(df2)</span>
+                                </div>
+                                <div class="cheatsheet-item">
+                                    <span class="cheatsheet-method">df.pivot_table()</span>
+                                    <span class="cheatsheet-desc">Create pivot table</span>
+                                    <span class="cheatsheet-example">df.pivot_table()</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- API Cheat Sheet -->
+                        <div class="cheatsheet-card">
+                            <div class="cheatsheet-header">
+                                <h3 class="cheatsheet-title">
+                                    <span>🔌</span> API & Web
+                                </h3>
+                            </div>
+                            <div class="cheatsheet-content">
+                                <div class="cheatsheet-item">
+                                    <span class="cheatsheet-method">requests.get()</span>
+                                    <span class="cheatsheet-desc">GET request</span>
+                                    <span class="cheatsheet-example">requests.get(url)</span>
+                                </div>
+                                <div class="cheatsheet-item">
+                                    <span class="cheatsheet-method">response.json()</span>
+                                    <span class="cheatsheet-desc">Parse JSON response</span>
+                                    <span class="cheatsheet-example">data = resp.json()</span>
+                                </div>
+                                <div class="cheatsheet-item">
+                                    <span class="cheatsheet-method">BeautifulSoup()</span>
+                                    <span class="cheatsheet-desc">Parse HTML</span>
+                                    <span class="cheatsheet-example">soup = BS(html)</span>
+                                </div>
+                                <div class="cheatsheet-item">
+                                    <span class="cheatsheet-method">soup.find()</span>
+                                    <span class="cheatsheet-desc">Find element</span>
+                                    <span class="cheatsheet-example">soup.find('div')</span>
+                                </div>
+                                <div class="cheatsheet-item">
+                                    <span class="cheatsheet-method">flask.Flask()</span>
+                                    <span class="cheatsheet-desc">Create web app</span>
+                                    <span class="cheatsheet-example">app = Flask()</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dashboard Data
+        const dashboardData = {
+            concepts: 78,
+            completed: 45,
+            hoursSpent: 24,
+            progress: 68,
+            
+            modules: {
+                'basics': ['syntax', 'data-structures', 'control-flow', 'functions', 'oop'],
+                'data-science': ['numpy', 'pandas', 'visualization', 'cleaning', 'analysis'],
+                'ai-ml': ['scikit', 'tensorflow', 'nlp', 'cv'],
+                'development': ['web-dev', 'apis', 'scraping', 'testing'],
+                'advanced': ['async', 'optimization', 'deployment']
+            },
+            
+            cheatSheets: {
+                'data-structures': [
+                    { method: 'list.append(x)', description: 'Add element to end of list', example: "fruits.append('mango')" },
+                    { method: 'list.extend(iter)', description: 'Add multiple elements', example: 'nums.extend([4,5,6])' },
+                    { method: 'dict[key] = value', description: 'Add/update dictionary entry', example: "person['age'] = 30" }
+                ]
+            }
+        };
+        
+        // Initialize Dashboard
+        function initDashboard() {
+            // Set initial stats
+            document.getElementById('total-concepts').textContent = dashboardData.concepts;
+            document.getElementById('completed').textContent = dashboardData.completed;
+            document.getElementById('hours-spent').textContent = dashboardData.hoursSpent;
+            document.getElementById('progress').textContent = `${dashboardData.progress}%`;
+            
+            // Show initial module
+            showModule('basics');
+            
+            // Setup event listeners
+            setupEventListeners();
+            
+            // Animate progress bars
+            animateProgressBars();
+        }
+        
+        // Setup event listeners
+        function setupEventListeners() {
+            // Setup console functionality
+            const consoleInput = document.getElementById('consoleInput');
+            if (consoleInput) {
+                consoleInput.addEventListener('keydown', function(e) {
+                    if (e.ctrlKey && e.key === 'Enter') {
+                        runConsoleCode();
+                    }
+                });
+            }
+        }
+        
+        // Show module
+        function showModule(module) {
+            // Update navigation buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            const activeBtn = document.querySelector(`[data-module="${module}"]`);
+            if (activeBtn) {
+                activeBtn.classList.add('active');
+            }
+            
+            // Update module content
+            document.querySelectorAll('.module-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            const activeModule = document.getElementById(`module-${module}`);
+            if (activeModule) {
+                activeModule.classList.add('active');
+            }
+            
+            // Update sidebar visibility
+            updateSidebar(module);
+        }
+        
+        // Update sidebar visibility
+        function updateSidebar(module) {
+            document.querySelectorAll('.module-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            const activeSection = document.getElementById(`${module}-section`);
+            if (activeSection) {
+                activeSection.style.display = 'block';
+            }
+        }
+        
+        // Show lesson
+        function showLesson(lesson) {
+            // Update lesson buttons
+            document.querySelectorAll('.lesson-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            const activeBtn = document.querySelector(`[data-lesson="${lesson}"]`);
+            if (activeBtn) {
+                activeBtn.classList.add('active');
+            }
+        }
+        
+        // Animate progress bars
+        function animateProgressBars() {
+            document.querySelectorAll('.progress-fill').forEach(fill => {
+                const width = fill.style.width;
+                fill.style.width = '0%';
+                
+                setTimeout(() => {
+                    fill.style.width = width;
+                }, 300);
+            });
+        }
+        
+        // Copy code to clipboard
+        function copyCode(elementId) {
+            const codeElement = document.getElementById(elementId);
+            const codeText = codeElement.textContent;
+            
+            navigator.clipboard.writeText(codeText).then(() => {
+                // Show success feedback
+                const copyBtn = event.target.closest('.copy-btn');
+                if (copyBtn) {
+                    const originalText = copyBtn.innerHTML;
+                    copyBtn.innerHTML = '<span>✅</span> Copied!';
+                    
+                    setTimeout(() => {
+                        copyBtn.innerHTML = originalText;
+                    }, 2000);
+                }
+            });
+        }
+        
+        // Run console code
+        function runConsoleCode() {
+            const consoleInput = document.getElementById('consoleInput');
+            const consoleOutput = document.getElementById('consoleOutput');
+            
+            if (!consoleInput || !consoleOutput) return;
+            
+            const code = consoleInput.value;
+            
+            try {
+                // This is a simplified simulation - in a real app, you'd use a Python interpreter
+                const output = simulatePythonExecution(code);
+                consoleOutput.innerHTML = `<span style="color: #2ecc71;">>>> ${code}</span>\n${output}`;
+            } catch (error) {
+                consoleOutput.innerHTML = `<span style="color: #e74c3c;">Error: ${error.message}</span>`;
+            }
+        }
+        
+        // Clear console
+        function clearConsole() {
+            const consoleOutput = document.getElementById('consoleOutput');
+            if (consoleOutput) {
+                consoleOutput.innerHTML = '';
+            }
+        }
+        
+        // Simulate Python code execution (simplified)
+        function simulatePythonExecution(code) {
+            // This is a simulation - real execution would require a backend
+            let output = '';
+            
+            if (code.includes('print')) {
+                if (code.includes('Python Developer')) {
+                    output = `Name: Python Developer\nAge: 30\nTotal Compensation: $93,500.83`;
+                } else if (code.includes('Data Scientist')) {
+                    output = `Hello, Data Scientist! You are 28 years old.\nTotal Compensation: $86,250.58`;
+                } else {
+                    output = 'Hello from Python Console!\nCode executed successfully.';
+                }
+            } else {
+                output = 'Code executed. (Simulation mode - no actual Python execution)';
+            }
+            
+            return output;
+        }
+        
+        // Check practice question answer
+        function checkAnswer(button, result) {
+            // Reset all buttons
+            button.parentElement.querySelectorAll('.option-btn').forEach(btn => {
+                btn.classList.remove('correct', 'incorrect');
+            });
+            
+            // Mark clicked button
+            button.classList.add(result);
+            
+            // Show feedback
+            const feedback = document.getElementById('mlFeedback');
+            if (result === 'correct') {
+                feedback.className = 'feedback correct show';
+                feedback.innerHTML = '<strong>✅ Correct!</strong> Linear Regression is used for predicting continuous numerical values like house prices.';
+            } else {
+                feedback.className = 'feedback incorrect show';
+                feedback.innerHTML = '<strong>❌ Not quite right.</strong> Linear Regression is the appropriate choice for predicting continuous values like house prices.';
+            }
+        }
+        
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', initDashboard);
+    </script>
+</body>
+</html>
