@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Guide: Generative AI for Data Analytics</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --accent-color: #9b59b6;
+            --warning-color: #e74c3c;
+            --success-color: #1abc9c;
+            --dark-color: #2c3e50;
+            --light-color: #ecf0f1;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--dark-color), #34495e);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .header .subtitle {
+            font-size: 20px;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        .meta-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+        }
+        
+        .meta-item {
+            text-align: center;
+        }
+        
+        .meta-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+        
+        .meta-label {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        /* Navigation */
+        .main-nav {
+            background: var(--light-color);
+            padding: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            border-bottom: 2px solid #ddd;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-btn {
+            padding: 12px 25px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--dark-color);
+        }
+        
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .nav-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        /* Main Content */
+        .main-content {
+            display: flex;
+            min-height: 1000px;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, var(--dark-color) 0%, #34495e 100%);
+            color: white;
+            padding: 30px 20px;
+            overflow-y: auto;
+        }
+        
+        .sidebar-section {
+            margin-bottom: 30px;
+        }
+        
+        .sidebar-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #95a5a6;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #4a6572;
+        }
+        
+        .sidebar-item {
+            padding: 12px 15px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .sidebar-item:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateX(5px);
+        }
+        
+        .sidebar-item.active {
+            background: rgba(52, 152, 219, 0.3);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        /* Content Area */
+        .content-area {
+            flex: 1;
+            padding: 40px;
+            background: #f8f9fa;
+            overflow-y: auto;
+        }
+        
+        .module-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        
+        .module-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Content Cards */
+        .content-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            border-left: 6px solid;
+        }
+        
+        .content-card.case-study { border-color: var(--primary-color); }
+        .content-card.cheatsheet { border-color: var(--secondary-color); }
+        .content-card.lab { border-color: var(--accent-color); }
+        .content-card.reading { border-color: var(--warning-color); }
+        .content-card.project { border-color: var(--success-color); }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+        }
+        
+        .card-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--dark-color);
+        }
+        
+        .card-subtitle {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 25px;
+        }
+        
+        /* Key Concepts */
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .concept-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+        }
+        
+        .concept-term {
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+        
+        .concept-desc {
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+        
+        .tool-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s;
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-color: var(--primary-color);
+        }
+        
+        .tool-name {
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .tool-task {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        /* Steps List */
+        .steps-list {
+            margin: 25px 0;
+        }
+        
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .step-number {
+            width: 35px;
+            height: 35px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .step-title {
+            font-weight: 600;
+            color: var(--dark-color);
+            margin-bottom: 5px;
+        }
+        
+        .step-desc {
+            color: #666;
+        }
+        
+        /* Prompt Examples */
+        .prompt-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .prompt-card {
+            background: #1e293b;
+            color: #e2e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            font-family: 'Consolas', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .prompt-task {
+            color: #94a3b8;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+        
+        .prompt-example {
+            background: #2c3e50;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            border-left: 3px solid var(--secondary-color);
+        }
+        
+        /* Code Display */
+        .code-display {
+            background: #1e293b;
+            color: #e2e8f0;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px 0;
+            overflow-x: auto;
+            font-family: 'Consolas', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        /* Table Styles */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .data-table th {
+            background: var(--dark-color);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .data-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .data-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                order: 2;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .header h1 {
+                font-size: 32px;
+            }
+            
+            .content-area {
+                padding: 20px;
+            }
+            
+            .card-title {
+                font-size: 24px;
+            }
+            
+            .main-nav {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Complete Guide: Generative AI for Data Analytics</h1>
+            <p class="subtitle">Master the integration of Generative AI tools and techniques for data preparation, analysis, visualization, and storytelling</p>
+            
+            <div class="meta-info">
+                <div class="meta-item">
+                    <div class="meta-value">12+</div>
+                    <div class="meta-label">Hands-on Labs</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-value">20+</div>
+                    <div class="meta-label">AI Tools Covered</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-value">6</div>
+                    <div class="meta-label">Case Studies</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-value">50+</div>
+                    <div class="meta-label">Prompt Examples</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation -->
+        <div class="main-nav">
+            <button class="nav-btn active" onclick="showModule('overview')">
+                📋 Overview
+            </button>
+            <button class="nav-btn" onclick="showModule('concepts')">
+                📚 Core Concepts
+            </button>
+            <button class="nav-btn" onclick="showModule('tools')">
+                🛠️ AI Tools
+            </button>
+            <button class="nav-btn" onclick="showModule('prompts')">
+                💬 Prompt Engineering
+            </button>
+            <button class="nav-btn" onclick="showModule('labs')">
+                🔬 Hands-on Labs
+            </button>
+            <button class="nav-btn" onclick="showModule('case-studies')">
+                📊 Case Studies
+            </button>
+            <button class="nav-btn" onclick="showModule('ethics')">
+                ⚖️ Ethics & Best Practices
+            </button>
+            <button class="nav-btn" onclick="showModule('project')">
+                🎯 Guided Project
+            </button>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="sidebar-section">
+                    <div class="sidebar-title">Quick Navigation</div>
+                    <div class="sidebar-item active" onclick="scrollToSection('section-overview')">
+                        Course Overview
+                    </div>
+                    <div class="sidebar-item" onclick="scrollToSection('section-learning')">
+                        Learning Objectives
+                    </div>
+                    <div class="sidebar-item" onclick="scrollToSection('section-prerequisites')">
+                        Prerequisites
+                    </div>
+                </div>
+                
+                <div class="sidebar-section">
+                    <div class="sidebar-title">Data Analytics Process</div>
+                    <div class="sidebar-item" onclick="scrollToSection('section-data-prep')">
+                        Data Preparation
+                    </div>
+                    <div class="sidebar-item" onclick="scrollToSection('section-data-analysis')">
+                        Data Analysis
+                    </div>
+                    <div class="sidebar-item" onclick="scrollToSection('section-data-viz')">
+                        Data Visualization
+                    </div>
+                    <div class="sidebar-item" onclick="scrollToSection('section-storytelling')">
+                        Storytelling
+                    </div>
+                </div>
+                
+                <div class="sidebar-section">
+                    <div class="sidebar-title">AI Tool Categories</div>
+                    <div class="sidebar-item" onclick="scrollToSection('section-data-gen')">
+                        Data Generation
+                    </div>
+                    <div class="sidebar-item" onclick="scrollToSection('section-data-prep-tools')">
+                        Data Preparation
+                    </div>
+                    <div class="sidebar-item" onclick="scrollToSection('section-data-query')">
+                        Data Querying
+                    </div>
+                    <div class="sidebar-item" onclick="scrollToSection('section-dashboard')">
+                        Dashboarding
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Overview Module -->
+                <div class="module-content active" id="module-overview">
+                    <div class="content-card case-study">
+                        <div class="card-header">
+                            <div class="card-icon">📋</div>
+                            <div>
+                                <h2 class="card-title">Complete Guide Overview</h2>
+                                <p class="card-subtitle">Master Generative AI applications in Data Analytics through hands-on labs, case studies, and practical exercises</p>
+                            </div>
+                        </div>
+                        
+                        <div id="section-overview">
+                            <h3 style="color: var(--dark-color); margin-bottom: 15px;">Course Overview</h3>
+                            <p style="margin-bottom: 20px; line-height: 1.7;">
+                                This comprehensive guide provides data professionals with the knowledge and skills to leverage Generative AI 
+                                across the entire data analytics lifecycle. From data preparation to dashboard creation, you'll learn to use 
+                                cutting-edge AI tools to enhance your data workflows.
+                            </p>
+                            
+                            <div class="concept-grid">
+                                <div class="concept-card">
+                                    <div class="concept-term">Data Augmentation</div>
+                                    <div class="concept-desc">
+                                        Using AI to generate synthetic data for improving model performance and handling imbalanced datasets.
+                                    </div>
+                                </div>
+                                <div class="concept-card">
+                                    <div class="concept-term">Automated Data Prep</div>
+                                    <div class="concept-desc">
+                                        Leveraging AI for cleaning, transforming, and preparing data for analysis.
+                                    </div>
+                                </div>
+                                <div class="concept-card">
+                                    <div class="concept-term">Natural Language Querying</div>
+                                    <div class="concept-desc">
+                                        Using conversational AI to query databases and extract insights without SQL knowledge.
+                                    </div>
+                                </div>
+                                <div class="concept-card">
+                                    <div class="concept-term">AI-Powered Visualization</div>
+                                    <div class="concept-desc">
+                                        Automatically generating charts, dashboards, and visualizations from data.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="section-learning" style="margin-top: 40px;">
+                            <h3 style="color: var(--dark-color); margin-bottom: 15px;">Learning Objectives</h3>
+                            <div class="steps-list">
+                                <div class="step-item">
+                                    <div class="step-number">1</div>
+                                    <div class="step-content">
+                                        <div class="step-title">Understand Generative AI Applications</div>
+                                        <div class="step-desc">
+                                            Learn how Generative AI transforms data augmentation, diagnostics, drug design, and personalized healthcare.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="step-item">
+                                    <div class="step-number">2</div>
+                                    <div class="step-content">
+                                        <div class="step-title">Master AI Tools for Data Analytics</div>
+                                        <div class="step-desc">
+                                            Gain hands-on experience with DataRobot, ChatGPT, ChartPixel, Zoho Analytics, Powerdrill, and more.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="step-item">
+                                    <div class="step-number">3</div>
+                                    <div class="step-content">
+                                        <div class="step-title">Develop Prompt Engineering Skills</div>
+                                        <div class="step-desc">
+                                            Learn to create effective prompts for data preparation, analysis, visualization, and storytelling.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="step-item">
+                                    <div class="step-number">4</div>
+                                    <div class="step-content">
+                                        <div class="step-title">Build Complete Data Projects</div>
+                                        <div class="step-desc">
+                                            Apply skills through guided projects from data collection to dashboard creation and storytelling.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="section-prerequisites" style="margin-top: 40px;">
+                            <h3 style="color: var(--dark-color); margin-bottom: 15px;">Prerequisites</h3>
+                            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                                <ul style="margin-left: 20px; color: #666;">
+                                    <li style="margin-bottom: 10px;">Basic understanding of data analytics concepts</li>
+                                    <li style="margin-bottom: 10px;">Familiarity with spreadsheet software (Excel, Google Sheets)</li>
+                                    <li style="margin-bottom: 10px;">Basic knowledge of data visualization principles</li>
+                                    <li style="margin-bottom: 10px;">Willingness to create accounts on various AI platforms (free tiers available)</li>
+                                    <li>No advanced programming skills required for most exercises</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Core Concepts Module -->
+                <div class="module-content" id="module-concepts">
+                    <div class="content-card cheatsheet">
+                        <div class="card-header">
+                            <div class="card-icon">📚</div>
+                            <div>
+                                <h2 class="card-title">Core Concepts & Terminology</h2>
+                                <p class="card-subtitle">Essential terms and concepts for understanding Generative AI in Data Analytics</p>
+                            </div>
+                        </div>
+                        
+                        <div class="concept-grid">
+                            <div class="concept-card">
+                                <div class="concept-term">Generative AI</div>
+                                <div class="concept-desc">
+                                    AI that creates new, synthetic data rather than just analyzing or classifying existing data.
+                                </div>
+                            </div>
+                            <div class="concept-card">
+                                <div class="concept-term">Data Augmentation</div>
+                                <div class="concept-desc">
+                                    Technique for improving ML models by generating additional training data.
+                                </div>
+                            </div>
+                            <div class="concept-card">
+                                <div class="concept-term">Data Preparation</div>
+                                <div class="concept-desc">
+                                    Process of cleaning, transforming, and organizing raw data for analysis.
+                                </div>
+                            </div>
+                            <div class="concept-card">
+                                <div class="concept-term">Database Querying</div>
+                                <div class="concept-desc">
+                                    Extracting specific information from databases using query languages like SQL.
+                                </div>
+                            </div>
+                            <div class="concept-card">
+                                <div class="concept-term">Data Q&A</div>
+                                <div class="concept-desc">
+                                    Asking questions and getting answers about datasets using natural language.
+                                </div>
+                            </div>
+                            <div class="concept-card">
+                                <div class="concept-term">Data Insights</div>
+                                <div class="concept-desc">
+                                    Meaningful interpretations or findings derived from data analysis.
+                                </div>
+                            </div>
+                            <div class="concept-card">
+                                <div class="concept-term">Data Visualization</div>
+                                <div class="concept-desc">
+                                    Graphical representation of data to enhance understanding and identify patterns.
+                                </div>
+                            </div>
+                            <div class="concept-card">
+                                <div class="concept-term">Dashboard</div>
+                                <div class="concept-desc">
+                                    Collection of charts, graphs, and visual components presenting data in an accessible format.
+                                </div>
+                            </div>
+                            <div class="concept-card">
+                                <div class="concept-term">Storytelling</div>
+                                <div class="concept-desc">
+                                    Transforming raw data into compelling narratives to communicate insights effectively.
+                                </div>
+                            </div>
+                            <div class="concept-card">
+                                <div class="concept-term">Hallucination</div>
+                                <div class="concept-desc">
+                                    Generation of inaccurate or illogical information by AI models.
+                                </div>
+                            </div>
+                            <div class="concept-card">
+                                <div class="concept-term">AI Bias</div>
+                                <div class="concept-desc">
+                                    Systematic inaccuracies or prejudices in AI systems' outcomes.
+                                </div>
+                            </div>
+                            <div class="concept-card">
+                                <div class="concept-term">Fairness</div>
+                                <div class="concept-desc">
+                                    Treating all individuals or groups equitably without discrimination in AI systems.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- AI Tools Module -->
+                <div class="module-content" id="module-tools">
+                    <div class="content-card lab">
+                        <div class="card-header">
+                            <div class="card-icon">🛠️</div>
+                            <div>
+                                <h2 class="card-title">Generative AI Tools for Data Analytics</h2>
+                                <p class="card-subtitle">Comprehensive toolkit for every stage of the data analytics process</p>
+                            </div>
+                        </div>
+                        
+                        <div id="section-data-gen">
+                            <h3 style="color: var(--dark-color); margin-bottom: 15px;">Data Generation & Augmentation Tools</h3>
+                            <div class="tools-grid">
+                                <div class="tool-card">
+                                    <div class="tool-name">📊 DataRobot</div>
+                                    <div class="tool-task">AI platform for predictive modeling and data augmentation</div>
+                                </div>
+                                <div class="tool-card">
+                                    <div class="tool-name">🤖 ChatGPT</div>
+                                    <div class="tool-task">Generate synthetic datasets and augment existing data</div>
+                                </div>
+                                <div class="tool-card">
+                                    <div class="tool-name">🎨 Google Imagen</div>
+                                    <div class="tool-task">Text-to-image generation for visual data augmentation</div>
+                                </div>
+                                <div class="tool-card">
+                                    <div class="tool-name">🖼️ DALL-E 2</div>
+                                    <div class="tool-task">Creative image generation for training data</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="section-data-prep-tools" style="margin-top: 40px;">
+                            <h3 style="color: var(--dark-color); margin-bottom: 15px;">Data Preparation Tools</h3>
+                            <div class="tools-grid">
+                                <div class="tool-card">
+                                    <div class="tool-name">💬 ChatGPT</div>
+                                    <div class="tool-task">Data cleaning, transformation, and normalization</div>
+                                </div>
+                                <div class="tool-card">
+                                    <div class="tool-name">📄 ChatCSV</div>
+                                    <div class="tool-task">Natural language data preparation for CSV files</div>
+                                </div>
+                                <div class="tool-card">
+                                    <div class="tool-name">🍅 Tomat.AI</div>
+                                    <div class="tool-task">Automated data wrangling and preparation</div>
+                                </div>
+                                <div class="tool-card">
+                                    <div class="tool-name">🔄 OpenRefine</div>
+                                    <div class="tool-task">Data cleaning and transformation operations</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="section-data-query" style="margin-top: 40px;">
+                            <h3 style="color: var(--dark-color); margin-bottom: 15px;">Data Querying & Analysis Tools</h3>
+                            <div class="tools-grid">
+                                <div class="tool-card">
+                                    <div class="tool-name">🗃️ dbsensei</div>
+                                    <div class="tool-task">Natural language SQL query generation</div>
+                                </div>
+                                <div class="tool-card">
+                                    <div class="tool-name">🔍 Powerdrill</div>
+                                    <div class="tool-task">Natural language Q&A for data insights</div>
+                                </div>
+                                <div class="tool-card">
+                                    <div class="tool-name">📈 Akkio</div>
+                                    <div class="tool-task">AI-powered data analysis and insights</div>
+                                </div>
+                                <div class="tool-card">
+                                    <div class="tool-name">💡 IBM Watson</div>
+                                    <div class="tool-task">Enterprise AI platform for data analysis</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="section-dashboard" style="margin-top: 40px;">
+                            <h3 style="color: var(--dark-color); margin-bottom: 15px;">Visualization & Dashboarding Tools</h3>
+                            <div class="tools-grid">
+                                <div class="tool-card">
+                                    <div class="tool-name">📊 ChartPixel</div>
+                                    <div class="tool-task">AI-generated charts and dashboard creation</div>
+                                </div>
+                                <div class="tool-card">
+                                    <div class="tool-name">📈 Tableau</div>
+                                    <div class="tool-task">AI-enhanced data visualization platform</div>
+                                </div>
+                                <div class="tool-card">
+                                    <div class="tool-name">🎯 Zoho Analytics</div>
+                                    <div class="tool-task">AI-powered storytelling and reporting</div>
+                                </div>
+                                <div class="tool-card">
+                                    <div class="tool-name">🤖 Microsoft Copilot</div>
+                                    <div class="tool-task">AI assistant across Microsoft suite for data analysis</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Prompt Engineering Module -->
+                <div class="module-content" id="module-prompts">
+                    <div class="content-card reading">
+                        <div class="card-header">
+                            <div class="card-icon">💬</div>
+                            <div>
+                                <h2 class="card-title">Prompt Engineering for Data Analytics</h2>
+                                <p class="card-subtitle">Effective prompts for different data analytics tasks</p>
+                            </div>
+                        </div>
+                        
+                        <div class="prompt-grid">
+                            <div class="prompt-card">
+                                <div class="prompt-task">Create Dataset</div>
+                                <div>Create <strong>[domain]</strong> dataset for <strong>[purpose]</strong></div>
+                                <div class="prompt-example">
+                                    Create patient dataset for the symptoms of diabetes
+                                </div>
+                            </div>
+                            
+                            <div class="prompt-card">
+                                <div class="prompt-task">Dataset with Specific Attributes</div>
+                                <div>Create a dataset with attributes as <strong>[attributes]</strong> in a <strong>[format]</strong> format</div>
+                                <div class="prompt-example">
+                                    Create a dataset with attributes as temperature in Fahrenheit, Temperature Category, Humidity in percentage, Rain and Snow as categorical type in yes or no categories, Month, Year in a CSV format
+                                </div>
+                            </div>
+                            
+                            <div class="prompt-card">
+                                <div class="prompt-task">Identify Highest Values</div>
+                                <div>Identify the <strong>[entity]</strong> with the highest <strong>[attribute]</strong></div>
+                                <div class="prompt-example">
+                                    Identify the products with the highest sales
+                                </div>
+                            </div>
+                            
+                            <div class="prompt-card">
+                                <div class="prompt-task">Pattern Analysis Over Time</div>
+                                <div>How has <strong>[attribute]</strong> changed over time?</div>
+                                <div class="prompt-example">
+                                    How has the quantity ordered changed over time?
+                                </div>
+                            </div>
+                            
+                            <div class="prompt-card">
+                                <div class="prompt-task">Missing Data Identification</div>
+                                <div>Write a <strong>[language]</strong> code to identify <strong>[what]</strong> missing values</div>
+                                <div class="prompt-example">
+                                    Write a python code to Identify the columns with missing values
+                                </div>
+                            </div>
+                            
+                            <div class="prompt-card">
+                                <div class="prompt-task">Handle Missing Values</div>
+                                <div>Write a <strong>[language]</strong> code to replace missing values with <strong>[method]</strong> in the dataset</div>
+                                <div class="prompt-example">
+                                    Write a python code to replace missing values with mean values in the dataset
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h3 style="color: var(--dark-color); margin: 30px 0 15px;">Advanced Prompt Examples</h3>
+                        
+                        <div class="code-display">
+// SQL Query Generation
+Prompt: Write a SQL query to join customer table with product sales table on product ID as primary key
+
+// Data Visualization
+Prompt: Write a Python code to create regression plots for CPU_frequency, Screen_Size_inch and Weight_pounds against Price
+
+// Statistical Analysis
+Prompt: Write a Python code to perform the following actions:
+1. Import a dataset from a CSV file
+2. Generate statistical description of all features
+3. Include "object" data types as well
+
+// Database Creation
+Prompt: Write a SQL query to Create a database on sales, create a customer table, a sales table, a product table and insert values in these tables
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Hands-on Labs Module -->
+                <div class="module-content" id="module-labs">
+                    <div class="content-card lab">
+                        <div class="card-header">
+                            <div class="card-icon">🔬</div>
+                            <div>
+                                <h2 class="card-title">Hands-on Labs & Exercises</h2>
+                                <p class="card-subtitle">Practical exercises to master Generative AI tools for data analytics</p>
+                            </div>
+                        </div>
+                        
+                        <div class="steps-list">
+                            <div class="step-item">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <div class="step-title">Lab: Explore DataRobot</div>
+                                    <div class="step-desc">
+                                        <strong>Objective:</strong> Sign up in DataRobot and build your first AI model
+                                        <br><strong>Duration:</strong> 30 minutes
+                                        <br><strong>Tasks:</strong> Create account, upload dataset, work on model building
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="step-item">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <div class="step-title">Lab: Generative AI for Dashboards</div>
+                                    <div class="step-desc">
+                                        <strong>Objective:</strong> Create interactive dashboards using ChartPixel
+                                        <br><strong>Duration:</strong> 30 minutes
+                                        <br><strong>Tasks:</strong> Upload dataset, generate charts, customize visuals, add AI insights
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="step-item">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <div class="step-title">Lab: Data Preparation with ChatGPT</div>
+                                    <div class="step-desc">
+                                        <strong>Objective:</strong> Clean and prepare data using AI
+                                        <br><strong>Duration:</strong> 30 minutes
+                                        <br><strong>Tasks:</strong> Handle missing values, data standardization, normalization
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="step-item">
+                                <div class="step-number">4</div>
+                                <div class="step-content">
+                                    <div class="step-title">Lab: Data Insights through Q&A</div>
+                                    <div class="step-desc">
+                                        <strong>Objective:</strong> Extract insights using natural language queries
+                                        <br><strong>Duration:</strong> 30 minutes
+                                        <br><strong>Tasks:</strong> Upload data to Powerdrill, ask analytical questions, uncover patterns
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="step-item">
+                                <div class="step-number">5</div>
+                                <div class="step-content">
+                                    <div class="step-title">Lab: Database Querying with AI</div>
+                                    <div class="step-desc">
+                                        <strong>Objective:</strong> Generate optimized SQL queries using AI
+                                        <br><strong>Duration:</strong> 30 minutes
+                                        <br><strong>Tasks:</strong> Provide data context, generate SQL queries, test in querying system
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="step-item">
+                                <div class="step-number">6</div>
+                                <div class="step-content">
+                                    <div class="step-title">Lab: Storytelling with Zoho Analytics</div>
+                                    <div class="step-desc">
+                                        <strong>Objective:</strong> Create data-driven narratives and reports
+                                        <br><strong>Duration:</strong> 30 minutes
+                                        <br><strong>Tasks:</strong> Upload dataset, generate reports using prompts, create compelling narratives
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h3 style="color: var(--dark-color); margin: 30px 0 15px;">Lab Requirements Checklist</h3>
+                        
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Lab</th>
+                                    <th>Tool</th>
+                                    <th>Account Required</th>
+                                    <th>Dataset</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>DataRobot Exploration</td>
+                                    <td>DataRobot</td>
+                                    <td>✓ Free Account</td>
+                                    <td>Hospital Readmission Data</td>
+                                </tr>
+                                <tr>
+                                    <td>Dashboard Creation</td>
+                                    <td>ChartPixel</td>
+                                    <td>✓ Free Trial</td>
+                                    <td>Electronics Dataset</td>
+                                </tr>
+                                <tr>
+                                    <td>Data Preparation</td>
+                                    <td>ChatGPT</td>
+                                    <td>✓ Free Account</td>
+                                    <td>Laptop Pricing Dataset</td>
+                                </tr>
+                                <tr>
+                                    <td>Data Q&A</td>
+                                    <td>Powerdrill</td>
+                                    <td>✓ Free Account</td>
+                                    <td>Electronics Dataset</td>
+                                </tr>
+                                <tr>
+                                    <td>Database Querying</td>
+                                    <td>dbsensei/ChatGPT</td>
+                                    <td>✓ Free Account</td>
+                                    <td>Heart Disease Dataset</td>
+                                </tr>
+                                <tr>
+                                    <td>Storytelling</td>
+                                    <td>Zoho Analytics</td>
+                                    <td>✓ 15-day Trial</td>
+                                    <td>Electronics Dataset</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Case Studies Module -->
+                <div class="module-content" id="module-case-studies">
+                    <div class="content-card case-study">
+                        <div class="card-header">
+                            <div class="card-icon">📊</div>
+                            <div>
+                                <h2 class="card-title">Real-World Case Studies</h2>
+                                <p class="card-subtitle">Successful implementations of Generative AI in data analytics</p>
+                            </div>
+                        </div>
+                        
+                        <div class="steps-list">
+                            <div class="step-item">
+                                <div class="step-content">
+                                    <div class="step-title">Case Study: Generative AI in Healthcare</div>
+                                    <div class="step-desc">
+                                        <strong>Challenge:</strong> Data augmentation for diagnostics while preserving patient privacy
+                                        <br><strong>Solution:</strong> Implemented federated learning and differential privacy techniques
+                                        <br><strong>Tools Used:</strong> Generative AI models for realistic data generation
+                                        <br><strong>Outcome:</strong> Enhanced model training without compromising patient data security
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="step-item">
+                                <div class="step-content">
+                                    <div class="step-title">Case Study: NatWest Group's Mortgage Support</div>
+                                    <div class="step-desc">
+                                        <strong>Challenge:</strong> Complex mortgage application process with evolving regulations
+                                        <br><strong>Solution:</strong> "Marge" - AI-powered platform using IBM Watson Assistant
+                                        <br><strong>Results:</strong>
+                                        <ul style="margin-left: 20px; margin-top: 10px;">
+                                            <li>20% improvement in Customer Net Promoter Score</li>
+                                            <li>10% reduction in call duration</li>
+                                            <li>Real-time policy information for customers</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="step-item">
+                                <div class="step-content">
+                                    <div class="step-title">Case Study: IBM Watson in Healthcare</div>
+                                    <div class="step-desc">
+                                        <strong>Applications:</strong>
+                                        <ul style="margin-left: 20px; margin-top: 10px;">
+                                            <li><strong>Mount Sinai:</strong> Patient data analysis for improved care</li>
+                                            <li><strong>Mayo Clinic:</strong> Diagnostic tool for Parkinson's disease</li>
+                                            <li><strong>St. Jude:</strong> Genomic data analysis for cancer treatment</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="step-item">
+                                <div class="step-content">
+                                    <div class="step-title">Industry Applications</div>
+                                    <div class="step-desc">
+                                        <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                                            <tr>
+                                                <td style="padding: 8px; border-bottom: 1px solid #eee;"><strong>Healthcare</strong></td>
+                                                <td style="padding: 8px; border-bottom: 1px solid #eee;">Patient data analysis, diagnostics, drug discovery</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 8px; border-bottom: 1px solid #eee;"><strong>Financial Services</strong></td>
+                                                <td style="padding: 8px; border-bottom: 1px solid #eee;">Fraud detection, risk analysis, customer service</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 8px; border-bottom: 1px solid #eee;"><strong>Retail</strong></td>
+                                                <td style="padding: 8px; border-bottom: 1px solid #eee;">Sales optimization, personalized marketing, supply chain</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 8px;"><strong>Manufacturing</strong></td>
+                                                <td style="padding: 8px;">Predictive maintenance, quality control, optimization</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Ethics Module -->
+                <div class="module-content" id="module-ethics">
+                    <div class="content-card reading">
+                        <div class="card-header">
+                            <div class="card-icon">⚖️</div>
+                            <div>
+                                <h2 class="card-title">Ethical AI & Best Practices</h2>
+                                <p class="card-subtitle">Responsible implementation of Generative AI in data analytics</p>
+                            </div>
+                        </div>
+                        
+                        <div class="concept-grid">
+                            <div class="concept-card">
+                                <div class="concept-term">Explainability</div>
+                                <div class="concept-desc">
+                                    Ensuring AI decisions can be understood and interpreted by humans
+                                </div>
+                            </div>
+                            <div class="concept-card">
+                                <div class="concept-term">Fairness</div>
+                                <div class="concept-desc">
+                                    Preventing discrimination and ensuring equitable treatment for all groups
+                                </div>
+                            </div>
+                            <div class="concept-card">
+                                <div class="concept-term">Robustness</div>
+                                <div class="concept-desc">
+                                    Ensuring AI systems perform reliably under different conditions
+                                </div>
+                            </div>
+                            <div class="concept-card">
+                                <div class="concept-term">Transparency</div>
+                                <div class="concept-desc">
+                                    Clear communication about AI capabilities, limitations, and data usage
+                                </div>
+                            </div>
+                            <div class="concept-card">
+                                <div class="concept-term">Privacy</div>
+                                <div class="concept-desc">
+                                    Protecting sensitive data and implementing privacy-preserving techniques
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h3 style="color: var(--dark-color); margin: 30px 0 15px;">Key Ethical Considerations</h3>
+                        
+                        <div style="background: #fff3cd; padding: 20px; border-radius: 10px; border-left: 4px solid #ffc107;">
+                            <h4 style="color: #856404; margin-bottom: 10px;">⚠️ Critical Issues to Address</h4>
+                            <ul style="color: #856404; margin-left: 20px;">
+                                <li style="margin-bottom: 8px;"><strong>Data Bias:</strong> Systematic inaccuracies from flawed training data</li>
+                                <li style="margin-bottom: 8px;"><strong>Privacy Concerns:</strong> 70% of IT directors worry about AI security risks</li>
+                                <li style="margin-bottom: 8px;"><strong>Hallucination:</strong> Generation of inaccurate information</li>
+                                <li style="margin-bottom: 8px;"><strong>Environmental Impact:</strong> Computational costs of AI training</li>
+                                <li><strong>Accountability:</strong> Clear responsibility for AI decisions and outcomes</li>
+                            </ul>
+                        </div>
+                        
+                        <h3 style="color: var(--dark-color); margin: 30px 0 15px;">Best Practices for Data Professionals</h3>
+                        
+                        <div class="steps-list">
+                            <div class="step-item">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <div class="step-title">Data Quality Control</div>
+                                    <div class="step-desc">
+                                        Implement rigorous data validation and quality assurance processes
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="step-item">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <div class="step-title">Bias Mitigation</div>
+                                    <div class="step-desc">
+                                        Regularly audit AI models for biases and implement corrective measures
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="step-item">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <div class="step-title">Transparent Communication</div>
+                                    <div class="step-desc">
+                                        Clearly communicate AI capabilities and limitations to stakeholders
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="step-item">
+                                <div class="step-number">4</div>
+                                <div class="step-content">
+                                    <div class="step-title">Continuous Monitoring</div>
+                                    <div class="step-desc">
+                                        Establish ongoing monitoring and improvement processes for AI systems
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Guided Project Module -->
+                <div class="module-content" id="module-project">
+                    <div class="content-card project">
+                        <div class="card-header">
+                            <div class="card-icon">🎯</div>
+                            <div>
+                                <h2 class="card-title">Guided Practice Project</h2>
+                                <p class="card-subtitle">World Happiness Report Analysis using Generative AI</p>
+                            </div>
+                        </div>
+                        
+                        <div style="background: #d4edda; padding: 20px; border-radius: 10px; margin-bottom: 25px;">
+                            <h4 style="color: #155724; margin-bottom: 10px;">📋 Project Scenario</h4>
+                            <p style="color: #155724;">
+                                You are a data analyst at a healthcare consultancy firm analyzing the World Happiness Report 
+                                to identify factors influencing happiness across countries and demographics.
+                            </p>
+                        </div>
+                        
+                        <h3 style="color: var(--dark-color); margin-bottom: 15px;">Dataset: World Happiness Report 2016</h3>
+                        
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Variable</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Country</td>
+                                    <td>Name of the country</td>
+                                </tr>
+                                <tr>
+                                    <td>Region</td>
+                                    <td>Region the country belongs to</td>
+                                </tr>
+                                <tr>
+                                    <td>Happiness Score</td>
+                                    <td>Metric measured by asking "How would you rate your happiness?"</td>
+                                </tr>
+                                <tr>
+                                    <td>Economy (GDP per Capita)</td>
+                                    <td>Extent to which GDP contributes to Happiness Score</td>
+                                </tr>
+                                <tr>
+                                    <td>Health (Life Expectancy)</td>
+                                    <td>Extent to which life expectancy contributes to Happiness Score</td>
+                                </tr>
+                                <tr>
+                                    <td>Family, Freedom, Trust, Generosity</td>
+                                    <td>Other contributing factors to Happiness Score</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <h3 style="color: var(--dark-color); margin: 30px 0 15px;">Project Tasks</h3>
+                        
+                        <div class="steps-list">
+                            <div class="step-item">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <div class="step-title">Data Preparation</div>
+                                    <div class="step-desc">
+                                        Clean the dataset, handle missing values, and prepare for analysis
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="step-item">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <div class="step-title">Exploratory Data Analysis</div>
+                                    <div class="step-desc">
+                                        <ul style="margin-left: 20px; margin-top: 5px;">
+                                            <li>Identify GDP and Life Expectancy of top 10 countries</li>
+                                            <li>Find correlations between happiness factors</li>
+                                            <li>Create scatter plots and bar charts</li>
+                                            <li>Generate regional analysis with pie charts</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="step-item">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <div class="step-title">Dashboard Creation</div>
+                                    <div class="step-desc">
+                                        Create an interactive dashboard with at least four visualizations
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="step-item">
+                                <div class="step-number">4</div>
+                                <div class="step-content">
+                                    <div class="step-title">Narrative Generation</div>
+                                    <div class="step-desc">
+                                        Generate a compelling narrative to present dashboard findings
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h3 style="color: var(--dark-color); margin: 30px 0 15px;">Sample Prompts for Project Tasks</h3>
+                        
+                        <div class="prompt-grid">
+                            <div class="prompt-card">
+                                <div class="prompt-task">Data Cleaning</div>
+                                <div class="prompt-example">
+                                    Write Python code to clean the World Happiness dataset, handle missing values, and prepare for analysis
+                                </div>
+                            </div>
+                            
+                            <div class="prompt-card">
+                                <div class="prompt-task">Top Countries Analysis</div>
+                                <div class="prompt-example">
+                                    Create a bar chart showing GDP per capita and Life Expectancy of the top 10 happiest countries
+                                </div>
+                            </div>
+                            
+                            <div class="prompt-card">
+                                <div class="prompt-task">Correlation Analysis</div>
+                                <div class="prompt-example">
+                                    Find correlation between Economy, Family, Health, Freedom, Trust, Generosity and Happiness Score
+                                </div>
+                            </div>
+                            
+                            <div class="prompt-card">
+                                <div class="prompt-task">Regional Analysis</div>
+                                <div class="prompt-example">
+                                    Create a pie chart showing distribution of Happiness Scores by region
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Module switching
+        function showModule(moduleId) {
+            // Update navigation buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            const activeBtn = document.querySelector(`[onclick="showModule('${moduleId}')"]`);
+            if (activeBtn) {
+                activeBtn.classList.add('active');
+            }
+            
+            // Update module content
+            document.querySelectorAll('.module-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            const activeModule = document.getElementById(`module-${moduleId}`);
+            if (activeModule) {
+                activeModule.classList.add('active');
+            }
+            
+            // Update sidebar items
+            document.querySelectorAll('.sidebar-item').forEach(item => {
+                item.classList.remove('active');
+            });
+        }
+        
+        // Scroll to section
+        function scrollToSection(sectionId) {
+            const modules = document.querySelectorAll('.module-content');
+            modules.forEach(module => {
+                const section = module.querySelector(`#${sectionId}`);
+                if (section) {
+                    // Show the module containing the section
+                    showModule(module.id.replace('module-', ''));
+                    
+                    // Scroll to section after a brief delay
+                    setTimeout(() => {
+                        section.scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
+                }
+            });
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click handlers to sidebar items
+            document.querySelectorAll('.sidebar-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    document.querySelectorAll('.sidebar-item').forEach(i => {
+                        i.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                });
+            });
+            
+            // Add copy functionality to code blocks
+            document.querySelectorAll('.code-display').forEach(block => {
+                const copyBtn = document.createElement('button');
+                copyBtn.textContent = 'Copy';
+                copyBtn.style.cssText = `
+                    background: #475569;
+                    color: white;
+                    border: none;
+                    padding: 5px 10px;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    font-size: 12px;
+                    float: right;
+                    margin-top: 10px;
+                `;
+                copyBtn.onclick = function() {
+                    const text = block.textContent;
+                    navigator.clipboard.writeText(text).then(() => {
+                        const originalText = copyBtn.textContent;
+                        copyBtn.textContent = 'Copied!';
+                        copyBtn.style.background = '#10b981';
+                        setTimeout(() => {
+                            copyBtn.textContent = originalText;
+                            copyBtn.style.background = '#475569';
+                        }, 2000);
+                    });
+                };
+                block.parentNode.insertBefore(copyBtn, block.nextSibling);
+            });
+        });
+    </script>
+</body>
+</html>

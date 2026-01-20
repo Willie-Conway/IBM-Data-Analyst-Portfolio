@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Excel Formulas Dashboard</title>
+    <style>
+        :root {
+            --countifs-color: #3498db;
+            --sumifs-color: #2ecc71;
+            --xlookup-color: #e74c3c;
+            --advanced-color: #9b59b6;
+            --bg-light: #f8f9fa;
+            --card-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            --border-radius: 12px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+        
+        /* Main Content */
+        .content {
+            padding: 30px;
+        }
+        
+        /* Formula Cards */
+        .formulas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .formula-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            border-top: 5px solid;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        
+        .formula-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .formula-card.countifs { border-top-color: var(--countifs-color); }
+        .formula-card.sumifs { border-top-color: var(--sumifs-color); }
+        .formula-card.xlookup { border-top-color: var(--xlookup-color); }
+        .formula-card.advanced { border-top-color: var(--advanced-color); }
+        
+        .formula-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .formula-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+            font-size: 24px;
+            color: white;
+        }
+        
+        .countifs .formula-icon { background: var(--countifs-color); }
+        .sumifs .formula-icon { background: var(--sumifs-color); }
+        .xlookup .formula-icon { background: var(--xlookup-color); }
+        .advanced .formula-icon { background: var(--advanced-color); }
+        
+        .formula-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .formula-type {
+            font-size: 18px;
+            font-weight: 600;
+            color: #666;
+        }
+        
+        .formula-description {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        /* Syntax Highlight */
+        .syntax-box {
+            background: #f8f9fa;
+            border-left: 4px solid;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Consolas', monospace;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+        
+        .countifs .syntax-box { border-left-color: var(--countifs-color); }
+        .sumifs .syntax-box { border-left-color: var(--sumifs-color); }
+        .xlookup .syntax-box { border-left-color: var(--xlookup-color); }
+        .advanced .syntax-box { border-left-color: var(--advanced-color); }
+        
+        /* Tags */
+        .use-case-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        
+        .use-tag {
+            background: #f1f1f1;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            color: #666;
+        }
+        
+        .countifs .use-tag { background: #e3f2fd; color: var(--countifs-color); }
+        .sumifs .use-tag { background: #e8f5e9; color: var(--sumifs-color); }
+        .xlookup .use-tag { background: #ffebee; color: var(--xlookup-color); }
+        .advanced .use-tag { background: #f3e5f5; color: var(--advanced-color); }
+        
+        /* Comparison Table */
+        .comparison-section {
+            margin: 40px 0;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1a237e;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .comparison-table th {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: left;
+            font-weight: 600;
+            color: #1a237e;
+            border-bottom: 2px solid #dee2e6;
+        }
+        
+        .comparison-table td {
+            padding: 20px;
+            border-bottom: 1px solid #dee2e6;
+            vertical-align: top;
+        }
+        
+        .comparison-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        /* Practical Examples Section */
+        .examples-section {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+            margin: 40px 0;
+        }
+        
+        .example-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .example-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid;
+        }
+        
+        .example-countifs { border-left-color: var(--countifs-color); }
+        .example-sumifs { border-left-color: var(--sumifs-color); }
+        .example-xlookup { border-left-color: var(--xlookup-color); }
+        
+        .example-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #1a237e;
+        }
+        
+        .example-formula {
+            font-family: 'Consolas', monospace;
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 3px solid #ddd;
+        }
+        
+        /* Interactive Elements */
+        .formula-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        
+        .formula-card.active .formula-details {
+            max-height: 1000px;
+        }
+        
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        
+        .toggle-btn:hover {
+            color: #333;
+        }
+        
+        /* Practice Area */
+        .practice-area {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+            margin: 40px 0;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f8f9fa;
+        }
+        
+        .data-table th, .data-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        
+        .data-table th {
+            background: #1a237e;
+            color: white;
+        }
+        
+        .data-table tr:nth-child(even) {
+            background: #f1f1f1;
+        }
+        
+        .formula-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-family: 'Consolas', monospace;
+            font-size: 14px;
+            margin: 10px 0;
+        }
+        
+        .check-btn {
+            background: #2ecc71;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .check-btn:hover {
+            background: #27ae60;
+        }
+        
+        .result-message {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 6px;
+            display: none;
+        }
+        
+        .result-correct {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .result-incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .comparison-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .title {
+                font-size: 28px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .formulas-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .example-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="title">Advanced Excel Formulas Dashboard</h1>
+            <p class="subtitle">Master COUNTIFS, SUMIFS, XLOOKUP and More</p>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="content">
+            <!-- Formula Cards -->
+            <div class="formulas-grid">
+                <!-- COUNTIFS Card -->
+                <div class="formula-card countifs" onclick="toggleDetails(this)">
+                    <div class="formula-header">
+                        <div class="formula-icon">C</div>
+                        <div>
+                            <h2 class="formula-title">COUNTIFS Function</h2>
+                            <div class="formula-type">Multiple Criteria Counting</div>
+                        </div>
+                    </div>
+                    <p class="formula-description">
+                        Counts the number of cells that meet one or more criteria. An extension of COUNTIF that handles multiple conditions.
+                    </p>
+                    <div class="syntax-box">
+                        =COUNTIFS(criteria_range_1, criteria_1, [criteria_range_2, criteria_2], ...)
+                    </div>
+                    <div class="use-case-tags">
+                        <span class="use-tag">Multi-condition Counting</span>
+                        <span class="use-tag">Data Filtering</span>
+                        <span class="use-tag">Conditional Analysis</span>
+                        <span class="use-tag">Report Generation</span>
+                    </div>
+                    <button class="toggle-btn">▼ Show Details</button>
+                    <div class="formula-details">
+                        <h3 style="margin: 15px 0 10px 0; color: var(--countifs-color);">Key Features:</h3>
+                        <ul style="color: #555; line-height: 1.6; padding-left: 20px; margin-bottom: 15px;">
+                            <li>Handles multiple criteria ranges</li>
+                            <li>Supports operators like >, <, >=, <=, <></li>
+                            <li>Works with dates, numbers, and text</li>
+                            <li>Case-insensitive comparisons</li>
+                            <li>All ranges must be same size</li>
+                        </ul>
+                        <h3 style="margin: 15px 0 10px 0; color: var(--countifs-color);">Common Use Cases:</h3>
+                        <ul style="color: #555; line-height: 1.6; padding-left: 20px;">
+                            <li>Count sales by region AND product</li>
+                            <li>Track employee attendance by department AND month</li>
+                            <li>Analyze survey responses by demographic AND answer</li>
+                            <li>Count overdue tasks by project AND priority</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- SUMIFS Card -->
+                <div class="formula-card sumifs" onclick="toggleDetails(this)">
+                    <div class="formula-header">
+                        <div class="formula-icon">S</div>
+                        <div>
+                            <h2 class="formula-title">SUMIFS Function</h2>
+                            <div class="formula-type">Multiple Criteria Summation</div>
+                        </div>
+                    </div>
+                    <p class="formula-description">
+                        Adds all numbers in a range that meet multiple criteria. More powerful version of SUMIF for complex conditional summing.
+                    </p>
+                    <div class="syntax-box">
+                        =SUMIFS(sum_range, criteria_range_1, criteria_1, [criteria_range_2, criteria_2], ...)
+                    </div>
+                    <div class="use-case-tags">
+                        <span class="use-tag">Conditional Sum</span>
+                        <span class="use-tag">Financial Analysis</span>
+                        <span class="use-tag">Budget Tracking</span>
+                        <span class="use-tag">Sales Aggregation</span>
+                    </div>
+                    <button class="toggle-btn">▼ Show Details</button>
+                    <div class="formula-details">
+                        <h3 style="margin: 15px 0 10px 0; color: var(--sumifs-color);">Key Features:</h3>
+                        <ul style="color: #555; line-height: 1.6; padding-left: 20px; margin-bottom: 15px;">
+                            <li>Sum based on multiple conditions</li>
+                            <li>Supports wildcards (* and ?)</li>
+                            <li>Can use cell references for criteria</li>
+                            <li>Handles date ranges efficiently</li>
+                            <li>Ignores text values in sum_range</li>
+                        </ul>
+                        <h3 style="margin: 15px 0 10px 0; color: var(--sumifs-color);">Common Use Cases:</h3>
+                        <ul style="color: #555; line-height: 1.6; padding-left: 20px;">
+                            <li>Monthly sales totals by region AND product</li>
+                            <li>Departmental budget tracking by quarter</li>
+                            <li>Commission calculations with tiered criteria</li>
+                            <li>Expense summing by category AND date range</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- XLOOKUP Card -->
+                <div class="formula-card xlookup" onclick="toggleDetails(this)">
+                    <div class="formula-header">
+                        <div class="formula-icon">X</div>
+                        <div>
+                            <h2 class="formula-title">XLOOKUP Function</h2>
+                            <div class="formula-type">Modern Lookup & Search</div>
+                        </div>
+                    </div>
+                    <p class="formula-description">
+                        The ultimate lookup function that replaces VLOOKUP/HLOOKUP. Searches ranges and returns corresponding values with advanced options.
+                    </p>
+                    <div class="syntax-box">
+                        =XLOOKUP(lookup_value, lookup_array, return_array, [if_not_found], [match_mode], [search_mode])
+                    </div>
+                    <div class="use-case-tags">
+                        <span class="use-tag">Data Lookup</span>
+                        <span class="use-tag">Two-way Lookup</span>
+                        <span class="use-tag">Error Handling</span>
+                        <span class="use-tag">Flexible Search</span>
+                    </div>
+                    <button class="toggle-btn">▼ Show Details</button>
+                    <div class="formula-details">
+                        <h3 style="margin: 15px 0 10px 0; color: var(--xlookup-color);">Key Features:</h3>
+                        <ul style="color: #555; line-height: 1.6; padding-left: 20px; margin-bottom: 15px;">
+                            <li>Default exact match (unlike VLOOKUP)</li>
+                            <li>Search left, right, up, or down</li>
+                            <li>Built-in error handling</li>
+                            <li>Wildcard matching support</li>
+                            <li>Binary search for sorted data</li>
+                        </ul>
+                        <h3 style="margin: 15px 0 10px 0; color: var(--xlookup-color);">Common Use Cases:</h3>
+                        <ul style="color: #555; line-height: 1.6; padding-left: 20px;">
+                            <li>Product price lookups</li>
+                            <li>Employee record retrieval</li>
+                            <li>Two-dimensional table lookups</li>
+                            <li>Last item in a list lookups</li>
+                            <li>Approximate match searches</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Practical Examples -->
+            <div class="examples-section">
+                <h2 class="section-title">📝 Practical Examples</h2>
+                <div class="example-grid">
+                    <div class="example-card example-countifs">
+                        <h3 class="example-title">COUNTIFS Example</h3>
+                        <p>Count sales in West region over $500:</p>
+                        <div class="example-formula">
+                            =COUNTIFS(B2:B100, "West", C2:C100, ">500")
+                        </div>
+                        <p style="color: #666; font-size: 14px; margin-top: 10px;">
+                            Returns: Number of sales transactions meeting both criteria
+                        </p>
+                    </div>
+                    
+                    <div class="example-card example-sumifs">
+                        <h3 class="example-title">SUMIFS Example</h3>
+                        <p>Sum Q1 sales for Product A in East region:</p>
+                        <div class="example-formula">
+                            =SUMIFS(D2:D100, A2:A100, "Q1", B2:B100, "Product A", C2:C100, "East")
+                        </div>
+                        <p style="color: #666; font-size: 14px; margin-top: 10px;">
+                            Returns: Total sales amount meeting all three criteria
+                        </p>
+                    </div>
+                    
+                    <div class="example-card example-xlookup">
+                        <h3 class="example-title">XLOOKUP Example</h3>
+                        <p>Find price of "ProductX" with error handling:</p>
+                        <div class="example-formula">
+                            =XLOOKUP("ProductX", Products, Prices, "Not Found", 0, 1)
+                        </div>
+                        <p style="color: #666; font-size: 14px; margin-top: 10px;">
+                            Returns: Price or "Not Found" if product doesn't exist
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Comparison Table -->
+            <div class="comparison-section">
+                <h2 class="section-title">📊 Formula Comparison</h2>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 200px;">Feature</th>
+                            <th style="background: #e3f2fd; color: var(--countifs-color);">COUNTIFS</th>
+                            <th style="background: #e8f5e9; color: var(--sumifs-color);">SUMIFS</th>
+                            <th style="background: #ffebee; color: var(--xlookup-color);">XLOOKUP</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Primary Purpose</strong></td>
+                            <td>Count cells with multiple criteria</td>
+                            <td>Sum values with multiple criteria</td>
+                            <td>Look up and return values</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Old Equivalent</strong></td>
+                            <td>COUNTIF (single criteria)</td>
+                            <td>SUMIF (single criteria)</td>
+                            <td>VLOOKUP/HLOOKUP</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Multiple Criteria</strong></td>
+                            <td>✅ Yes</td>
+                            <td>✅ Yes</td>
+                            <td>❌ Requires workaround</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Wildcard Support</strong></td>
+                            <td>✅ Yes (*, ?)</td>
+                            <td>✅ Yes (*, ?)</td>
+                            <td>✅ Yes (match_mode 2)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Error Handling</strong></td>
+                            <td>❌ No (returns 0)</td>
+                            <td>❌ No (returns 0)</td>
+                            <td>✅ Yes (if_not_found)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Performance</strong></td>
+                            <td>Fast for large ranges</td>
+                            <td>Fast for large ranges</td>
+                            <td>Very fast (binary search option)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Practice Area -->
+            <div class="practice-area">
+                <h2 class="section-title">💻 Interactive Practice</h2>
+                <p>Try writing formulas for this sample data:</p>
+                
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Region</th>
+                            <th>Quarter</th>
+                            <th>Sales</th>
+                            <th>Units Sold</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Widget A</td>
+                            <td>North</td>
+                            <td>Q1</td>
+                            <td>$5,000</td>
+                            <td>100</td>
+                        </tr>
+                        <tr>
+                            <td>Widget B</td>
+                            <td>South</td>
+                            <td>Q1</td>
+                            <td>$3,000</td>
+                            <td>60</td>
+                        </tr>
+                        <tr>
+                            <td>Widget A</td>
+                            <td>North</td>
+                            <td>Q2</td>
+                            <td>$6,000</td>
+                            <td>120</td>
+                        </tr>
+                        <tr>
+                            <td>Widget C</td>
+                            <td>North</td>
+                            <td>Q1</td>
+                            <td>$4,500</td>
+                            <td>90</td>
+                        </tr>
+                        <tr>
+                            <td>Widget B</td>
+                            <td>North</td>
+                            <td>Q2</td>
+                            <td>$7,000</td>
+                            <td>140</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div style="margin: 30px 0;">
+                    <h3 style="color: #1a237e; margin-bottom: 15px;">Challenge 1: COUNTIFS</h3>
+                    <p>Write a formula to count how many sales of "Widget A" were in "North" region:</p>
+                    <input type="text" class="formula-input" id="countifs-challenge" placeholder="Enter your COUNTIFS formula here...">
+                    <button class="check-btn" onclick="checkCountifs()">Check Answer</button>
+                    <div id="countifs-result" class="result-message"></div>
+                </div>
+                
+                <div style="margin: 30px 0;">
+                    <h3 style="color: #1a237e; margin-bottom: 15px;">Challenge 2: SUMIFS</h3>
+                    <p>Write a formula to sum sales for "North" region in "Q1":</p>
+                    <input type="text" class="formula-input" id="sumifs-challenge" placeholder="Enter your SUMIFS formula here...">
+                    <button class="check-btn" onclick="checkSumifs()">Check Answer</button>
+                    <div id="sumifs-result" class="result-message"></div>
+                </div>
+            </div>
+            
+            <!-- Tips & Best Practices -->
+            <div class="comparison-section">
+                <h2 class="section-title">💡 Tips & Best Practices</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                    <div style="background: #e3f2fd; padding: 20px; border-radius: 10px;">
+                        <h3 style="color: var(--countifs-color); margin-bottom: 10px;">COUNTIFS Tips</h3>
+                        <ul style="color: #555; line-height: 1.6; padding-left: 20px;">
+                            <li>Use & to combine operators: ">"&A1</li>
+                            <li>Use "<>" for "not equal to"</li>
+                            <li>All ranges must be same size</li>
+                            <li>Works with dates as serial numbers</li>
+                        </ul>
+                    </div>
+                    <div style="background: #e8f5e9; padding: 20px; border-radius: 10px;">
+                        <h3 style="color: var(--sumifs-color); margin-bottom: 10px;">SUMIFS Tips</h3>
+                        <ul style="color: #555; line-height: 1.6; padding-left: 20px;">
+                            <li>sum_range is always first argument</li>
+                            <li>Criteria can be cell references</li>
+                            <li>Use "" for empty criteria</li>
+                            <li>Dates need DATE() function or serial numbers</li>
+                        </ul>
+                    </div>
+                    <div style="background: #ffebee; padding: 20px; border-radius: 10px;">
+                        <h3 style="color: var(--xlookup-color); margin-bottom: 10px;">XLOOKUP Tips</h3>
+                        <ul style="color: #555; line-height: 1.6; padding-left: 20px;">
+                            <li>match_mode: 0=exact, -1=exact or smaller</li>
+                            <li>search_mode: 1=first to last, -1=last to first</li>
+                            <li>Use IFERROR(XLOOKUP(...),"") for compatibility</li>
+                            <li>Perfect for two-way lookups with nesting</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Toggle formula details
+        function toggleDetails(card) {
+            const isActive = card.classList.contains('active');
+            
+            // Close all other cards
+            document.querySelectorAll('.formula-card.active').forEach(activeCard => {
+                if (activeCard !== card) {
+                    activeCard.classList.remove('active');
+                    const btn = activeCard.querySelector('.toggle-btn');
+                    if (btn) btn.textContent = '▼ Show Details';
+                }
+            });
+            
+            // Toggle current card
+            card.classList.toggle('active', !isActive);
+            const btn = card.querySelector('.toggle-btn');
+            if (btn) {
+                btn.textContent = card.classList.contains('active') ? '▲ Hide Details' : '▼ Show Details';
+            }
+        }
+        
+        // Practice challenge checking
+        function checkCountifs() {
+            const input = document.getElementById('countifs-challenge').value;
+            const resultDiv = document.getElementById('countifs-result');
+            
+            // Correct answers (allowing variations)
+            const correctAnswers = [
+                '=COUNTIFS(A2:A6,"Widget A",B2:B6,"North")',
+                '=COUNTIFS(A2:A6,"Widget A",B2:B6,"North")',
+                'COUNTIFS(A2:A6,"Widget A",B2:B6,"North")'
+            ];
+            
+            const userInput = input.trim().replace(/\s+/g, '');
+            const isCorrect = correctAnswers.some(answer => 
+                userInput.toUpperCase() === answer.toUpperCase().replace(/\s+/g, '')
+            );
+            
+            resultDiv.style.display = 'block';
+            if (isCorrect) {
+                resultDiv.className = 'result-message result-correct';
+                resultDiv.innerHTML = '✅ Correct! The formula counts 2 sales of Widget A in North region.';
+            } else {
+                resultDiv.className = 'result-message result-incorrect';
+                resultDiv.innerHTML = '❌ Not quite. Try: <code>=COUNTIFS(A2:A6,"Widget A",B2:B6,"North")</code>';
+            }
+        }
+        
+        function checkSumifs() {
+            const input = document.getElementById('sumifs-challenge').value;
+            const resultDiv = document.getElementById('sumifs-result');
+            
+            // Correct answers (allowing variations)
+            const correctAnswers = [
+                '=SUMIFS(D2:D6,B2:B6,"North",C2:C6,"Q1")',
+                '=SUMIFS(D2:D6,B2:B6,"North",C2:C6,"Q1")',
+                'SUMIFS(D2:D6,B2:B6,"North",C2:C6,"Q1")'
+            ];
+            
+            const userInput = input.trim().replace(/\s+/g, '');
+            const isCorrect = correctAnswers.some(answer => 
+                userInput.toUpperCase() === answer.toUpperCase().replace(/\s+/g, '')
+            );
+            
+            resultDiv.style.display = 'block';
+            if (isCorrect) {
+                resultDiv.className = 'result-message result-correct';
+                resultDiv.innerHTML = '✅ Excellent! The formula sums to $9,500 for North region in Q1.';
+            } else {
+                resultDiv.className = 'result-message result-incorrect';
+                resultDiv.innerHTML = '❌ Almost there. Try: <code>=SUMIFS(D2:D6,B2:B6,"North",C2:C6,"Q1")</code>';
+            }
+        }
+        
+        // Add interactivity on load
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Advanced Excel Formulas Dashboard Loaded");
+            console.log("Click on any formula card to see detailed explanations");
+            
+            // Auto-open first card
+            const firstCard = document.querySelector('.formula-card');
+            if (firstCard) {
+                toggleDetails(firstCard);
+            }
+            
+            // Add some interactive hints
+            const inputs = document.querySelectorAll('.formula-input');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.style.borderColor = '#3498db';
+                    this.style.boxShadow = '0 0 0 3px rgba(52, 152, 219, 0.2)';
+                });
+                
+                input.addEventListener('blur', function() {
+                    this.style.borderColor = '#ddd';
+                    this.style.boxShadow = 'none';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

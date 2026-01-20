@@ -1,0 +1,1982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Visualization with Python - Interactive Dash Learning Center</title>
+    <style>
+        :root {
+            --dash-color: #3498db;
+            --plotly-color: #2ecc71;
+            --matplotlib-color: #9b59b6;
+            --seaborn-color: #e74c3c;
+            --folium-color: #f39c12;
+            --practice-color: #1abc9c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #1a2980, #26d0ce);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .learning-center {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 40px;
+            position: relative;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .title {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #3498db, #2ecc71, #9b59b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 800px;
+            margin-bottom: 30px;
+        }
+        
+        /* Navigation */
+        .main-nav {
+            background: #f8f9fa;
+            padding: 20px 40px;
+            border-bottom: 2px solid #dee2e6;
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            flex-wrap: wrap;
+        }
+        
+        .nav-btn {
+            padding: 15px 30px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            min-width: 180px;
+            justify-content: center;
+        }
+        
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .nav-btn.active {
+            color: white;
+            border-color: transparent;
+        }
+        
+        .nav-btn[data-module="dash"] { border-color: var(--dash-color); }
+        .nav-btn[data-module="dash"].active { background: var(--dash-color); }
+        
+        .nav-btn[data-module="plotly"] { border-color: var(--plotly-color); }
+        .nav-btn[data-module="plotly"].active { background: var(--plotly-color); }
+        
+        .nav-btn[data-module="matplotlib"] { border-color: var(--matplotlib-color); }
+        .nav-btn[data-module="matplotlib"].active { background: var(--matplotlib-color); }
+        
+        .nav-btn[data-module="seaborn"] { border-color: var(--seaborn-color); }
+        .nav-btn[data-module="seaborn"].active { background: var(--seaborn-color); }
+        
+        .nav-btn[data-module="folium"] { border-color: var(--folium-color); }
+        .nav-btn[data-module="folium"].active { background: var(--folium-color); }
+        
+        .nav-btn[data-module="practice"] { border-color: var(--practice-color); }
+        .nav-btn[data-module="practice"].active { background: var(--practice-color); }
+        
+        /* Main Content */
+        .main-content {
+            display: flex;
+            min-height: 900px;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 300px;
+            background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            overflow-y: auto;
+        }
+        
+        .module-section {
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #95a5a6;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #4a6572;
+        }
+        
+        .lesson-btn {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: left;
+            margin-bottom: 12px;
+            transition: all 0.3s;
+            color: white;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .lesson-btn:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateX(5px);
+        }
+        
+        .lesson-btn.active {
+            background: rgba(52, 152, 219, 0.3);
+            border-color: #3498db;
+            color: #3498db;
+            font-weight: 600;
+        }
+        
+        /* Content Area */
+        .content-area {
+            flex: 1;
+            padding: 40px;
+            background: #f8f9fa;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .module-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        
+        .module-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Content Styling */
+        .content-header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            border-left: 6px solid;
+        }
+        
+        .content-header.dash { border-color: var(--dash-color); }
+        .content-header.plotly { border-color: var(--plotly-color); }
+        .content-header.matplotlib { border-color: var(--matplotlib-color); }
+        .content-header.seaborn { border-color: var(--seaborn-color); }
+        .content-header.folium { border-color: var(--folium-color); }
+        .content-header.practice { border-color: var(--practice-color); }
+        
+        .content-title {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .content-description {
+            font-size: 18px;
+            color: #666;
+            line-height: 1.7;
+        }
+        
+        /* Interactive Sections */
+        .interactive-section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+        
+        .example-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .example-description {
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
+        /* Dashboard Preview */
+        .dashboard-preview {
+            background: #1e293b;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px solid #4a6572;
+        }
+        
+        .dashboard-header {
+            background: #2c3e50;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .dashboard-title {
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .dashboard-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .dashboard-component {
+            background: #34495e;
+            border-radius: 8px;
+            padding: 15px;
+            border: 1px solid #4a6572;
+        }
+        
+        .component-title {
+            color: #95a5a6;
+            font-size: 14px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .component-placeholder {
+            height: 200px;
+            background: #2c3e50;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+        
+        /* Code Display */
+        .code-display {
+            background: #1e293b;
+            color: #e2e8f0;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Consolas', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #94a3b8;
+        }
+        
+        .copy-btn {
+            background: #475569;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+        }
+        
+        .copy-btn:hover {
+            background: #64748b;
+        }
+        
+        .py-keyword { color: #f97316; }
+        .py-function { color: #22d3ee; }
+        .py-string { color: #10b981; }
+        .py-comment { color: #94a3b8; font-style: italic; }
+        .py-number { color: #fbbf24; }
+        .py-class { color: #8b5cf6; }
+        
+        /* Interactive Controls */
+        .control-panel {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #e2e8f0;
+        }
+        
+        .control-group {
+            margin-bottom: 15px;
+        }
+        
+        .control-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .control-input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: 'Consolas', monospace;
+        }
+        
+        .control-button {
+            padding: 10px 20px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .control-button:hover {
+            background: #2980b9;
+        }
+        
+        /* Chart Containers */
+        .chart-container {
+            height: 400px;
+            background: white;
+            border-radius: 12px;
+            margin: 30px 0;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 2px solid #e2e8f0;
+            position: relative;
+        }
+        
+        .chart-canvas {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .chart-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 18px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 2px dashed #ddd;
+        }
+        
+        /* Map Container */
+        .map-container {
+            height: 400px;
+            background: white;
+            border-radius: 12px;
+            margin: 30px 0;
+            padding: 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 2px solid #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .map-canvas {
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+        }
+        
+        /* Practice Area */
+        .practice-question {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            border-left: 6px solid var(--practice-color);
+        }
+        
+        .question-text {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: #2c3e50;
+        }
+        
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .option-btn {
+            padding: 15px;
+            background: #f8f9fa;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+        
+        .option-btn:hover {
+            background: #e9ecef;
+        }
+        
+        .option-btn.correct {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+        
+        .option-btn.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+        
+        /* Feedback */
+        .feedback {
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            display: none;
+            animation: slideIn 0.3s;
+        }
+        
+        .feedback.show {
+            display: block;
+        }
+        
+        .feedback.correct {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        
+        .feedback.incorrect {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        
+        /* Library Comparison */
+        .library-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .library-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-top: 4px solid;
+        }
+        
+        .library-card.dash { border-color: var(--dash-color); }
+        .library-card.plotly { border-color: var(--plotly-color); }
+        .library-card.matplotlib { border-color: var(--matplotlib-color); }
+        .library-card.seaborn { border-color: var(--seaborn-color); }
+        .library-card.folium { border-color: var(--folium-color); }
+        
+        .library-name {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .library-description {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .library-features {
+            list-style-type: none;
+            margin: 15px 0;
+        }
+        
+        .library-features li {
+            padding: 5px 0;
+            color: #666;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .library-features li:last-child {
+            border-bottom: none;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                order: 2;
+            }
+            
+            .main-nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-btn {
+                min-width: 150px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .content-area, .sidebar {
+                padding: 20px;
+            }
+            
+            .content-title {
+                font-size: 28px;
+            }
+            
+            .dashboard-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .library-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <!-- Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Leaflet CSS for Folium maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <!-- Leaflet JS for Folium maps -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+</head>
+<body>
+    <div class="learning-center">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <h1 class="title">Data Visualization with Python - Interactive Learning Center</h1>
+                <p class="subtitle">Master Python data visualization from Matplotlib basics to interactive Dash dashboards with Plotly, Seaborn, and Folium.</p>
+            </div>
+        </div>
+        
+        <!-- Main Navigation -->
+        <div class="main-nav">
+            <button class="nav-btn active" data-module="dash" onclick="showModule('dash')">
+                📊 Dash Basics
+            </button>
+            <button class="nav-btn" data-module="plotly" onclick="showModule('plotly')">
+                📈 Plotly Express
+            </button>
+            <button class="nav-btn" data-module="matplotlib" onclick="showModule('matplotlib')">
+                📉 Matplotlib
+            </button>
+            <button class="nav-btn" data-module="seaborn" onclick="showModule('seaborn')">
+                📊 Seaborn
+            </button>
+            <button class="nav-btn" data-module="folium" onclick="showModule('folium')">
+                🗺️ Folium Maps
+            </button>
+            <button class="nav-btn" data-module="practice" onclick="showModule('practice')">
+                🎯 Practice Labs
+            </button>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Dash Lessons -->
+                <div class="module-section" id="dash-section">
+                    <div class="section-title">Dash Framework</div>
+                    <button class="lesson-btn active" data-lesson="basics" onclick="showLesson('basics')">
+                        <span>📚</span> Dash Basics
+                    </button>
+                    <button class="lesson-btn" data-lesson="components" onclick="showLesson('components')">
+                        <span>🧩</span> Components
+                    </button>
+                    <button class="lesson-btn" data-lesson="callbacks" onclick="showLesson('callbacks')">
+                        <span>🔄</span> Callbacks
+                    </button>
+                </div>
+                
+                <!-- Plotly Lessons -->
+                <div class="module-section" id="plotly-section">
+                    <div class="section-title">Plotly Express</div>
+                    <button class="lesson-btn" data-lesson="charts" onclick="showLesson('charts')">
+                        <span>📊</span> Basic Charts
+                    </button>
+                    <button class="lesson-btn" data-lesson="interactive" onclick="showLesson('interactive')">
+                        <span>🎮</span> Interactive Charts
+                    </button>
+                </div>
+                
+                <!-- Matplotlib Lessons -->
+                <div class="module-section" id="matplotlib-section">
+                    <div class="section-title">Matplotlib</div>
+                    <button class="lesson-btn" data-lesson="basic_plots" onclick="showLesson('basic_plots')">
+                        <span>📈</span> Basic Plots
+                    </button>
+                    <button class="lesson-btn" data-lesson="subplots" onclick="showLesson('subplots')">
+                        <span>📊</span> Subplots
+                    </button>
+                </div>
+                
+                <!-- Seaborn Lessons -->
+                <div class="module-section" id="seaborn-section">
+                    <div class="section-title">Seaborn</div>
+                    <button class="lesson-btn" data-lesson="distribution" onclick="showLesson('distribution')">
+                        <span>📊</span> Distribution Plots
+                    </button>
+                    <button class="lesson-btn" data-lesson="categorical" onclick="showLesson('categorical')">
+                        <span>📈</span> Categorical Plots
+                    </button>
+                    <button class="lesson-btn" data-lesson="regression" onclick="showLesson('regression')">
+                        <span>📉</span> Regression Plots
+                    </button>
+                </div>
+                
+                <!-- Folium Lessons -->
+                <div class="module-section" id="folium-section">
+                    <div class="section-title">Folium Maps</div>
+                    <button class="lesson-btn" data-lesson="basic_maps" onclick="showLesson('basic_maps')">
+                        <span>🗺️</span> Basic Maps
+                    </button>
+                    <button class="lesson-btn" data-lesson="markers" onclick="showLesson('markers')">
+                        <span>📍</span> Markers & Popups
+                    </button>
+                    <button class="lesson-btn" data-lesson="choropleth" onclick="showLesson('choropleth')">
+                        <span>🎨</span> Choropleth Maps
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Dash Module -->
+                <div class="module-content active" id="module-dash">
+                    <div class="content-header dash">
+                        <h2 class="content-title">Dash Framework for Interactive Web Apps</h2>
+                        <p class="content-description">Learn to build interactive web applications with Dash, a Python framework for creating analytical dashboards.</p>
+                    </div>
+                    
+                    <!-- Dash Basics -->
+                    <div class="interactive-section" id="basics-section">
+                        <div class="example-title">
+                            <span>📚</span>
+                            Dash Application Structure
+                        </div>
+                        <p class="example-description">Understand the basic structure of a Dash application including layout, components, and callbacks.</p>
+                        
+                        <div class="dashboard-preview">
+                            <div class="dashboard-header">
+                                <span>📊</span>
+                                <div class="dashboard-title">Flight Delay Dashboard</div>
+                            </div>
+                            <div class="dashboard-content">
+                                <div class="dashboard-component">
+                                    <div class="component-title">Title Component</div>
+                                    <div class="component-placeholder">
+                                        Flight Delay Time Statistics Dashboard
+                                    </div>
+                                </div>
+                                <div class="dashboard-component">
+                                    <div class="component-title">Input Component</div>
+                                    <div class="component-placeholder">
+                                        Year Input: [2010-2020]
+                                    </div>
+                                </div>
+                                <div class="dashboard-component">
+                                    <div class="component-title">Chart Component</div>
+                                    <div class="component-placeholder">
+                                        Average Monthly Arrival Delay Chart
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="code-display">
+                            <div class="code-header">
+                                <span>Basic Dash Application Structure</span>
+                                <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                            </div>
+                            <pre><code><span class="py-keyword">import</span> dash
+<span class="py-keyword">from</span> dash <span class="py-keyword">import</span> dcc, html
+<span class="py-keyword">from</span> dash.dependencies <span class="py-keyword">import</span> Input, Output
+<span class="py-keyword">import</span> plotly.express <span class="py-keyword">as</span> px
+<span class="py-keyword">import</span> pandas <span class="py-keyword">as</span> pd
+
+<span class="py-comment"># Initialize the Dash app</span>
+app = dash.Dash(__name__)
+
+<span class="py-comment"># Load your dataset</span>
+df = pd.read_csv(<span class="py-string">'airline_data.csv'</span>)
+
+<span class="py-comment"># Define the app layout</span>
+app.layout = html.Div(children=[
+    html.H1(<span class="py-string">'Flight Delay Time Statistics Dashboard'</span>),
+    
+    html.Div([
+        html.Div([
+            html.H2(<span class="py-string">'Report Type:'</span>, style={<span class="py-string">'text-align'</span>: <span class="py-string">'center'</span>}),
+            dcc.Dropdown(
+                id=<span class="py-string">'input-type'</span>,
+                options=[
+                    {<span class="py-string">'label'</span>: <span class="py-string">'Yearly Statistics'</span>, <span class="py-string">'value'</span>: <span class="py-string">'Yearly Statistics'</span>},
+                    {<span class="py-string">'label'</span>: <span class="py-string">'Recession Period Statistics'</span>, <span class="py-string">'value'</span>: <span class="py-string">'Recession Period Statistics'</span>}
+                ],
+                value=<span class="py-string">'Yearly Statistics'</span>,
+                placeholder=<span class="py-string">'Select a report type'</span>
+            )
+        ], className=<span class="py-string">'six columns'</span>),
+        
+        html.Div([
+            html.H2(<span class="py-string">'Choose Year:'</span>, style={<span class="py-string">'text-align'</span>: <span class="py-string">'center'</span>}),
+            dcc.Dropdown(
+                id=<span class="py-string">'input-year'</span>,
+                options=[{<span class="py-string">'label'</span>: i, <span class="py-string">'value'</span>: i} <span class="py-keyword">for</span> i <span class="py-keyword">in</span> <span class="py-function">range</span>(<span class="py-number">1980</span>, <span class="py-number">2024</span>)],
+                value=<span class="py-number">2010</span>,
+                placeholder=<span class="py-string">'Select a year'</span>
+            )
+        ], className=<span class="py-string">'six columns'</span>)
+    ], className=<span class="py-string">'row'</span>),
+    
+    html.Div(id=<span class="py-string">'output-container'</span>, className=<span class="py-string">'chart-grid'</span>)
+])
+
+<span class="py-comment"># Define callback to update output</span>
+@app.callback(
+    Output(<span class="py-string">'output-container'</span>, <span class="py-string">'children'</span>),
+    [Input(<span class="py-string">'input-type'</span>, <span class="py-string">'value'</span>),
+     Input(<span class="py-string">'input-year'</span>, <span class="py-string">'value'</span>)]
+)
+<span class="py-keyword">def</span> <span class="py-function">update_output</span>(report_type, year):
+    <span class="py-keyword">if</span> report_type == <span class="py-string">'Yearly Statistics'</span>:
+        <span class="py-comment"># Create charts for yearly statistics</span>
+        <span class="py-keyword">return</span> create_yearly_charts(year)
+    <span class="py-keyword">else</span>:
+        <span class="py-comment"># Create charts for recession period statistics</span>
+        <span class="py-keyword">return</span> create_recession_charts()
+
+<span class="py-keyword">if</span> __name__ == <span class="py-string">'__main__'</span>:
+    app.run_server(debug=<span class="py-keyword">True</span>)</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Plotly Module -->
+                <div class="module-content" id="module-plotly">
+                    <div class="content-header plotly">
+                        <h2 class="content-title">Plotly Express for Interactive Visualizations</h2>
+                        <p class="content-description">Create beautiful, interactive visualizations with Plotly Express for your Dash applications.</p>
+                    </div>
+                    
+                    <!-- Plotly Charts -->
+                    <div class="interactive-section" id="charts-section">
+                        <div class="example-title">
+                            <span>📊</span>
+                            Plotly Chart Types
+                        </div>
+                        <p class="example-description">Explore different types of charts available in Plotly Express for data visualization.</p>
+                        
+                        <div class="control-panel">
+                            <div class="control-group">
+                                <label class="control-label">Select Chart Type:</label>
+                                <select class="control-input" id="plotlyChartType" onchange="updatePlotlyDemo()">
+                                    <option value="line">Line Chart</option>
+                                    <option value="bar">Bar Chart</option>
+                                    <option value="scatter">Scatter Plot</option>
+                                    <option value="pie">Pie Chart</option>
+                                    <option value="histogram">Histogram</option>
+                                </select>
+                            </div>
+                            
+                            <div class="control-group">
+                                <label class="control-label">Sample Data:</label>
+                                <select class="control-input" id="plotlyData" onchange="updatePlotlyDemo()">
+                                    <option value="airline">Airline Delays</option>
+                                    <option value="automobile">Automobile Sales</option>
+                                    <option value="sales">Monthly Sales</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <canvas id="plotlyDemoChart" class="chart-canvas"></canvas>
+                        </div>
+                        
+                        <div class="code-display">
+                            <div class="code-header">
+                                <span>Plotly Express Chart Examples</span>
+                                <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+                            </div>
+                            <pre><code><span class="py-keyword">import</span> plotly.express <span class="py-keyword">as</span> px
+<span class="py-keyword">import</span> pandas <span class="py-keyword">as</span> pd
+
+<span class="py-comment"># Load sample data</span>
+df = pd.read_csv(<span class="py-string">'airline_data.csv'</span>)
+
+<span class="py-comment"># 1. Line Chart - Monthly Average Arrival Delay</span>
+line_fig = px.line(
+    df.groupby(<span class="py-string">'Month'</span>)[<span class="py-string">'ArrDelay'</span>].mean().reset_index(),
+    x=<span class="py-string">'Month'</span>,
+    y=<span class="py-string">'ArrDelay'</span>,
+    title=<span class="py-string">'Monthly Average Arrival Delay'</span>,
+    labels={<span class="py-string">'ArrDelay'</span>: <span class="py-string">'Delay (minutes)'</span>, <span class="py-string">'Month'</span>: <span class="py-string">'Month'</span>}
+)
+line_fig.update_layout(
+    xaxis={<span class="py-string">'dtick'</span>: <span class="py-number">1</span>},
+    hovermode=<span class="py-string">'x unified'</span>
+)
+
+<span class="py-comment"># 2. Bar Chart - Average Delay by Carrier</span>
+bar_fig = px.bar(
+    df.groupby(<span class="py-string">'Reporting_Airline'</span>)[<span class="py-string">'ArrDelay'</span>].mean().reset_index(),
+    x=<span class="py-string">'Reporting_Airline'</span>,
+    y=<span class="py-string">'ArrDelay'</span>,
+    title=<span class="py-string">'Average Arrival Delay by Carrier'</span>,
+    color=<span class="py-string">'ArrDelay'</span>,
+    color_continuous_scale=<span class="py-string">'viridis'</span>
+)</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Matplotlib Module -->
+                <div class="module-content" id="module-matplotlib">
+                    <div class="content-header matplotlib">
+                        <h2 class="content-title">Matplotlib for Static Visualizations</h2>
+                        <p class="content-description">Create publication-quality static visualizations with Matplotlib, the foundation of Python plotting.</p>
+                    </div>
+                    
+                    <!-- Matplotlib Basics -->
+                    <div class="interactive-section" id="basic_plots-section">
+                        <div class="example-title">
+                            <span>📈</span>
+                            Matplotlib Basic Plots
+                        </div>
+                        <p class="example-description">Learn to create various types of plots using Matplotlib's comprehensive plotting library.</p>
+                        
+                        <div class="chart-container">
+                            <canvas id="matplotlibDemoChart" class="chart-canvas"></canvas>
+                        </div>
+                        
+                        <div class="library-grid">
+                            <div class="library-card matplotlib">
+                                <div class="library-name">📈 Line Plot</div>
+                                <div class="library-description">Show trends and changes over time.</div>
+                                <div class="code-display" style="margin: 15px 0; padding: 15px; font-size: 12px;">
+                                    plt.plot(x, y)<br>
+                                    plt.title('Title')<br>
+                                    plt.xlabel('X Label')<br>
+                                    plt.ylabel('Y Label')
+                                </div>
+                            </div>
+                            
+                            <div class="library-card matplotlib">
+                                <div class="library-name">📊 Bar Chart</div>
+                                <div class="library-description">Compare categorical data.</div>
+                                <div class="code-display" style="margin: 15px 0; padding: 15px; font-size: 12px;">
+                                    plt.bar(categories, values)<br>
+                                    plt.xticks(rotation=45)<br>
+                                    plt.grid(axis='y')
+                                </div>
+                            </div>
+                            
+                            <div class="library-card matplotlib">
+                                <div class="library-name">📉 Scatter Plot</div>
+                                <div class="library-description">Show relationship between variables.</div>
+                                <div class="code-display" style="margin: 15px 0; padding: 15px; font-size: 12px;">
+                                    plt.scatter(x, y, s=size)<br>
+                                    plt.colorbar()<br>
+                                    plt.legend()
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Seaborn Module -->
+                <div class="module-content" id="module-seaborn">
+                    <div class="content-header seaborn">
+                        <h2 class="content-title">Seaborn for Statistical Visualization</h2>
+                        <p class="content-description">Create beautiful statistical graphics with Seaborn, built on top of Matplotlib.</p>
+                    </div>
+                    
+                    <!-- Distribution Plots -->
+                    <div class="interactive-section" id="distribution-section">
+                        <div class="example-title">
+                            <span>📊</span>
+                            Distribution Plots
+                        </div>
+                        <p class="example-description">Visualize distributions of data using histograms, KDE plots, and more.</p>
+                        
+                        <div class="control-panel">
+                            <div class="control-group">
+                                <label class="control-label">Select Plot Type:</label>
+                                <select class="control-input" id="seabornPlotType" onchange="updateSeabornDemo()">
+                                    <option value="hist">Histogram</option>
+                                    <option value="kde">KDE Plot</option>
+                                    <option value="box">Box Plot</option>
+                                    <option value="violin">Violin Plot</option>
+                                </select>
+                            </div>
+                            
+                            <div class="control-group">
+                                <label class="control-label">Number of Bins:</label>
+                                <input type="range" class="control-input" id="seabornBins" min="5" max="50" value="20" onchange="updateSeabornDemo()">
+                                <div style="text-align: center; margin-top: 5px;">Bins: <span id="binsValue">20</span></div>
+                            </div>
+                            
+                            <div class="control-group">
+                                <label class="control-label">Dataset:</label>
+                                <select class="control-input" id="seabornDataset" onchange="updateSeabornDemo()">
+                                    <option value="iris">Iris Dataset</option>
+                                    <option value="tips">Restaurant Tips</option>
+                                    <option value="flights">Flight Data</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <canvas id="seabornDemoChart" class="chart-canvas"></canvas>
+                        </div>
+                    </div>
+                    
+                    <!-- Categorical Plots -->
+                    <div class="interactive-section" id="categorical-section">
+                        <div class="example-title">
+                            <span>📈</span>
+                            Categorical Plots
+                        </div>
+                        <p class="example-description">Visualize relationships involving categorical variables.</p>
+                        
+                        <div class="chart-container">
+                            <canvas id="seabornCategoricalChart" class="chart-canvas"></canvas>
+                        </div>
+                    </div>
+                    
+                    <!-- Regression Plots -->
+                    <div class="interactive-section" id="regression-section">
+                        <div class="example-title">
+                            <span>📉</span>
+                            Regression Plots
+                        </div>
+                        <p class="example-description">Visualize relationships between variables with regression analysis.</p>
+                        
+                        <div class="chart-container">
+                            <canvas id="seabornRegressionChart" class="chart-canvas"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Folium Module -->
+                <div class="module-content" id="module-folium">
+                    <div class="content-header folium">
+                        <h2 class="content-title">Folium for Interactive Maps</h2>
+                        <p class="content-description">Create beautiful, interactive maps with Folium, powered by Leaflet.js.</p>
+                    </div>
+                    
+                    <!-- Basic Maps -->
+                    <div class="interactive-section" id="basic_maps-section">
+                        <div class="example-title">
+                            <span>🗺️</span>
+                            Basic Maps
+                        </div>
+                        <p class="example-description">Create and customize basic interactive maps with different tile layers.</p>
+                        
+                        <div class="control-panel">
+                            <div class="control-group">
+                                <label class="control-label">Select Map Type:</label>
+                                <select class="control-input" id="foliumMapType" onchange="updateFoliumMap()">
+                                    <option value="openstreet">OpenStreetMap</option>
+                                    <option value="cartodb">CartoDB Positron</option>
+                                    <option value="stamen">Stamen Terrain</option>
+                                    <option value="dark">Dark Mode</option>
+                                </select>
+                            </div>
+                            
+                            <div class="control-group">
+                                <label class="control-label">Initial Location:</label>
+                                <select class="control-input" id="foliumLocation" onchange="updateFoliumMap()">
+                                    <option value="nyc">New York City</option>
+                                    <option value="london">London</option>
+                                    <option value="tokyo">Tokyo</option>
+                                    <option value="sydney">Sydney</option>
+                                </select>
+                            </div>
+                            
+                            <div class="control-group">
+                                <label class="control-label">Zoom Level:</label>
+                                <input type="range" class="control-input" id="foliumZoom" min="1" max="18" value="12" onchange="updateFoliumMap()">
+                                <div style="text-align: center; margin-top: 5px;">Zoom: <span id="zoomValue">12</span></div>
+                            </div>
+                        </div>
+                        
+                        <div class="map-container">
+                            <div id="foliumMap" class="map-canvas"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Markers & Popups -->
+                    <div class="interactive-section" id="markers-section">
+                        <div class="example-title">
+                            <span>📍</span>
+                            Markers & Popups
+                        </div>
+                        <p class="example-description">Add markers, popups, and tooltips to your maps.</p>
+                        
+                        <div class="map-container">
+                            <div id="foliumMarkersMap" class="map-canvas"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Choropleth Maps -->
+                    <div class="interactive-section" id="choropleth-section">
+                        <div class="example-title">
+                            <span>🎨</span>
+                            Choropleth Maps
+                        </div>
+                        <p class="example-description">Create thematic maps where areas are shaded according to statistical variables.</p>
+                        
+                        <div class="map-container">
+                            <div id="foliumChoroplethMap" class="map-canvas"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Practice Module -->
+                <div class="module-content" id="module-practice">
+                    <div class="content-header practice">
+                        <h2 class="content-title">Practice Labs & Assignments</h2>
+                        <p class="content-description">Apply your skills with real-world practice assignments and labs.</p>
+                    </div>
+                    
+                    <!-- Practice Labs -->
+                    <div class="interactive-section">
+                        <div class="example-title">
+                            <span>🔬</span>
+                            Practice Assignment: Airline Delay Dashboard
+                        </div>
+                        <p class="example-description">Build an interactive dashboard to analyze airline delay statistics with user input and callbacks.</p>
+                        
+                        <div class="dashboard-preview">
+                            <div class="dashboard-header">
+                                <span>✈️</span>
+                                <div class="dashboard-title">Airline Delay Statistics Dashboard</div>
+                            </div>
+                            <div class="dashboard-content">
+                                <div class="dashboard-component">
+                                    <div class="component-title">Year Input</div>
+                                    <div class="component-placeholder">
+                                        <div style="padding: 10px;">
+                                            <strong>Select Year:</strong> [2010-2020]<br>
+                                            <input type="range" style="width: 100%; margin-top: 10px;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="dashboard-component">
+                                    <div class="component-title">Carrier Delay Chart</div>
+                                    <div class="component-placeholder">
+                                        Monthly Average Carrier Delay
+                                    </div>
+                                </div>
+                                <div class="dashboard-component">
+                                    <div class="component-title">Weather Delay Chart</div>
+                                    <div class="component-placeholder">
+                                        Monthly Average Weather Delay
+                                    </div>
+                                </div>
+                                <div class="dashboard-component">
+                                    <div class="component-title">NAS Delay Chart</div>
+                                    <div class="component-placeholder">
+                                        Monthly Average NAS Delay
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="practice-question">
+                            <div class="question-text">
+                                Task: Create a callback function that takes year input and updates five different delay charts (carrier, weather, NAS, security, late aircraft).
+                            </div>
+                            
+                            <div class="code-display">
+                                <div class="code-header">
+                                    <span>Your Solution</span>
+                                    <button class="copy-btn" onclick="checkSolution()">Check Solution</button>
+                                </div>
+                                <textarea id="solutionEditor" style="width: 100%; height: 200px; border: none; font-family: 'Consolas', monospace; padding: 10px; resize: vertical;" placeholder="Write your callback function here...">
+# Complete this callback function
+@app.callback(
+    [Output('carrier-delay', 'figure'),
+     Output('weather-delay', 'figure'),
+     Output('nas-delay', 'figure'),
+     Output('security-delay', 'figure'),
+     Output('late-aircraft-delay', 'figure')],
+    [Input('year-input', 'value')]
+)
+def update_all_delay_charts(selected_year):
+    # Your code here
+    pass</textarea>
+                            </div>
+                            
+                            <div class="feedback" id="solutionFeedback"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let currentModule = 'dash';
+        let currentLesson = 'basics';
+        let charts = {};
+        let foliumMaps = {};
+        
+        // Initialize the application
+        function init() {
+            showModule('dash');
+            showLesson('basics');
+            initializeCharts();
+            initializeFoliumMaps();
+            
+            // Initialize event listeners
+            setupEventListeners();
+        }
+        
+        // Setup event listeners
+        function setupEventListeners() {
+            // Seaborn controls
+            const seabornBins = document.getElementById('seabornBins');
+            if (seabornBins) {
+                seabornBins.addEventListener('input', function() {
+                    document.getElementById('binsValue').textContent = this.value;
+                    updateSeabornDemo();
+                });
+            }
+            
+            // Folium controls
+            const foliumZoom = document.getElementById('foliumZoom');
+            if (foliumZoom) {
+                foliumZoom.addEventListener('input', function() {
+                    document.getElementById('zoomValue').textContent = this.value;
+                    updateFoliumMap();
+                });
+            }
+            
+            // Plotly controls
+            const plotlyChartType = document.getElementById('plotlyChartType');
+            const plotlyData = document.getElementById('plotlyData');
+            if (plotlyChartType && plotlyData) {
+                plotlyChartType.addEventListener('change', updatePlotlyDemo);
+                plotlyData.addEventListener('change', updatePlotlyDemo);
+            }
+            
+            // Seaborn controls
+            const seabornControls = ['seabornPlotType', 'seabornDataset'];
+            seabornControls.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.addEventListener('change', updateSeabornDemo);
+                }
+            });
+            
+            // Folium controls
+            const foliumControls = ['foliumMapType', 'foliumLocation'];
+            foliumControls.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.addEventListener('change', updateFoliumMap);
+                }
+            });
+        }
+        
+        // Show module
+        function showModule(module) {
+            currentModule = module;
+            
+            // Update navigation buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            const activeBtn = document.querySelector(`[data-module="${module}"]`);
+            if (activeBtn) {
+                activeBtn.classList.add('active');
+            }
+            
+            // Update module content
+            document.querySelectorAll('.module-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            const activeModule = document.getElementById(`module-${module}`);
+            if (activeModule) {
+                activeModule.classList.add('active');
+            }
+            
+            // Update sidebar visibility
+            updateSidebar();
+            
+            // Refresh folium maps when folium module is shown
+            if (module === 'folium') {
+                setTimeout(() => {
+                    if (foliumMaps.basic) {
+                        foliumMaps.basic.invalidateSize();
+                    }
+                    if (foliumMaps.markers) {
+                        foliumMaps.markers.invalidateSize();
+                    }
+                    if (foliumMaps.choropleth) {
+                        foliumMaps.choropleth.invalidateSize();
+                    }
+                }, 300);
+            }
+            
+            // Initialize charts for the active module
+            setTimeout(() => {
+                initializeModuleCharts(module);
+            }, 100);
+        }
+        
+        // Update sidebar visibility
+        function updateSidebar() {
+            document.querySelectorAll('.module-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            const activeSection = document.getElementById(`${currentModule}-section`);
+            if (activeSection) {
+                activeSection.style.display = 'block';
+            }
+        }
+        
+        // Show lesson
+        function showLesson(lesson) {
+            currentLesson = lesson;
+            
+            // Update lesson buttons
+            document.querySelectorAll('.lesson-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            const activeBtn = document.querySelector(`[data-lesson="${lesson}"]`);
+            if (activeBtn) {
+                activeBtn.classList.add('active');
+            }
+        }
+        
+        // Initialize charts for specific module
+        function initializeModuleCharts(module) {
+            switch(module) {
+                case 'plotly':
+                    if (!charts.plotly) {
+                        initializePlotlyChart();
+                    }
+                    break;
+                case 'matplotlib':
+                    if (!charts.matplotlib) {
+                        initializeMatplotlibChart();
+                    }
+                    break;
+                case 'seaborn':
+                    if (!charts.seaborn) {
+                        initializeSeabornCharts();
+                    }
+                    break;
+            }
+        }
+        
+        // Initialize all charts
+        function initializeCharts() {
+            initializePlotlyChart();
+            initializeMatplotlibChart();
+            initializeSeabornCharts();
+        }
+        
+        // Initialize Plotly chart
+        function initializePlotlyChart() {
+            const plotlyCanvas = document.getElementById('plotlyDemoChart');
+            if (!plotlyCanvas) return;
+            
+            // Destroy existing chart if it exists
+            if (charts.plotly) {
+                charts.plotly.destroy();
+            }
+            
+            const ctx = plotlyCanvas.getContext('2d');
+            charts.plotly = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [
+                        {
+                            label: 'Carrier Delay',
+                            data: [12, 19, 8, 15, 22, 18, 25, 12, 19, 14, 21, 16],
+                            borderColor: '#3498db',
+                            backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.3
+                        },
+                        {
+                            label: 'Weather Delay',
+                            data: [5, 8, 12, 6, 9, 15, 8, 10, 7, 11, 9, 13],
+                            borderColor: '#2ecc71',
+                            backgroundColor: 'rgba(46, 204, 113, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.3
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Monthly Flight Delays (2023)',
+                            font: {
+                                size: 16,
+                                weight: 'bold'
+                            }
+                        },
+                        legend: {
+                            position: 'top',
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Delay (minutes)'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Month'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Initialize Matplotlib chart
+        function initializeMatplotlibChart() {
+            const matplotlibCanvas = document.getElementById('matplotlibDemoChart');
+            if (!matplotlibCanvas) return;
+            
+            // Destroy existing chart if it exists
+            if (charts.matplotlib) {
+                charts.matplotlib.destroy();
+            }
+            
+            const ctx = matplotlibCanvas.getContext('2d');
+            charts.matplotlib = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020'],
+                    datasets: [{
+                        label: 'Automobile Sales',
+                        data: [45000, 52000, 48000, 55000, 60000, 58000, 62000, 65000, 68000, 72000, 70000],
+                        borderColor: '#9b59b6',
+                        backgroundColor: 'rgba(155, 89, 182, 0.1)',
+                        borderWidth: 3,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Automobile Sales Trend (2010-2020)',
+                            font: {
+                                size: 16,
+                                weight: 'bold'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            title: {
+                                display: true,
+                                text: 'Sales (units)'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Year'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Initialize Seaborn charts
+        function initializeSeabornCharts() {
+            // Distribution chart
+            const seabornCanvas = document.getElementById('seabornDemoChart');
+            if (seabornCanvas) {
+                // Destroy existing chart if it exists
+                if (charts.seaborn) {
+                    charts.seaborn.destroy();
+                }
+                
+                const ctx = seabornCanvas.getContext('2d');
+                charts.seaborn = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Setosa', 'Versicolor', 'Virginica'],
+                        datasets: [{
+                            label: 'Average Sepal Length (cm)',
+                            data: [5.0, 5.9, 6.5],
+                            backgroundColor: ['#e74c3c', '#3498db', '#2ecc71'],
+                            borderColor: ['#c0392b', '#2980b9', '#27ae60'],
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Iris Dataset - Average Sepal Length by Species',
+                                font: {
+                                    size: 16,
+                                    weight: 'bold'
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Sepal Length (cm)'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // Categorical chart
+            const categoricalCanvas = document.getElementById('seabornCategoricalChart');
+            if (categoricalCanvas) {
+                // Destroy existing chart if it exists
+                if (charts.seabornCategorical) {
+                    charts.seabornCategorical.destroy();
+                }
+                
+                const ctx = categoricalCanvas.getContext('2d');
+                charts.seabornCategorical = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Thursday', 'Friday', 'Saturday', 'Sunday'],
+                        datasets: [{
+                            label: 'Average Total Bill ($)',
+                            data: [25, 35, 45, 35],
+                            backgroundColor: 'rgba(231, 76, 60, 0.7)',
+                            borderColor: '#e74c3c',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Restaurant Tips - Average Bill by Day',
+                                font: {
+                                    size: 16,
+                                    weight: 'bold'
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Total Bill ($)'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // Regression chart
+            const regressionCanvas = document.getElementById('seabornRegressionChart');
+            if (regressionCanvas) {
+                // Destroy existing chart if it exists
+                if (charts.seabornRegression) {
+                    charts.seabornRegression.destroy();
+                }
+                
+                const ctx = regressionCanvas.getContext('2d');
+                charts.seabornRegression = new Chart(ctx, {
+                    type: 'scatter',
+                    data: {
+                        datasets: [{
+                            label: 'Tip vs Total Bill',
+                            data: [
+                                {x: 10, y: 1.5},
+                                {x: 15, y: 2.5},
+                                {x: 20, y: 3.5},
+                                {x: 25, y: 4.5},
+                                {x: 30, y: 5.0},
+                                {x: 35, y: 6.0},
+                                {x: 40, y: 7.0},
+                                {x: 45, y: 8.0},
+                                {x: 50, y: 9.0}
+                            ],
+                            backgroundColor: 'rgba(231, 76, 60, 0.7)',
+                            borderColor: '#e74c3c',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Restaurant Tips - Tip vs Total Bill',
+                                font: {
+                                    size: 16,
+                                    weight: 'bold'
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Tip ($)'
+                                }
+                            },
+                            x: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Total Bill ($)'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+        
+        // Initialize Folium maps
+        function initializeFoliumMaps() {
+            // Basic map
+            const basicMapContainer = document.getElementById('foliumMap');
+            if (basicMapContainer && !foliumMaps.basic) {
+                foliumMaps.basic = L.map('foliumMap').setView([40.7128, -74.0060], 12);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap contributors'
+                }).addTo(foliumMaps.basic);
+                
+                // Add a marker
+                L.marker([40.7128, -74.0060])
+                    .addTo(foliumMaps.basic)
+                    .bindPopup('New York City<br>Sample Location')
+                    .openPopup();
+            }
+            
+            // Markers map
+            const markersMapContainer = document.getElementById('foliumMarkersMap');
+            if (markersMapContainer && !foliumMaps.markers) {
+                foliumMaps.markers = L.map('foliumMarkersMap').setView([40.7128, -74.0060], 12);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap contributors'
+                }).addTo(foliumMaps.markers);
+                
+                // Add multiple markers
+                const locations = [
+                    {lat: 40.7128, lng: -74.0060, title: 'New York City', color: 'red'},
+                    {lat: 40.7580, lng: -73.9855, title: 'Times Square', color: 'blue'},
+                    {lat: 40.7614, lng: -73.9776, title: 'Rockefeller Center', color: 'green'},
+                    {lat: 40.6892, lng: -74.0445, title: 'Statue of Liberty', color: 'orange'},
+                    {lat: 40.7829, lng: -73.9654, title: 'Central Park', color: 'purple'}
+                ];
+                
+                locations.forEach(loc => {
+                    L.marker([loc.lat, loc.lng])
+                        .addTo(foliumMaps.markers)
+                        .bindPopup(`<b>${loc.title}</b><br>Lat: ${loc.lat}<br>Lng: ${loc.lng}`);
+                });
+            }
+            
+            // Choropleth map
+            const choroplethMapContainer = document.getElementById('foliumChoroplethMap');
+            if (choroplethMapContainer && !foliumMaps.choropleth) {
+                foliumMaps.choropleth = L.map('foliumChoroplethMap').setView([37.8, -96], 4);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap contributors'
+                }).addTo(foliumMaps.choropleth);
+                
+                // Add a rectangle to simulate US states
+                const bounds = [[25, -125], [49, -66]];
+                L.rectangle(bounds, {
+                    color: "#ff7800",
+                    weight: 1,
+                    fillColor: "#ffff00",
+                    fillOpacity: 0.3
+                }).addTo(foliumMaps.choropleth).bindPopup("USA Choropleth Map - Population Density");
+                
+                // Add some markers for major cities
+                const cities = [
+                    {name: 'New York', lat: 40.7128, lng: -74.0060},
+                    {name: 'Los Angeles', lat: 34.0522, lng: -118.2437},
+                    {name: 'Chicago', lat: 41.8781, lng: -87.6298},
+                    {name: 'Houston', lat: 29.7604, lng: -95.3698},
+                    {name: 'Phoenix', lat: 33.4484, lng: -112.0740}
+                ];
+                
+                cities.forEach(city => {
+                    L.marker([city.lat, city.lng])
+                        .addTo(foliumMaps.choropleth)
+                        .bindPopup(`<b>${city.name}</b>`);
+                });
+            }
+        }
+        
+        // Update plotly demo
+        function updatePlotlyDemo() {
+            const chartType = document.getElementById('plotlyChartType')?.value;
+            const dataType = document.getElementById('plotlyData')?.value;
+            
+            if (!chartType || !dataType || !charts.plotly) return;
+            
+            // Update chart type
+            charts.plotly.config.type = chartType;
+            
+            // Update data based on dataset
+            let title = '';
+            let datasets = [];
+            
+            switch(dataType) {
+                case 'airline':
+                    title = 'Airline Delays';
+                    datasets = [
+                        {
+                            label: 'Carrier Delay',
+                            data: [12, 19, 8, 15, 22, 18, 25, 12, 19, 14, 21, 16],
+                            borderColor: '#3498db',
+                            backgroundColor: chartType === 'bar' ? '#3498db' : 'rgba(52, 152, 219, 0.1)',
+                            borderWidth: 3,
+                            fill: chartType === 'line'
+                        },
+                        {
+                            label: 'Weather Delay',
+                            data: [5, 8, 12, 6, 9, 15, 8, 10, 7, 11, 9, 13],
+                            borderColor: '#2ecc71',
+                            backgroundColor: chartType === 'bar' ? '#2ecc71' : 'rgba(46, 204, 113, 0.1)',
+                            borderWidth: 3,
+                            fill: chartType === 'line'
+                        }
+                    ];
+                    break;
+                    
+                case 'automobile':
+                    title = 'Automobile Sales';
+                    datasets = [{
+                        label: 'Monthly Sales',
+                        data: [120, 150, 180, 210, 240, 220, 250, 280, 300, 320, 310, 330],
+                        borderColor: '#e74c3c',
+                        backgroundColor: chartType === 'bar' ? '#e74c3c' : 'rgba(231, 76, 60, 0.1)',
+                        borderWidth: 3,
+                        fill: chartType === 'line'
+                    }];
+                    break;
+                    
+                case 'sales':
+                    title = 'Monthly Sales';
+                    datasets = [{
+                        label: 'Sales Revenue',
+                        data: [45000, 52000, 48000, 55000, 60000, 58000, 62000, 65000, 68000, 72000, 70000, 75000],
+                        borderColor: '#9b59b6',
+                        backgroundColor: chartType === 'bar' ? '#9b59b6' : 'rgba(155, 89, 182, 0.1)',
+                        borderWidth: 3,
+                        fill: chartType === 'line'
+                    }];
+                    break;
+            }
+            
+            charts.plotly.data.datasets = datasets;
+            charts.plotly.options.plugins.title.text = `${title} - ${chartType.charAt(0).toUpperCase() + chartType.slice(1)} Chart`;
+            charts.plotly.update();
+        }
+        
+        // Update seaborn demo
+        function updateSeabornDemo() {
+            const plotType = document.getElementById('seabornPlotType')?.value;
+            const bins = parseInt(document.getElementById('seabornBins')?.value || 20);
+            const dataset = document.getElementById('seabornDataset')?.value;
+            
+            if (!plotType || !dataset || !charts.seaborn) return;
+            
+            // Update chart type
+            let chartType = 'bar';
+            if (plotType === 'kde' || plotType === 'box' || plotType === 'violin') {
+                chartType = 'line';
+            }
+            
+            charts.seaborn.config.type = chartType;
+            
+            // Update data based on dataset
+            let title = '';
+            let labels = [];
+            let data = [];
+            let colors = [];
+            
+            switch(dataset) {
+                case 'iris':
+                    title = 'Iris Dataset';
+                    labels = ['Setosa', 'Versicolor', 'Virginica'];
+                    data = plotType === 'hist' ? [5.0, 5.9, 6.5] : [5.0, 6.0, 7.0, 5.9, 6.5, 6.2];
+                    colors = ['#e74c3c', '#3498db', '#2ecc71'];
+                    break;
+                    
+                case 'tips':
+                    title = 'Restaurant Tips';
+                    labels = ['Thur', 'Fri', 'Sat', 'Sun'];
+                    data = plotType === 'hist' ? [25, 35, 45, 35] : [20, 25, 30, 35, 40, 45, 50];
+                    colors = ['#f39c12', '#3498db', '#2ecc71', '#9b59b6'];
+                    break;
+                    
+                case 'flights':
+                    title = 'Flight Data';
+                    labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May'];
+                    data = plotType === 'hist' ? [200, 220, 240, 230, 250] : [180, 200, 220, 240, 260, 280];
+                    colors = ['#3498db', '#2ecc71', '#9b59b6', '#e74c3c', '#f39c12'];
+                    break;
+            }
+            
+            charts.seaborn.data.labels = labels;
+            charts.seaborn.data.datasets[0].data = data;
+            charts.seaborn.data.datasets[0].backgroundColor = colors;
+            charts.seaborn.data.datasets[0].borderColor = colors.map(color => color.replace('0.7', '1'));
+            charts.seaborn.options.plugins.title.text = `${title} - ${plotType.charAt(0).toUpperCase() + plotType.slice(1)} Plot`;
+            charts.seaborn.update();
+        }
+        
+        // Update folium map
+        function updateFoliumMap() {
+            const mapType = document.getElementById('foliumMapType')?.value;
+            const location = document.getElementById('foliumLocation')?.value;
+            const zoom = parseInt(document.getElementById('foliumZoom')?.value || 12);
+            
+            if (!mapType || !location || !foliumMaps.basic) return;
+            
+            // Define locations
+            let center;
+            switch(location) {
+                case 'nyc':
+                    center = [40.7128, -74.0060];
+                    break;
+                case 'london':
+                    center = [51.5074, -0.1278];
+                    break;
+                case 'tokyo':
+                    center = [35.6762, 139.6503];
+                    break;
+                case 'sydney':
+                    center = [-33.8688, 151.2093];
+                    break;
+                default:
+                    center = [40.7128, -74.0060];
+            }
+            
+            // Define tile layers
+            let tileLayer;
+            let attribution;
+            switch(mapType) {
+                case 'openstreet':
+                    tileLayer = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+                    attribution = '© OpenStreetMap contributors';
+                    break;
+                case 'cartodb':
+                    tileLayer = 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
+                    attribution = '© OpenStreetMap contributors, © CARTO';
+                    break;
+                case 'stamen':
+                    tileLayer = 'https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}{r}.{ext}';
+                    attribution = 'Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under ODbL.';
+                    break;
+                case 'dark':
+                    tileLayer = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
+                    attribution = '© OpenStreetMap contributors, © CARTO';
+                    break;
+                default:
+                    tileLayer = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+                    attribution = '© OpenStreetMap contributors';
+            }
+            
+            // Update the map
+            foliumMaps.basic.setView(center, zoom);
+            foliumMaps.basic.eachLayer(layer => {
+                if (layer instanceof L.TileLayer) {
+                    foliumMaps.basic.removeLayer(layer);
+                }
+            });
+            L.tileLayer(tileLayer, {
+                attribution: attribution
+            }).addTo(foliumMaps.basic);
+            
+            // Update marker position
+            const markers = foliumMaps.basic._layers;
+            Object.values(markers).forEach(layer => {
+                if (layer instanceof L.Marker) {
+                    layer.setLatLng(center);
+                    layer.setPopupContent(`${location.charAt(0).toUpperCase() + location.slice(1)}<br>Lat: ${center[0]}<br>Lng: ${center[1]}`);
+                }
+            });
+        }
+        
+        // Check solution
+        function checkSolution() {
+            const solution = document.getElementById('solutionEditor').value;
+            const feedback = document.getElementById('solutionFeedback');
+            
+            // Simple validation
+            if (solution.includes('@app.callback') && 
+                solution.includes('Output') && 
+                solution.includes('Input') &&
+                solution.includes('def update_all_delay_charts')) {
+                feedback.className = 'feedback correct show';
+                feedback.innerHTML = `<strong>✅ Good structure!</strong> Your callback function has the correct structure. Make sure to:<br>
+                1. Filter data by selected_year<br>
+                2. Create 5 different Plotly figures<br>
+                3. Return all figures in the correct order`;
+            } else {
+                feedback.className = 'feedback incorrect show';
+                feedback.innerHTML = `<strong>❌ Needs improvement.</strong> Make sure your solution includes:<br>
+                1. The @app.callback decorator<br>
+                2. Multiple Output components<br>
+                3. Input component for year<br>
+                4. Function definition with proper parameters`;
+            }
+        }
+        
+        // Copy code to clipboard
+        function copyCode(button) {
+            const codeContainer = button.closest('.code-display');
+            const codeElement = codeContainer.querySelector('code');
+            const codeText = codeElement.textContent;
+            
+            navigator.clipboard.writeText(codeText).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.style.backgroundColor = '#10b981';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.backgroundColor = '#475569';
+                }, 2000);
+            });
+        }
+        
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

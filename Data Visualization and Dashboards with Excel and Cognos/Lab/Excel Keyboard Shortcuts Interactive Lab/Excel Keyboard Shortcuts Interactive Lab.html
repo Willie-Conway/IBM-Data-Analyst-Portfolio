@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel Keyboard Shortcuts Interactive Lab</title>
+    <style>
+        :root {
+            --navigation-color: #3498db;
+            --editing-color: #2ecc71;
+            --formatting-color: #9b59b6;
+            --selection-color: #e74c3c;
+            --practice-color: #f39c12;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .dashboard {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #217346 0%, #1a5c35 100%);
+            color: white;
+            padding: 30px 40px;
+        }
+        
+        .title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        /* Stats Bar */
+        .stats {
+            display: flex;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            background: rgba(255,255,255,0.1);
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        /* Navigation */
+        .navigation {
+            background: #f8f9fa;
+            padding: 15px 40px;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+        }
+        
+        .nav-btn {
+            padding: 10px 20px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        
+        .nav-btn.active {
+            color: white;
+            border-color: transparent;
+        }
+        
+        .nav-btn[data-section="all"] { border-color: #34495e; }
+        .nav-btn[data-section="all"].active { background: #34495e; }
+        
+        .nav-btn[data-section="navigation"] { border-color: var(--navigation-color); }
+        .nav-btn[data-section="navigation"].active { background: var(--navigation-color); }
+        
+        .nav-btn[data-section="editing"] { border-color: var(--editing-color); }
+        .nav-btn[data-section="editing"].active { background: var(--editing-color); }
+        
+        .nav-btn[data-section="formatting"] { border-color: var(--formatting-color); }
+        .nav-btn[data-section="formatting"].active { background: var(--formatting-color); }
+        
+        .nav-btn[data-section="selection"] { border-color: var(--selection-color); }
+        .nav-btn[data-section="selection"].active { background: var(--selection-color); }
+        
+        .nav-btn[data-section="practice"] { border-color: var(--practice-color); }
+        .nav-btn[data-section="practice"].active { background: var(--practice-color); }
+        
+        /* Main Content */
+        .main-content {
+            display: flex;
+            min-height: 800px;
+        }
+        
+        /* Shortcuts Grid */
+        .shortcuts-container {
+            flex: 1;
+            padding: 30px;
+            background: white;
+            overflow-y: auto;
+        }
+        
+        .shortcuts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .shortcut-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-height: 200px;
+            border: 2px solid;
+        }
+        
+        .shortcut-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        /* ALL CARDS HAVE THE SAME STYLING - only border color differs */
+        .shortcut-card.navigation { 
+            border-color: var(--navigation-color); 
+        }
+        
+        .shortcut-card.editing { 
+            border-color: var(--editing-color); 
+        }
+        
+        .shortcut-card.formatting { 
+            border-color: var(--formatting-color); 
+        }
+        
+        .shortcut-card.selection { 
+            border-color: var(--selection-color); 
+        }
+        
+        .shortcut-keys {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .key {
+            background: #2c3e50;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-family: 'Consolas', monospace;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .key.plus {
+            background: transparent;
+            color: #666;
+            font-size: 20px;
+            padding: 0 5px;
+        }
+        
+        .shortcut-task {
+            font-weight: 600;
+            color: #1a237e;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .shortcut-description {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+        
+        /* Category label - ALL SAME STYLING */
+        .shortcut-category {
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            padding: 6px 15px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .shortcut-card.editing .shortcut-category { 
+            background: var(--navigation-color); 
+        }
+        
+        .shortcut-card.editing .shortcut-category { 
+            background: var(--editing-color); 
+        }
+        
+        .shortcut-card.formatting .shortcut-category { 
+            background: var(--formatting-color); 
+        }
+        
+        .shortcut-card.selection .shortcut-category { 
+            background: var(--selection-color); 
+        }
+        
+        /* Practice Area */
+        .practice-area {
+            width: 400px;
+            background: #f8f9fa;
+            padding: 30px;
+            border-left: 1px solid #dee2e6;
+            overflow-y: auto;
+        }
+        
+        .practice-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-top: 4px solid var(--practice-color);
+        }
+        
+        .practice-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            color: #1a237e;
+        }
+        
+        .exercise {
+            background: #e8f4fc;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .exercise-question {
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #1a237e;
+        }
+        
+        .keyboard-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: 'Consolas', monospace;
+            margin: 15px 0;
+            text-align: center;
+            background: white;
+            cursor: pointer;
+        }
+        
+        .keyboard-input:focus {
+            outline: none;
+            border-color: var(--practice-color);
+            box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.2);
+        }
+        
+        .keyboard-display {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .key-display {
+            background: #2c3e50;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-family: 'Consolas', monospace;
+            font-weight: 600;
+            font-size: 16px;
+            min-width: 80px;
+            text-align: center;
+        }
+        
+        .hint {
+            background: #fff3e0;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+            border-left: 4px solid #f39c12;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .feedback {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+            animation: slideIn 0.3s;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(-10px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .feedback.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+        
+        .feedback.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: var(--practice-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #e67e22;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+        
+        /* Excel Simulation */
+        .excel-simulation {
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+        
+        .excel-header {
+            background: #217346;
+            color: white;
+            padding: 15px;
+            border-radius: 6px 6px 0 0;
+            margin: -25px -25px 20px -25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .excel-grid {
+            display: grid;
+            grid-template-columns: repeat(11, 1fr);
+            grid-template-rows: repeat(11, 40px);
+            border: 1px solid #ddd;
+            margin-top: 15px;
+            width: 100%;
+            overflow: auto;
+        }
+        
+        .excel-cell {
+            border: 1px solid #ddd;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            position: relative;
+            min-width: 80px;
+            min-height: 40px;
+        }
+        
+        .excel-cell.active {
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+        }
+        
+        .excel-cell.header {
+            background: #f8f9fa;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .excel-cell:nth-child(11n+1) {
+            border-left: 2px solid #bbb;
+        }
+        
+        .excel-cell:nth-child(-n+11) {
+            border-top: 2px solid #bbb;
+        }
+        
+        /* Progress */
+        .progress {
+            margin: 30px 0;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--navigation-color), var(--editing-color), var(--formatting-color));
+            width: 0%;
+            transition: width 0.5s;
+        }
+        
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        /* Animation */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .practice-area {
+                width: 100%;
+                border-left: none;
+                border-top: 1px solid #dee2e6;
+            }
+            
+            .shortcuts-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                padding: 20px;
+            }
+            
+            .navigation {
+                padding: 10px;
+            }
+            
+            .nav-btn {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+            
+            .shortcuts-container, .practice-area {
+                padding: 20px;
+            }
+            
+            .shortcut-card {
+                padding: 25px 20px 20px 20px;
+                min-height: 180px;
+            }
+            
+            .shortcuts-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            
+            .shortcut-category {
+                left: 15px;
+                padding: 5px 12px;
+                font-size: 11px;
+            }
+            
+            .excel-grid {
+                grid-template-columns: repeat(11, 60px);
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Header -->
+        <div class="header">
+            <div class="title">Excel Keyboard Shortcuts Interactive Lab</div>
+            <div class="subtitle">Master Excel efficiency with hands-on keyboard shortcut practice</div>
+            
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number" id="total-shortcuts">25+</div>
+                    <div class="stat-label">Shortcuts</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number" id="mastered">0</div>
+                    <div class="stat-label">Mastered</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">Categories</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">🏆</div>
+                    <div class="stat-label">Practice Mode</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation -->
+        <div class="navigation">
+            <button class="nav-btn active" data-section="all" onclick="showSection('all')">
+                📋 All Shortcuts
+            </button>
+            <button class="nav-btn" data-section="navigation" onclick="showSection('navigation')">
+                🚀 Navigation
+            </button>
+            <button class="nav-btn" data-section="editing" onclick="showSection('editing')">
+                ✏️ Editing
+            </button>
+            <button class="nav-btn" data-section="formatting" onclick="showSection('formatting')">
+                🎨 Formatting
+            </button>
+            <button class="nav-btn" data-section="selection" onclick="showSection('selection')">
+                🔍 Selection
+            </button>
+            <button class="nav-btn" data-section="practice" onclick="showSection('practice')">
+                🎯 Practice
+            </button>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Shortcuts Grid -->
+            <div class="shortcuts-container" id="shortcutsContainer">
+                <div class="shortcuts-grid" id="shortcutsGrid">
+                    <!-- Shortcuts will be loaded here -->
+                </div>
+            </div>
+            
+            <!-- Practice Area -->
+            <div class="practice-area" id="practiceArea">
+                <div class="practice-card">
+                    <div class="practice-title">
+                        <span>🎯</span>
+                        <h3>Keyboard Shortcut Practice</h3>
+                    </div>
+                    
+                    <div class="progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <div class="progress-text">
+                            <span id="progressText">Progress: 0%</span>
+                            <span id="score">Score: 0/0</span>
+                        </div>
+                    </div>
+                    
+                    <div class="exercise">
+                        <div class="exercise-question" id="exerciseQuestion">
+                            What is the shortcut to save a workbook?
+                        </div>
+                        
+                        <div class="keyboard-display" id="keyboardDisplay">
+                            <!-- Keys will be displayed here -->
+                        </div>
+                        
+                        <input type="text" class="keyboard-input" id="keyboardInput" 
+                               placeholder="Click here and press the correct keys..." 
+                               readonly>
+                        
+                        <div class="hint" id="hint">
+                            💡 Press the keys on your keyboard that perform this action
+                        </div>
+                        
+                        <div class="feedback" id="feedback"></div>
+                        
+                        <div class="buttons">
+                            <button class="btn btn-primary" onclick="checkAnswer()">
+                                Check Answer
+                            </button>
+                            <button class="btn btn-secondary" onclick="nextQuestion()">
+                                Skip →
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="excel-simulation">
+                        <div class="excel-header">
+                            <span>📊</span>
+                            <div>Excel Simulation - Try shortcuts here:</div>
+                        </div>
+                        
+                        <div class="excel-grid" id="excelGrid">
+                            <!-- Excel grid will be generated here -->
+                        </div>
+                        
+                        <div style="margin-top: 15px; font-size: 14px; color: #666;">
+                            Active Cell: <span id="activeCell">A1</span>
+                            | Press F2 to edit cell
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Excel shortcuts data
+        const shortcuts = [
+            // Navigation Shortcuts
+            { task: "Close workbook", keys: ["Ctrl", "W"], category: "navigation", description: "Close the current workbook" },
+            { task: "Open workbook", keys: ["Ctrl", "O"], category: "navigation", description: "Open an existing workbook" },
+            { task: "Save workbook", keys: ["Ctrl", "S"], category: "navigation", description: "Save the current workbook" },
+            { task: "Move up one cell", keys: ["↑"], category: "navigation", description: "Move selection upward" },
+            { task: "Move down one cell", keys: ["↓"], category: "navigation", description: "Move selection downward" },
+            { task: "Move left one cell", keys: ["←"], category: "navigation", description: "Move selection left" },
+            { task: "Move right one cell", keys: ["→"], category: "navigation", description: "Move selection right" },
+            { task: "Move to last cell", keys: ["Ctrl", "End"], category: "navigation", description: "Go to last cell with data" },
+            { task: "Move to beginning", keys: ["Ctrl", "Home"], category: "navigation", description: "Go to cell A1" },
+            { task: "Next worksheet", keys: ["Ctrl", "Page Down"], category: "navigation", description: "Switch to next sheet" },
+            { task: "Previous worksheet", keys: ["Ctrl", "Page Up"], category: "navigation", description: "Switch to previous sheet" },
+            
+            // Editing Shortcuts
+            { task: "Copy", keys: ["Ctrl", "C"], category: "editing", description: "Copy selected cells" },
+            { task: "Cut", keys: ["Ctrl", "X"], category: "editing", description: "Cut selected cells" },
+            { task: "Paste", keys: ["Ctrl", "V"], category: "editing", description: "Paste copied/cut cells" },
+            { task: "Undo", keys: ["Ctrl", "Z"], category: "editing", description: "Undo last action" },
+            { task: "Delete cell contents", keys: ["Delete"], category: "editing", description: "Clear cell contents" },
+            { task: "Edit active cell", keys: ["F2"], category: "editing", description: "Edit cell with cursor at end" },
+            { task: "Enter current time", keys: ["Ctrl", "Shift", ":"], category: "editing", description: "Insert current time" },
+            { task: "Enter current date", keys: ["Ctrl", ";"], category: "editing", description: "Insert current date" },
+            
+            // Formatting Shortcuts
+            { task: "Bold", keys: ["Ctrl", "B"], category: "formatting", description: "Apply or remove bold formatting" },
+            { task: "Open context menu", keys: ["Shift", "F10"], category: "formatting", description: "Open right-click context menu" },
+            { task: "Expand/collapse ribbon", keys: ["Ctrl", "F1"], category: "formatting", description: "Show or hide ribbon" },
+            
+            // Selection Shortcuts
+            { task: "Move to edge of data", keys: ["Ctrl", "Arrow Key"], category: "selection", description: "Jump to edge of data region" },
+            { task: "Extend selection to last cell", keys: ["Ctrl", "Shift", "End"], category: "selection", description: "Select all cells to last used" },
+            { task: "Move one screen down", keys: ["Page Down"], category: "selection", description: "Scroll down one screen" },
+            { task: "Move one screen up", keys: ["Page Up"], category: "selection", description: "Scroll up one screen" },
+            { task: "Move one screen right", keys: ["Alt", "Page Down"], category: "selection", description: "Scroll right one screen" },
+            { task: "Move one screen left", keys: ["Alt", "Page Up"], category: "selection", description: "Scroll left one screen" }
+        ];
+
+        // Practice state
+        let currentSection = 'all';
+        let masteredShortcuts = new Set();
+        let practiceState = {
+            currentQuestion: 0,
+            score: 0,
+            questionsAnswered: 0
+        };
+
+        // Practice questions
+        const practiceQuestions = [
+            {
+                question: "What shortcut saves a workbook?",
+                answer: ["Control", "S"],
+                category: "navigation"
+            },
+            {
+                question: "How do you copy selected cells?",
+                answer: ["Control", "C"],
+                category: "editing"
+            },
+            {
+                question: "What shortcut makes text bold?",
+                answer: ["Control", "B"],
+                category: "formatting"
+            },
+            {
+                question: "How do you undo the last action?",
+                answer: ["Control", "Z"],
+                category: "editing"
+            },
+            {
+                question: "What shortcut pastes copied cells?",
+                answer: ["Control", "V"],
+                category: "editing"
+            },
+            {
+                question: "How do you move to the last cell with data?",
+                answer: ["Control", "End"],
+                category: "navigation"
+            },
+            {
+                question: "What shortcut cuts selected cells?",
+                answer: ["Control", "X"],
+                category: "editing"
+            },
+            {
+                question: "How do you move to cell A1?",
+                answer: ["Control", "Home"],
+                category: "navigation"
+            }
+        ];
+
+        // Track pressed keys
+        let pressedKeys = new Set();
+
+        // Initialize
+        function init() {
+            showSection('all');
+            loadShortcuts();
+            setupPractice();
+            createExcelGrid();
+            updateStats();
+            setupEventListeners();
+        }
+
+        // Show section - FIXED FOR PRACTICE TAB
+        function showSection(section) {
+            currentSection = section;
+            
+            // Update navigation buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            const activeBtn = document.querySelector(`[data-section="${section}"]`);
+            if (activeBtn) {
+                activeBtn.classList.add('active');
+            }
+            
+            // Get references to containers
+            const shortcutsContainer = document.getElementById('shortcutsContainer');
+            const practiceArea = document.getElementById('practiceArea');
+            
+            if (section === 'practice') {
+                // Show only practice area, hide shortcuts
+                shortcutsContainer.style.display = 'none';
+                practiceArea.style.display = 'block';
+                practiceArea.style.width = '100%';
+                practiceArea.style.borderLeft = 'none';
+                nextQuestion();
+            } else {
+                // Show shortcuts and practice area side by side
+                shortcutsContainer.style.display = 'block';
+                practiceArea.style.display = 'block';
+                practiceArea.style.width = '400px';
+                practiceArea.style.borderLeft = '1px solid #dee2e6';
+                
+                // Filter and display shortcuts
+                loadShortcuts();
+            }
+        }
+
+        // Load shortcuts based on filter
+        function loadShortcuts() {
+            const grid = document.getElementById('shortcutsGrid');
+            grid.innerHTML = '';
+            
+            const filteredShortcuts = currentSection === 'all' 
+                ? shortcuts 
+                : shortcuts.filter(s => s.category === currentSection);
+            
+            // Update total shortcuts count
+            document.getElementById('total-shortcuts').textContent = `${filteredShortcuts.length}+`;
+            
+            filteredShortcuts.forEach(shortcut => {
+                const card = document.createElement('div');
+                card.className = `shortcut-card ${shortcut.category}`;
+                card.onclick = () => markAsMastered(shortcut);
+                
+                // Mark if mastered
+                const isMastered = masteredShortcuts.has(JSON.stringify(shortcut));
+                if (isMastered) {
+                    card.style.background = '#f8fff9';
+                    card.style.borderStyle = 'dashed';
+                }
+                
+                // Create keys display
+                let keysHtml = '';
+                shortcut.keys.forEach((key, index) => {
+                    keysHtml += `<div class="key">${key}</div>`;
+                    if (index < shortcut.keys.length - 1) {
+                        keysHtml += `<div class="key plus">+</div>`;
+                    }
+                });
+                
+                card.innerHTML = `
+                    <div class="shortcut-category">${shortcut.category.toUpperCase()}</div>
+                    <div class="shortcut-keys">${keysHtml}</div>
+                    <div class="shortcut-task">${shortcut.task}</div>
+                    <div class="shortcut-description">${shortcut.description}</div>
+                    ${isMastered ? '<div style="margin-top: 10px; color: #27ae60; font-size: 12px;">✅ Mastered</div>' : ''}
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+
+        // Mark shortcut as mastered
+        function markAsMastered(shortcut) {
+            const shortcutKey = JSON.stringify(shortcut);
+            if (masteredShortcuts.has(shortcutKey)) {
+                masteredShortcuts.delete(shortcutKey);
+            } else {
+                masteredShortcuts.add(shortcutKey);
+            }
+            
+            loadShortcuts();
+            updateStats();
+            
+            // Visual feedback
+            event.currentTarget.style.animation = 'pulse 0.5s';
+            setTimeout(() => {
+                event.currentTarget.style.animation = '';
+            }, 500);
+        }
+
+        // Setup practice - FIXED FOR KEYBOARD INPUT
+        function setupPractice() {
+            practiceState = {
+                currentQuestion: 0,
+                score: 0,
+                questionsAnswered: 0
+            };
+            
+            const keyboardInput = document.getElementById('keyboardInput');
+            
+            keyboardInput.addEventListener('keydown', function(e) {
+                e.preventDefault();
+                
+                // Track the key press
+                const key = e.key.toLowerCase();
+                pressedKeys.add(key);
+                
+                // Don't show modifier keys alone
+                if (['control', 'shift', 'alt', 'meta'].includes(key)) {
+                    return;
+                }
+                
+                // Get modifier keys
+                const modifiers = [];
+                if (e.ctrlKey) modifiers.push('Ctrl');
+                if (e.shiftKey) modifiers.push('Shift');
+                if (e.altKey) modifiers.push('Alt');
+                
+                // Determine the main key to display
+                let displayKey = e.key;
+                if (displayKey === 'Control') displayKey = 'Ctrl';
+                if (displayKey === ' ') displayKey = 'Space';
+                if (displayKey === 'ArrowUp') displayKey = '↑';
+                if (displayKey === 'ArrowDown') displayKey = '↓';
+                if (displayKey === 'ArrowLeft') displayKey = '←';
+                if (displayKey === 'ArrowRight') displayKey = '→';
+                if (displayKey === ';' || displayKey === ':') displayKey = ';';
+                
+                // Combine modifiers and main key
+                const allKeys = [...modifiers, displayKey];
+                
+                // Add to keyboard display
+                const display = document.getElementById('keyboardDisplay');
+                display.innerHTML = '';
+                
+                allKeys.forEach((key, index) => {
+                    const keyElement = document.createElement('div');
+                    keyElement.className = 'key-display';
+                    keyElement.textContent = key;
+                    display.appendChild(keyElement);
+                    
+                    // Add plus sign between keys
+                    if (index < allKeys.length - 1) {
+                        const plusElement = document.createElement('div');
+                        plusElement.className = 'key-display';
+                        plusElement.textContent = '+';
+                        plusElement.style.background = 'transparent';
+                        plusElement.style.color = '#666';
+                        display.appendChild(plusElement);
+                    }
+                });
+                
+                // Store the combination
+                this.dataset.keys = allKeys.join(',');
+                this.value = allKeys.join(' + ');
+            });
+            
+            keyboardInput.addEventListener('keyup', function(e) {
+                // Remove the key from pressed keys
+                const key = e.key.toLowerCase();
+                pressedKeys.delete(key);
+            });
+        }
+
+        // Display next practice question
+        function nextQuestion() {
+            if (practiceState.currentQuestion >= practiceQuestions.length) {
+                practiceState.currentQuestion = 0;
+                practiceState.score = 0;
+                practiceState.questionsAnswered = 0;
+            }
+            
+            const question = practiceQuestions[practiceState.currentQuestion];
+            document.getElementById('exerciseQuestion').textContent = question.question;
+            
+            // Clear previous input
+            document.getElementById('keyboardInput').value = '';
+            document.getElementById('keyboardInput').dataset.keys = '';
+            document.getElementById('keyboardDisplay').innerHTML = '';
+            document.getElementById('feedback').style.display = 'none';
+            
+            // Update hint
+            document.getElementById('hint').innerHTML = 
+                `💡 Press <span style="font-weight: 600;">${question.answer.join(' + ')}</span> on your keyboard`;
+            
+            // Update progress
+            updateProgress();
+        }
+
+        // Check practice answer
+        function checkAnswer() {
+            const input = document.getElementById('keyboardInput');
+            const enteredKeys = input.dataset.keys ? input.dataset.keys.split(',') : [];
+            const question = practiceQuestions[practiceState.currentQuestion];
+            
+            // Normalize keys for comparison
+            const normalizedEntered = enteredKeys.map(k => {
+                let key = k.toLowerCase().trim();
+                // Convert variations
+                if (key === 'ctrl') return 'control';
+                if (key === ':') return ';'; // Colon and semicolon are the same key
+                return key;
+            });
+            
+            const normalizedAnswer = question.answer.map(k => k.toLowerCase().trim());
+            
+            // Check if arrays match (order matters)
+            let isCorrect = true;
+            if (normalizedEntered.length !== normalizedAnswer.length) {
+                isCorrect = false;
+            } else {
+                for (let i = 0; i < normalizedEntered.length; i++) {
+                    if (normalizedEntered[i] !== normalizedAnswer[i]) {
+                        isCorrect = false;
+                        break;
+                    }
+                }
+            }
+            
+            // Show feedback
+            const feedback = document.getElementById('feedback');
+            if (isCorrect) {
+                feedback.className = 'feedback correct';
+                feedback.innerHTML = `✅ Correct! <strong>${question.answer.join(' + ')}</strong> ${question.question.toLowerCase()}`;
+                practiceState.score++;
+                
+                // Mark corresponding shortcut as mastered
+                const matchingShortcut = shortcuts.find(s => 
+                    s.keys.length === question.answer.length &&
+                    s.keys.every((key, i) => {
+                        const normalizedKey = key.toLowerCase() === 'ctrl' ? 'control' : key.toLowerCase();
+                        const normalizedAnswerKey = question.answer[i].toLowerCase();
+                        return normalizedKey === normalizedAnswerKey;
+                    })
+                );
+                
+                if (matchingShortcut) {
+                    markAsMastered(matchingShortcut);
+                }
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedback.innerHTML = `❌ Incorrect. The correct answer is <strong>${question.answer.join(' + ')}</strong>`;
+            }
+            
+            feedback.style.display = 'block';
+            practiceState.questionsAnswered++;
+            practiceState.currentQuestion++;
+            
+            // Update stats
+            updateStats();
+            updateProgress();
+            
+            // Auto-advance after delay
+            setTimeout(() => {
+                if (practiceState.currentQuestion < practiceQuestions.length) {
+                    nextQuestion();
+                } else {
+                    // Show completion message
+                    feedback.className = 'feedback correct';
+                    feedback.innerHTML = `🎉 Practice Complete! Final Score: ${practiceState.score}/${practiceQuestions.length}`;
+                }
+            }, 2000);
+        }
+
+        // Update progress
+        function updateProgress() {
+            const progress = (practiceState.questionsAnswered / practiceQuestions.length) * 100;
+            document.getElementById('progressFill').style.width = `${progress}%`;
+            document.getElementById('progressText').textContent = `Progress: ${Math.round(progress)}%`;
+            document.getElementById('score').textContent = `Score: ${practiceState.score}/${practiceState.questionsAnswered}`;
+        }
+
+        // Update stats
+        function updateStats() {
+            document.getElementById('mastered').textContent = masteredShortcuts.size;
+        }
+
+        // Create Excel grid simulation
+        function createExcelGrid() {
+            const grid = document.getElementById('excelGrid');
+            grid.innerHTML = '';
+            
+            // Create cells - 11 rows x 11 columns
+            for (let row = 0; row < 11; row++) {
+                for (let col = 0; col < 11; col++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'excel-cell';
+                    
+                    if (row === 0 && col === 0) {
+                        // Empty top-left corner
+                        cell.textContent = '';
+                        cell.style.background = '#f8f9fa';
+                    } else if (row === 0) {
+                        // Column headers (A, B, C...)
+                        cell.className += ' header';
+                        cell.textContent = String.fromCharCode(64 + col);
+                    } else if (col === 0) {
+                        // Row headers (1, 2, 3...)
+                        cell.className += ' header';
+                        cell.textContent = row;
+                    } else {
+                        // Data cells
+                        if (row === 1 && col === 1) {
+                            cell.className += ' active';
+                            cell.textContent = 'Sales Data';
+                        } else if (row === 2 && col === 1) {
+                            cell.textContent = 'Q1: $10,000';
+                        } else if (row === 3 && col === 1) {
+                            cell.textContent = 'Q2: $15,000';
+                        } else if (row === 4 && col === 1) {
+                            cell.textContent = 'Total: $25,000';
+                            cell.style.fontWeight = 'bold';
+                        } else if (row === 1 && col === 3) {
+                            cell.textContent = 'Click F2 to edit';
+                            cell.style.color = '#666';
+                            cell.style.fontSize = '11px';
+                        }
+                    }
+                    
+                    // Add click handler for cell selection
+                    cell.addEventListener('click', function() {
+                        document.querySelectorAll('.excel-cell').forEach(c => c.classList.remove('active'));
+                        this.classList.add('active');
+                        
+                        // Update active cell display
+                        if (row > 0 && col > 0) {
+                            const colLetter = String.fromCharCode(64 + col);
+                            document.getElementById('activeCell').textContent = `${colLetter}${row}`;
+                        }
+                    });
+                    
+                    grid.appendChild(cell);
+                }
+            }
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Add keyboard shortcut practice
+            document.addEventListener('keydown', function(e) {
+                if (e.target.id !== 'keyboardInput') {
+                    // Handle Excel navigation shortcuts
+                    const activeCell = document.querySelector('.excel-cell.active');
+                    if (!activeCell) return;
+                    
+                    // Get current position
+                    const allCells = Array.from(document.querySelectorAll('.excel-cell'));
+                    const currentIndex = allCells.indexOf(activeCell);
+                    
+                    let newIndex = currentIndex;
+                    
+                    switch(e.key) {
+                        case 'ArrowUp':
+                            e.preventDefault();
+                            newIndex = Math.max(0, currentIndex - 11);
+                            break;
+                        case 'ArrowDown':
+                            e.preventDefault();
+                            newIndex = Math.min(allCells.length - 1, currentIndex + 11);
+                            break;
+                        case 'ArrowLeft':
+                            e.preventDefault();
+                            newIndex = Math.max(0, currentIndex - 1);
+                            break;
+                        case 'ArrowRight':
+                            e.preventDefault();
+                            newIndex = Math.min(allCells.length - 1, currentIndex + 1);
+                            break;
+                        case 'F2':
+                            e.preventDefault();
+                            if (activeCell.getAttribute('contenteditable') !== 'true') {
+                                activeCell.setAttribute('contenteditable', 'true');
+                                activeCell.focus();
+                                // Select text for editing
+                                const range = document.createRange();
+                                range.selectNodeContents(activeCell);
+                                const selection = window.getSelection();
+                                selection.removeAllRanges();
+                                selection.addRange(range);
+                            }
+                            break;
+                        case 'Escape':
+                            if (activeCell.getAttribute('contenteditable') === 'true') {
+                                activeCell.setAttribute('contenteditable', 'false');
+                            }
+                            break;
+                        case 'Enter':
+                            if (activeCell.getAttribute('contenteditable') === 'true') {
+                                activeCell.setAttribute('contenteditable', 'false');
+                                // Move down one cell
+                                newIndex = Math.min(allCells.length - 1, currentIndex + 11);
+                            }
+                            break;
+                    }
+                    
+                    if (newIndex !== currentIndex) {
+                        activeCell.classList.remove('active');
+                        activeCell.setAttribute('contenteditable', 'false');
+                        allCells[newIndex].classList.add('active');
+                        
+                        // Update active cell display
+                        const cellIndex = allCells.indexOf(allCells[newIndex]);
+                        const row = Math.floor(cellIndex / 11);
+                        const col = cellIndex % 11;
+                        if (row > 0 && col > 0) {
+                            const colLetter = String.fromCharCode(64 + col);
+                            document.getElementById('activeCell').textContent = `${colLetter}${row}`;
+                        }
+                    }
+                }
+            });
+            
+            // Clear keyboard input on click
+            document.getElementById('keyboardInput').addEventListener('click', function() {
+                this.value = '';
+                this.dataset.keys = '';
+                document.getElementById('keyboardDisplay').innerHTML = '';
+                pressedKeys.clear();
+            });
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
