@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel Keyboard Shortcuts Interactive Lab</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Sound Toggle -->
+    <div class="sound-toggle" id="soundToggle">
+        🔈
+    </div>
+    
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
+    
+    <div class="dashboard">
+        <!-- Header -->
+        <div class="header">
+            <div class="title">Excel Keyboard Shortcuts Interactive Lab</div>
+            <div class="subtitle">Master Excel efficiency with hands-on keyboard shortcut practice</div>
+            
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number" id="total-shortcuts">25+</div>
+                    <div class="stat-label">Shortcuts</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number" id="mastered">0</div>
+                    <div class="stat-label">Mastered</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number" id="streak">0</div>
+                    <div class="stat-label">Day Streak</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">🏆</div>
+                    <div class="stat-label">Practice Mode</div>
+                </div>
+            </div>
+            
+            <!-- Top Controls -->
+            <div class="top-controls">
+                <button class="control-btn" id="exportBtn">
+                    <i class="fas fa-download"></i> Export
+                </button>
+                <button class="control-btn" id="printBtn">
+                    <i class="fas fa-print"></i> Print
+                </button>
+                <button class="control-btn" id="achievementsBtn">
+                    <i class="fas fa-trophy"></i> Achievements
+                </button>
+            </div>
+        </div>
+        
+        <!-- Navigation -->
+        <div class="navigation">
+            <button class="nav-btn active" data-section="all">
+                📋 All Shortcuts
+            </button>
+            <button class="nav-btn" data-section="navigation">
+                🚀 Navigation
+            </button>
+            <button class="nav-btn" data-section="editing">
+                ✏️ Editing
+            </button>
+            <button class="nav-btn" data-section="formatting">
+                🎨 Formatting
+            </button>
+            <button class="nav-btn" data-section="selection">
+                🔍 Selection
+            </button>
+            <button class="nav-btn" data-section="practice">
+                🎯 Practice
+            </button>
+        </div>
+        
+        <!-- Search & Filter -->
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="🔍 Search shortcuts (e.g., 'copy', 'format', 'Ctrl+S')">
+            </div>
+            
+            <div class="difficulty-selector">
+                <label>Difficulty:</label>
+                <select id="difficulty">
+                    <option value="beginner">Beginner (Common shortcuts)</option>
+                    <option value="intermediate" selected>Intermediate (All shortcuts)</option>
+                    <option value="advanced">Advanced (Timed challenge)</option>
+                </select>
+            </div>
+            
+            <div class="filter-tags">
+                <span class="filter-tag active" data-tag="all">All</span>
+                <span class="filter-tag" data-tag="frequent">Most Used</span>
+                <span class="filter-tag" data-tag="new">New to Learn</span>
+                <span class="filter-tag" data-tag="mastered">Mastered</span>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Shortcuts Grid -->
+            <div class="shortcuts-container" id="shortcutsContainer">
+                <div class="shortcuts-grid" id="shortcutsGrid">
+                    <!-- Shortcuts will be loaded here -->
+                </div>
+                
+                <!-- Achievements Panel -->
+                <div class="achievements-panel" id="achievementsPanel">
+                    <h3><i class="fas fa-trophy"></i> Your Achievements</h3>
+                    <div id="achievementsList">
+                        <!-- Achievements will be loaded here -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Practice Area -->
+            <div class="practice-area" id="practiceArea">
+                <div class="practice-card">
+                    <div class="practice-title">
+                        <span>🎯</span>
+                        <h3>Keyboard Shortcut Practice</h3>
+                    </div>
+                    
+                    <div class="progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <div class="progress-text">
+                            <span id="progressText">Progress: 0%</span>
+                            <span id="score">Score: 0/0</span>
+                        </div>
+                    </div>
+                    
+                    <div class="exercise">
+                        <div class="exercise-question" id="exerciseQuestion">
+                            What is the shortcut to save a workbook?
+                        </div>
+                        
+                        <div class="keyboard-display" id="keyboardDisplay">
+                            <!-- Keys will be displayed here -->
+                        </div>
+                        
+                        <input type="text" class="keyboard-input" id="keyboardInput" 
+                               placeholder="Click here and press the correct keys..." 
+                               readonly>
+                        
+                        <div class="hint" id="hint">
+                            💡 Press the keys on your keyboard that perform this action
+                        </div>
+                        
+                        <div class="feedback" id="feedback"></div>
+                        
+                        <div class="buttons">
+                            <button class="btn btn-primary" id="checkAnswerBtn">
+                                Check Answer
+                            </button>
+                            <button class="btn btn-secondary" id="skipBtn">
+                                Skip →
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="excel-simulation">
+                        <div class="excel-header">
+                            <span>📊</span>
+                            <div>Excel Simulation - Try shortcuts here:</div>
+                        </div>
+                        
+                        <div class="excel-grid" id="excelGrid">
+                            <!-- Excel grid will be generated here -->
+                        </div>
+                        
+                        <div style="margin-top: 15px; font-size: 14px; color: #666;">
+                            Active Cell: <span id="activeCell">A1</span>
+                            | Press F2 to edit, Ctrl+B for bold
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

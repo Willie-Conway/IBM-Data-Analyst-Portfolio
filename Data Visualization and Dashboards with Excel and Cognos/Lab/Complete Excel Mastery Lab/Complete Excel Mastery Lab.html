@@ -670,6 +670,189 @@
             color: #666;
         }
         
+        /* Tutorial Sections */
+        .tutorial-section {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px 0;
+            border-left: 5px solid #3498db;
+        }
+        
+        .tutorial-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a237e;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .tip-box {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            color: #856404;
+        }
+        
+        .tip-box strong {
+            color: #856404;
+        }
+        
+        .exercise-instructions {
+            background: white;
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        /* Challenge Section */
+        .challenge-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+        }
+        
+        .challenge-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* Lesson Content */
+        .lesson-content {
+            margin: 25px 0;
+            display: none;
+        }
+        
+        .lesson-content.active {
+            display: block;
+        }
+        
+        .lesson-subtitle {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin: 20px 0 15px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        /* Data Table */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .data-table th {
+            background: #2c3e50;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .data-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .data-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        /* Chart Types Grid */
+        .chart-types-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .chart-type-card {
+            background: white;
+            border: 2px solid var(--charts-color);
+            border-radius: 10px;
+            padding: 25px;
+            transition: all 0.3s;
+        }
+        
+        .chart-type-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(46, 204, 113, 0.2);
+        }
+        
+        .chart-type-icon {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+        
+        .chart-type-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a237e;
+            margin-bottom: 10px;
+        }
+        
+        /* Completion Badge */
+        .completion-badge {
+            background: #27ae60;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* Dashboard Tutorial Steps */
+        .dashboard-tutorial {
+            background: #f0e6ff;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px 0;
+            border-left: 5px solid var(--dashboard-color);
+        }
+        
+        .tutorial-step {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        /* Interactive Elements */
+        .interactive-element {
+            background: #e3f2fd;
+            border: 2px dashed #2196f3;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .interactive-element:hover {
+            background: #bbdefb;
+        }
+        
         /* Responsive */
         @media (max-width: 1200px) {
             .main-content {
@@ -741,7 +924,7 @@
                     <div class="stat-label">Completion</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-number">🏆</div>
+                    <div class="stat-number" id="mastery-level">Beginner</div>
                     <div class="stat-label">Mastery Level</div>
                 </div>
             </div>
@@ -768,7 +951,7 @@
             <!-- Module Navigation -->
             <div class="module-nav">
                 <!-- Shortcuts Section -->
-                <div class="module-section" id="shortcuts-section">
+                <div class="module-section" id="shortcuts-section" style="display: block;">
                     <div class="module-section-title">Excel Shortcuts</div>
                     <button class="module-nav-btn active" data-lesson="navigation" onclick="showLesson('navigation')">
                         <span>🚀</span> Navigation Shortcuts
@@ -782,11 +965,20 @@
                     <button class="module-nav-btn" data-lesson="selection" onclick="showLesson('selection')">
                         <span>🔍</span> Selection Shortcuts
                     </button>
+                    <button class="module-nav-btn" data-lesson="formulas" onclick="showLesson('formulas')">
+                        <span>∑</span> Formula Shortcuts
+                    </button>
+                    <button class="module-nav-btn" data-lesson="workbook" onclick="showLesson('workbook')">
+                        <span>📁</span> Workbook Shortcuts
+                    </button>
                 </div>
                 
                 <!-- Charts Section -->
-                <div class="module-section" id="charts-section">
+                <div class="module-section" id="charts-section" style="display: none;">
                     <div class="module-section-title">Chart Creation</div>
+                    <button class="module-nav-btn" data-lesson="chart-basics" onclick="showLesson('chart-basics')">
+                        <span>📚</span> Chart Basics
+                    </button>
                     <button class="module-nav-btn" data-lesson="column-chart" onclick="showLesson('column-chart')">
                         <span>📈</span> Column Charts
                     </button>
@@ -799,11 +991,17 @@
                     <button class="module-nav-btn" data-lesson="bar-chart" onclick="showLesson('bar-chart')">
                         <span>📊</span> Bar Charts
                     </button>
+                    <button class="module-nav-btn" data-lesson="advanced-charts" onclick="showLesson('advanced-charts')">
+                        <span>🌟</span> Advanced Charts
+                    </button>
                 </div>
                 
                 <!-- Dashboard Section -->
-                <div class="module-section" id="dashboard-section">
+                <div class="module-section" id="dashboard-section" style="display: none;">
                     <div class="module-section-title">Dashboard Building</div>
+                    <button class="module-nav-btn" data-lesson="dashboard-basics" onclick="showLesson('dashboard-basics')">
+                        <span>🏗️</span> Dashboard Basics
+                    </button>
                     <button class="module-nav-btn" data-lesson="dashboard-setup" onclick="showLesson('dashboard-setup')">
                         <span>⚙️</span> Setup & Layout
                     </button>
@@ -815,6 +1013,26 @@
                     </button>
                     <button class="module-nav-btn" data-lesson="dashboard-final" onclick="showLesson('dashboard-final')">
                         <span>🏁</span> Final Polish
+                    </button>
+                    <button class="module-nav-btn" data-lesson="dashboard-examples" onclick="showLesson('dashboard-examples')">
+                        <span>💼</span> Real Examples
+                    </button>
+                </div>
+                
+                <!-- Practice Section -->
+                <div class="module-section" id="practice-section" style="display: none;">
+                    <div class="module-section-title">Practice Arena</div>
+                    <button class="module-nav-btn" data-lesson="shortcuts-practice" onclick="showLesson('shortcuts-practice')">
+                        <span>⌨️</span> Shortcuts Practice
+                    </button>
+                    <button class="module-nav-btn" data-lesson="charts-practice" onclick="showLesson('charts-practice')">
+                        <span>📈</span> Charts Practice
+                    </button>
+                    <button class="module-nav-btn" data-lesson="dashboard-practice" onclick="showLesson('dashboard-practice')">
+                        <span>🎨</span> Dashboard Practice
+                    </button>
+                    <button class="module-nav-btn" data-lesson="final-challenge" onclick="showLesson('final-challenge')">
+                        <span>🏆</span> Final Challenge
                     </button>
                 </div>
             </div>
@@ -830,8 +1048,171 @@
                     
                     <div id="shortcutsFeedback" class="feedback-message"></div>
                     
-                    <div class="shortcuts-grid" id="shortcutsGrid">
-                        <!-- Shortcuts will be loaded here -->
+                    <!-- Navigation Lesson Content -->
+                    <div class="lesson-content active" id="lesson-navigation">
+                        <div class="lesson-subtitle">Essential Navigation Shortcuts</div>
+                        <p>Master these navigation shortcuts to move through your worksheets and workbooks with lightning speed.</p>
+                        
+                        <div class="shortcuts-grid" id="shortcutsGrid">
+                            <!-- Shortcuts will be loaded here -->
+                        </div>
+                        
+                        <div class="tutorial-section">
+                            <div class="tutorial-title">🚀 Pro Tips for Navigation</div>
+                            <div class="tip-box">
+                                <strong>Quick Navigation Tip:</strong> Combine Ctrl with arrow keys to jump to the edges of data regions. This is especially useful for large datasets.
+                            </div>
+                            <p>Practice these shortcuts in the Excel simulation below. Start by clicking a cell, then try the shortcuts from the cards above.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Editing Lesson Content -->
+                    <div class="lesson-content" id="lesson-editing">
+                        <div class="lesson-subtitle">Editing Shortcuts Mastery</div>
+                        <p>Speed up your data entry and editing tasks with these essential editing shortcuts.</p>
+                        
+                        <div class="shortcuts-grid" id="editingShortcutsGrid">
+                            <!-- Editing shortcuts will be loaded here -->
+                        </div>
+                        
+                        <div class="tutorial-section">
+                            <div class="tutorial-title">✏️ Editing Efficiency Tips</div>
+                            <div class="tip-box">
+                                <strong>Pro Tip:</strong> Use F2 to edit cells directly without double-clicking. Press Enter to save or Esc to cancel.
+                            </div>
+                            <p>Practice entering and editing data in the simulation below. Try copying, pasting, and undoing actions.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Formatting Lesson Content -->
+                    <div class="lesson-content" id="lesson-formatting">
+                        <div class="lesson-subtitle">Formatting Shortcuts Guide</div>
+                        <p>Apply professional formatting quickly without reaching for the mouse.</p>
+                        
+                        <div class="shortcuts-grid" id="formattingShortcutsGrid">
+                            <!-- Formatting shortcuts will be loaded here -->
+                        </div>
+                        
+                        <div class="tutorial-section">
+                            <div class="tutorial-title">🎨 Formatting Best Practices</div>
+                            <div class="tip-box">
+                                <strong>Formatting Tip:</strong> Use Ctrl+1 to quickly access the full Format Cells dialog for advanced formatting options.
+                            </div>
+                            <p>Try applying different formats in the Excel simulation. Notice how shortcuts can dramatically speed up your workflow.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Selection Lesson Content -->
+                    <div class="lesson-content" id="lesson-selection">
+                        <div class="lesson-subtitle">Excel Selection Shortcuts Techniques</div>
+                        <p>Master these powerful selection techniques to work with data ranges efficiently.</p>
+                        
+                        <div class="shortcuts-grid" id="selectionShortcutsGrid">
+                            <!-- Selection shortcuts will be loaded here -->
+                        </div>
+                        
+                        <div class="tutorial-section">
+                            <div class="tutorial-title">🔍 Selection Pro Techniques</div>
+                            <div class="tip-box">
+                                <strong>Power Selection:</strong> Use Ctrl+Shift+Arrow keys to select entire data ranges quickly. This is invaluable for large datasets.
+                            </div>
+                            
+                            <div class="exercise-instructions">
+                                <strong>Practice Exercise:</strong>
+                                <ol>
+                                    <li>Click on cell A1 in the Excel simulation below</li>
+                                    <li>Try using Ctrl+Shift+→ to select the entire first row</li>
+                                    <li>Practice selecting different ranges using keyboard shortcuts only</li>
+                                </ol>
+                            </div>
+                            
+                            <p>Selection shortcuts are crucial for applying formatting, formulas, or analysis to specific data ranges without using your mouse.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Formula Lesson Content -->
+                    <div class="lesson-content" id="lesson-formulas">
+                        <div class="lesson-subtitle">Formula & Calculation Shortcuts</div>
+                        <p>Master formula entry and calculation with these time-saving shortcuts.</p>
+                        
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Shortcut</th>
+                                    <th>Action</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="key">Alt</span> + <span class="key">=</span></td>
+                                    <td>AutoSum</td>
+                                    <td>Automatically sum selected cells</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="key">F4</span></td>
+                                    <td>Toggle Reference Type</td>
+                                    <td>Cycle through absolute/relative references</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="key">Ctrl</span> + <span class="key">`</span></td>
+                                    <td>Show Formulas</td>
+                                    <td>Toggle between formulas and values</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="key">F9</span></td>
+                                    <td>Calculate Now</td>
+                                    <td>Recalculate all formulas</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="key">Shift</span> + <span class="key">F3</span></td>
+                                    <td>Insert Function</td>
+                                    <td>Open function wizard</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="key">Ctrl</span> + <span class="key">Shift</span> + <span class="key">A</span></td>
+                                    <td>Insert Arguments</td>
+                                    <td>Insert function arguments after typing name</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="tutorial-section">
+                            <div class="tutorial-title">∑ Formula Efficiency Tips</div>
+                            <div class="tip-box">
+                                <strong>Pro Tip:</strong> Press F4 after selecting a cell reference in a formula to cycle through absolute ($A$1), mixed (A$1, $A1), and relative (A1) references.
+                            </div>
+                            <p>Use these shortcuts to work with formulas more efficiently. Practice entering formulas in the simulation below.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Workbook Lesson Content -->
+                    <div class="lesson-content" id="lesson-workbook">
+                        <div class="lesson-subtitle">Excel Workbook Management Shortcuts</div>
+                        <p>Manage workbooks, worksheets, and file operations efficiently with these shortcuts.</p>
+                        
+                        <div class="shortcuts-grid" id="workbookShortcutsGrid">
+                            <!-- Workbook shortcuts will be loaded here -->
+                        </div>
+                        
+                        <div class="tutorial-section">
+                            <div class="tutorial-title">📁 Workbook Management Mastery</div>
+                            <div class="tip-box">
+                                <strong>Time Saver:</strong> Use Ctrl+Tab to switch between open workbooks and Ctrl+Page Up/Page Down to navigate between worksheets within a workbook.
+                            </div>
+                            
+                            <div class="exercise-instructions">
+                                <strong>Workflow Exercise:</strong>
+                                <ol>
+                                    <li>Imagine you have 3 workbooks open</li>
+                                    <li>Practice switching between them using Ctrl+Tab</li>
+                                    <li>Within a workbook, switch sheets using Ctrl+Page Up/Down</li>
+                                    <li>Try saving all workbooks with Ctrl+Shift+S</li>
+                                </ol>
+                            </div>
+                            
+                            <p>These shortcuts are essential for managing multiple Excel files and navigating complex workbooks efficiently.</p>
+                        </div>
                     </div>
                     
                     <div class="excel-simulation">
@@ -849,6 +1230,22 @@
                             | Press F2 to edit cell | Try shortcuts from the cards above
                         </div>
                     </div>
+                    
+                    <div class="challenge-section">
+                        <div class="challenge-title">
+                            <span>⚡</span>
+                            Shortcuts Mastery Challenge
+                        </div>
+                        <p>Try to complete these tasks using only keyboard shortcuts:</p>
+                        <ol style="margin: 15px 0 15px 20px;">
+                            <li>Navigate to cell E5 without using the mouse</li>
+                            <li>Copy the value from B3 and paste it into D7</li>
+                            <li>Make the text in A1 bold and italic</li>
+                            <li>Select the entire data range (A1:E10)</li>
+                            <li>Save your work</li>
+                        </ol>
+                        <button class="chart-control-btn" onclick="checkShortcutsChallenge()" style="background: white; color: #667eea; margin-top: 15px;">Check My Progress</button>
+                    </div>
                 </div>
                 
                 <!-- Charts Module -->
@@ -860,34 +1257,373 @@
                     
                     <div id="chartsFeedback" class="feedback-message"></div>
                     
-                    <div class="steps-list">
-                        <div class="step">
-                            <div class="step-number">1</div>
-                            <div class="step-content">
-                                <h4>Select Your Data</h4>
-                                <p>Highlight the data range you want to visualize. For best results, include headers in your selection.</p>
+                    <!-- Chart Basics Lesson -->
+                    <div class="lesson-content active" id="lesson-chart-basics">
+                        <div class="lesson-subtitle">Understanding Chart Types</div>
+                        
+                        <div class="chart-types-grid">
+                            <div class="chart-type-card">
+                                <div class="chart-type-icon">📈</div>
+                                <div class="chart-type-title">Column Charts</div>
+                                <p>Best for comparing values across different categories or showing changes over time when data points are limited.</p>
+                                <div class="tip-box" style="margin-top: 10px;">
+                                    <strong>Use when:</strong> Comparing sales by region or quarterly performance
+                                </div>
+                            </div>
+                            
+                            <div class="chart-type-card">
+                                <div class="chart-type-icon">🥧</div>
+                                <div class="chart-type-title">Pie Charts</div>
+                                <p>Perfect for showing proportions and percentages of a whole. Best with limited categories (2-6 slices).</p>
+                                <div class="tip-box" style="margin-top: 10px;">
+                                    <strong>Use when:</strong> Showing market share or budget allocation
+                                </div>
+                            </div>
+                            
+                            <div class="chart-type-card">
+                                <div class="chart-type-icon">📉</div>
+                                <div class="chart-type-title">Line Charts</div>
+                                <p>Ideal for showing trends over time, especially with continuous data and many data points.</p>
+                                <div class="tip-box" style="margin-top: 10px;">
+                                    <strong>Use when:</strong> Tracking stock prices or website traffic over months
+                                </div>
+                            </div>
+                            
+                            <div class="chart-type-card">
+                                <div class="chart-type-icon">📊</div>
+                                <div class="chart-type-title">Bar Charts</div>
+                                <p>Similar to column charts but horizontal. Great for comparing many items or when category names are long.</p>
+                                <div class="tip-box" style="margin-top: 10px;">
+                                    <strong>Use when:</strong> Comparing product sales or survey results
+                                </div>
                             </div>
                         </div>
-                        <div class="step">
-                            <div class="step-number">2</div>
-                            <div class="step-content">
-                                <h4>Choose Chart Type</h4>
-                                <p>Go to Insert tab and select the appropriate chart type for your data visualization needs.</p>
+                        
+                        <div class="steps-list">
+                            <div class="step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <h4>Select Your Data</h4>
+                                    <p>Highlight the data range you want to visualize. For best results, include headers in your selection.</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <h4>Choose Chart Type</h4>
+                                    <p>Go to Insert tab and select the appropriate chart type for your data visualization needs.</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <h4>Customize Design</h4>
+                                    <p>Use Chart Tools to customize colors, labels, titles, and other design elements.</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="step">
-                            <div class="step-number">3</div>
-                            <div class="step-content">
-                                <h4>Customize Design</h4>
-                                <p>Use Chart Tools to customize colors, labels, titles, and other design elements.</p>
+                        
+                        <div class="tutorial-section">
+                            <div class="tutorial-title">📚 Chart Selection Guide</div>
+                            <p>Choosing the right chart type is crucial for effective data communication:</p>
+                            <ul style="margin: 15px 0 15px 20px; color: #666;">
+                                <li><strong>Column Charts:</strong> Compare values across categories</li>
+                                <li><strong>Line Charts:</strong> Show trends over time</li>
+                                <li><strong>Pie Charts:</strong> Display parts of a whole</li>
+                                <li><strong>Bar Charts:</strong> Compare values horizontally</li>
+                                <li><strong>Scatter Plots:</strong> Show relationships between variables</li>
+                                <li><strong>Area Charts:</strong> Show cumulative totals over time</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Column Chart Lesson -->
+                    <div class="lesson-content" id="lesson-column-chart">
+                        <div class="lesson-subtitle">Creating Perfect Column Charts</div>
+                        <p>Column charts are ideal for comparing values across different categories. Follow these steps:</p>
+                        
+                        <div class="steps-list">
+                            <div class="step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <h4>Prepare Your Data</h4>
+                                    <p>Organize data in columns or rows with clear headers. Excel will use the first row/column for category labels.</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <h4>Insert Column Chart</h4>
+                                    <p>Select your data → Insert tab → Charts group → Column Chart dropdown → Choose 2-D or 3-D column.</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <h4>Customize Appearance</h4>
+                                    <p>Right-click chart elements to format. Add data labels, adjust colors, and modify axis scales as needed.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="exercise-instructions">
+                            <strong>Interactive Exercise:</strong> Create a column chart showing quarterly sales data
+                            <ol style="margin: 10px 0 0 20px;">
+                                <li>Click the "Create Column Chart" button below</li>
+                                <li>Observe how the chart visualizes the sample data</li>
+                                <li>Notice the category labels (Q1-Q4) and values</li>
+                                <li>Try different color schemes using the chart tools</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="tutorial-section">
+                            <div class="tutorial-title">📈 Column Chart Best Practices</div>
+                            <div class="tip-box">
+                                <strong>Design Tip:</strong> Use consistent colors for the same categories across multiple charts. Avoid 3D effects unless absolutely necessary as they can distort data perception.
+                            </div>
+                            <p>Column charts work best when you have fewer than 10 categories. For more categories, consider using a bar chart instead.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Pie Chart Lesson -->
+                    <div class="lesson-content" id="lesson-pie-chart">
+                        <div class="lesson-subtitle">Creating Effective Pie Charts</div>
+                        <p>Pie charts show proportions and percentages of a whole. Use them when you want to emphasize individual contributions to a total.</p>
+                        
+                        <div class="steps-list">
+                            <div class="step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <h4>Data Requirements</h4>
+                                    <p>Pie charts work best with data that represents parts of a whole. All values should be positive and sum to 100%.</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <h4>Insert Pie Chart</h4>
+                                    <p>Select your data → Insert tab → Charts group → Pie Chart dropdown → Choose 2-D or 3-D pie.</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <h4>Enhance Readability</h4>
+                                    <p>Add data labels showing percentages. Consider pulling out the most important slice for emphasis.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="exercise-instructions">
+                            <strong>Best Practices Exercise:</strong>
+                            <ol style="margin: 10px 0 0 20px;">
+                                <li>Limit to 2-6 slices for clarity</li>
+                                <li>Arrange slices from largest to smallest clockwise</li>
+                                <li>Use contrasting colors for adjacent slices</li>
+                                <li>Add percentage labels for precise communication</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="tutorial-section">
+                            <div class="tutorial-title">🥧 When to Avoid Pie Charts</div>
+                            <div class="tip-box">
+                                <strong>Avoid pie charts when:</strong> You have more than 6 categories, need to compare multiple datasets, or require precise value comparisons between categories.
+                            </div>
+                            <p>For better alternatives, consider using a bar chart or stacked column chart when you have many categories or need precise comparisons.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Line Chart Lesson -->
+                    <div class="lesson-content" id="lesson-line-chart">
+                        <div class="lesson-subtitle">Creating Line Charts for Trend Analysis</div>
+                        <p>Line charts are perfect for showing trends over time, especially with continuous data.</p>
+                        
+                        <div class="steps-list">
+                            <div class="step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <h4>Time Series Data</h4>
+                                    <p>Organize data with time periods in the first column (months, quarters, years) and values in subsequent columns.</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <h4>Insert Line Chart</h4>
+                                    <p>Select your data → Insert tab → Charts group → Line Chart dropdown → Choose with or without markers.</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <h4>Add Trend Analysis</h4>
+                                    <p>Right-click data line → Add Trendline. Choose linear, exponential, or moving average based on your data pattern.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tutorial-section">
+                            <div class="tutorial-title">📉 Line Chart Enhancement Tips</div>
+                            <div class="tip-box">
+                                <strong>Pro Tip:</strong> Use markers (dots on data points) when you have few data points. Remove markers when you have many points to reduce visual clutter.
+                            </div>
+                            
+                            <div class="exercise-instructions">
+                                <strong>Multi-line Chart Exercise:</strong>
+                                <p>To compare multiple trends:</p>
+                                <ol style="margin: 10px 0 0 20px;">
+                                    <li>Organize each data series in separate columns</li>
+                                    <li>Select all data including headers</li>
+                                    <li>Insert a line chart with multiple lines</li>
+                                    <li>Use different line styles (solid, dashed, dotted) for clarity</li>
+                                    <li>Add a legend to identify each data series</li>
+                                </ol>
                             </div>
                         </div>
                     </div>
                     
+                    <!-- Bar Chart Lesson -->
+                    <div class="lesson-content" id="lesson-bar-chart">
+                        <div class="lesson-subtitle">Creating Bar Charts for Comparisons</div>
+                        <p>Bar charts (horizontal columns) are excellent for comparing many items or when category names are long.</p>
+                        
+                        <div class="steps-list">
+                            <div class="step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <h4>Data Organization</h4>
+                                    <p>List categories in the first column (vertical axis) and values in the second column (horizontal bars).</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <h4>Insert Bar Chart</h4>
+                                    <p>Select your data → Insert tab → Charts group → Bar Chart dropdown → Choose clustered or stacked bar.</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <h4>Optimize Layout</h4>
+                                    <p>Sort data descending for quick insights. Add data labels at the end of bars for readability.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tutorial-section">
+                            <div class="tutorial-title">📊 Bar Chart Variations</div>
+                            
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Chart Type</th>
+                                        <th>Best For</th>
+                                        <th>Example Use Case</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Clustered Bar</td>
+                                        <td>Comparing values across categories</td>
+                                        <td>Sales by product category</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Stacked Bar</td>
+                                        <td>Showing composition of totals</td>
+                                        <td>Revenue by region and product</td>
+                                    </tr>
+                                    <tr>
+                                        <td>100% Stacked Bar</td>
+                                        <td>Comparing percentage distributions</td>
+                                        <td>Market share by competitor</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                            <div class="tip-box" style="margin-top: 15px;">
+                                <strong>Design Tip:</strong> Use horizontal grid lines to help readers track from bar end to value axis. Consider using data labels instead of relying solely on the axis scale.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Advanced Charts Lesson -->
+                    <div class="lesson-content" id="lesson-advanced-charts">
+                        <div class="lesson-subtitle">Advanced Excel Chart Techniques</div>
+                        <p>Take your charting skills to the next level with these advanced techniques and chart types.</p>
+                        
+                        <div class="chart-types-grid">
+                            <div class="chart-type-card">
+                                <div class="chart-type-icon">📊</div>
+                                <div class="chart-type-title">Combo Charts</div>
+                                <p>Combine different chart types (e.g., column and line) to visualize different data series effectively.</p>
+                                <div class="tip-box" style="margin-top: 10px;">
+                                    <strong>Example:</strong> Show revenue as columns and profit margin as a line
+                                </div>
+                            </div>
+                            
+                            <div class="chart-type-card">
+                                <div class="chart-type-icon">🔢</div>
+                                <div class="chart-type-title">Waterfall Charts</div>
+                                <p>Show cumulative effect of sequentially introduced positive or negative values.</p>
+                                <div class="tip-box" style="margin-top: 10px;">
+                                    <strong>Example:</strong> Financial statements showing profit breakdown
+                                </div>
+                            </div>
+                            
+                            <div class="chart-type-card">
+                                <div class="chart-type-icon">📐</div>
+                                <div class="chart-type-title">Histograms</div>
+                                <p>Display distribution of data and show frequency of data points within ranges.</p>
+                                <div class="tip-box" style="margin-top: 10px;">
+                                    <strong>Example:</strong> Employee salary distribution
+                                </div>
+                            </div>
+                            
+                            <div class="chart-type-card">
+                                <div class="chart-type-icon">📱</div>
+                                <div class="chart-type-title">Sparklines</div>
+                                <p>Miniature charts that fit within a single cell, perfect for dashboards.</p>
+                                <div class="tip-box" style="margin-top: 10px;">
+                                    <strong>Example:</strong> Stock price trends in a table
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tutorial-section">
+                            <div class="tutorial-title">🌟 Pro Charting Techniques</div>
+                            
+                            <div class="steps-list">
+                                <div class="step">
+                                    <div class="step-number">1</div>
+                                    <div class="step-content">
+                                        <h4>Dynamic Chart Titles</h4>
+                                        <p>Link chart titles to cells so they update automatically when source data changes.</p>
+                                    </div>
+                                </div>
+                                <div class="step">
+                                    <div class="step-number">2</div>
+                                    <div class="step-content">
+                                        <h4>Interactive Charts</h4>
+                                        <p>Use form controls (dropdowns, sliders) to create charts that users can filter and manipulate.</p>
+                                    </div>
+                                </div>
+                                <div class="step">
+                                    <div class="step-number">3</div>
+                                    <div class="step-content">
+                                        <h4>Conditional Formatting in Charts</h4>
+                                        <p>Use formulas to dynamically change chart colors based on data values or thresholds.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Common chart visualization area -->
                     <div class="chart-visualization">
                         <div class="excel-header">
                             <span>📈</span>
-                            <div>Chart Builder - Create different chart types:</div>
+                            <div id="chart-builder-title">Chart Builder - Create different chart types:</div>
                         </div>
                         
                         <div class="chart-canvas" id="chartCanvas">
@@ -902,6 +1638,20 @@
                             <button class="chart-control-btn" onclick="createChart('pie')">Create Pie Chart</button>
                             <button class="chart-control-btn" onclick="createChart('line')">Create Line Chart</button>
                             <button class="chart-control-btn" onclick="createChart('bar')">Create Bar Chart</button>
+                            <button class="chart-control-btn" onclick="createChart('advanced')" style="background: #9b59b6;">Advanced Chart</button>
+                        </div>
+                    </div>
+                    
+                    <div class="practice-exercise">
+                        <div class="exercise-title">
+                            <span>🎯</span>
+                            Chart Creation Challenge
+                        </div>
+                        <p>Create a chart that shows monthly sales trends for the past year. Choose the most appropriate chart type and customize it to be presentation-ready.</p>
+                        <div style="margin-top: 15px; display: flex; gap: 10px;">
+                            <button class="chart-control-btn" onclick="submitChartChallenge()">Submit My Chart</button>
+                            <button class="chart-control-btn" onclick="showChartExample()" style="background: #6c757d;">Show Example</button>
+                            <button class="chart-control-btn" onclick="resetChartBuilder()" style="background: #e74c3c;">Reset Builder</button>
                         </div>
                     </div>
                 </div>
@@ -915,6 +1665,415 @@
                     
                     <div id="dashboardFeedback" class="feedback-message"></div>
                     
+                    <!-- Dashboard Basics Lesson -->
+                    <div class="lesson-content active" id="lesson-dashboard-basics">
+                        <div class="lesson-subtitle">Dashboard Fundamentals</div>
+                        
+                        <div class="steps-list">
+                            <div class="step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <h4>Define Your Purpose</h4>
+                                    <p>What decisions will this dashboard support? Who is the audience? What key metrics matter most?</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <h4>Gather Your Data</h4>
+                                    <p>Collect and clean all necessary data. Ensure data is structured properly for dashboard use.</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <h4>Design the Layout</h4>
+                                    <p>Sketch your dashboard layout. Consider visual hierarchy and information flow.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tutorial-section">
+                            <div class="tutorial-title">🏗️ Dashboard Design Principles</div>
+                            <div class="tip-box">
+                                <strong>Golden Rule:</strong> A good dashboard answers questions at a glance. Keep it simple, focused, and actionable.
+                            </div>
+                            
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Dashboard Type</th>
+                                        <th>Primary Purpose</th>
+                                        <th>Key Metrics</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Executive Dashboard</td>
+                                        <td>High-level performance overview</td>
+                                        <td>Revenue, Profit, Growth Rate</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Operational Dashboard</td>
+                                        <td>Daily operations monitoring</td>
+                                        <td>Units Produced, Downtime, Efficiency</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Analytical Dashboard</td>
+                                        <td>Deep data analysis</td>
+                                        <td>Trends, Patterns, Correlations</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                            <p>Practice designing your own dashboard by arranging the widgets below. Think about logical grouping and flow.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Setup & Layout Lesson -->
+                    <div class="lesson-content" id="lesson-dashboard-setup">
+                        <div class="lesson-subtitle">Dashboard Setup & Layout Design</div>
+                        
+                        <div class="dashboard-tutorial">
+                            <div class="tutorial-title">⚙️ Step-by-Step Setup Guide</div>
+                            
+                            <div class="tutorial-step">
+                                <h4>1. Workbook Structure</h4>
+                                <p>Organize your workbook with separate sheets:</p>
+                                <ul style="margin: 10px 0 10px 20px;">
+                                    <li><strong>Data Sheet:</strong> Raw data with proper formatting</li>
+                                    <li><strong>Calculation Sheet:</strong> Formulas and analysis</li>
+                                    <li><strong>Dashboard Sheet:</strong> Final presentation layer</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="tutorial-step">
+                                <h4>2. Grid System</h4>
+                                <p>Use Excel's grid to create consistent layouts:</p>
+                                <ul style="margin: 10px 0 10px 20px;">
+                                    <li>Turn off gridlines for cleaner look (View → Show → uncheck Gridlines)</li>
+                                    <li>Use cell borders to create visual separation</li>
+                                    <li>Merge cells carefully for headers and titles</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="tutorial-step">
+                                <h4>3. Component Placement</h4>
+                                <p>Follow the F-pattern for optimal information flow:</p>
+                                <ul style="margin: 10px 0 10px 20px;">
+                                    <li>Most important metrics top-left</li>
+                                    <li>Supporting charts and details follow</li>
+                                    <li>Filters and controls on right or top</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="exercise-instructions">
+                            <strong>Layout Practice:</strong> Arrange the dashboard widgets below following these principles:
+                            <ol style="margin: 10px 0 0 20px;">
+                                <li>Drag the Key Metrics widget to top-left position</li>
+                                <li>Place Sales Overview next to it</li>
+                                <li>Position Trend Analysis below Sales Overview</li>
+                                <li>Put Product Distribution in remaining space</li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <!-- Visual Design Lesson -->
+                    <div class="lesson-content" id="lesson-dashboard-visuals">
+                        <div class="lesson-subtitle">Dashboard Visual Design Best Practices</div>
+                        
+                        <div class="chart-types-grid">
+                            <div class="chart-type-card" style="border-color: #9b59b6;">
+                                <div class="chart-type-icon">🎨</div>
+                                <div class="chart-type-title">Color Scheme</div>
+                                <p>Use consistent, accessible colors. Limit to 5-7 main colors with variations.</p>
+                                <div class="tip-box" style="margin-top: 10px; background: #f0e6ff;">
+                                    <strong>Accessibility:</strong> Avoid red/green combos for colorblind users
+                                </div>
+                            </div>
+                            
+                            <div class="chart-type-card" style="border-color: #9b59b6;">
+                                <div class="chart-type-icon">🔤</div>
+                                <div class="chart-type-title">Typography</div>
+                                <p>Use maximum 2-3 font families. Establish clear hierarchy with size and weight.</p>
+                                <div class="tip-box" style="margin-top: 10px; background: #f0e6ff;">
+                                    <strong>Readability:</strong> Minimum 10pt font for body text
+                                </div>
+                            </div>
+                            
+                            <div class="chart-type-card" style="border-color: #9b59b6;">
+                                <div class="chart-type-icon">⚪</div>
+                                <div class="chart-type-title">White Space</div>
+                                <p>Use generous padding (at least 10px) between elements to reduce clutter.</p>
+                                <div class="tip-box" style="margin-top: 10px; background: #f0e6ff;">
+                                    <strong>Rule:</strong> More white space = better readability
+                                </div>
+                            </div>
+                            
+                            <div class="chart-type-card" style="border-color: #9b59b6;">
+                                <div class="chart-type-icon">📐</div>
+                                <div class="chart-type-title">Alignment</div>
+                                <p>Align elements to invisible grid lines. Consistent alignment creates professional look.</p>
+                                <div class="tip-box" style="margin-top: 10px; background: #f0e6ff;">
+                                    <strong>Tip:</strong> Use Excel's alignment tools (Home → Alignment)
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tutorial-section">
+                            <div class="tutorial-title">👁️ Visual Hierarchy Principles</div>
+                            
+                            <div class="steps-list">
+                                <div class="step">
+                                    <div class="step-number">1</div>
+                                    <div class="step-content">
+                                        <h4>Size Indicates Importance</h4>
+                                        <p>Make the most important metrics or charts largest. Secondary information should be smaller.</p>
+                                    </div>
+                                </div>
+                                <div class="step">
+                                    <div class="step-number">2</div>
+                                    <div class="step-content">
+                                        <h4>Color Creates Focus</h4>
+                                        <p>Use bright or contrasting colors for key metrics. Use muted colors for background elements.</p>
+                                    </div>
+                                </div>
+                                <div class="step">
+                                    <div class="step-number">3</div>
+                                    <div class="step-content">
+                                        <h4>Position Guides Eye Movement</h4>
+                                        <p>Place critical information in the top-left (where eyes naturally start in Western cultures).</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Interactivity Lesson -->
+                    <div class="lesson-content" id="lesson-dashboard-interactivity">
+                        <div class="lesson-subtitle">Adding Interactivity to Dashboards</div>
+                        
+                        <div class="dashboard-tutorial">
+                            <div class="tutorial-title">🔄 Interactive Elements Guide</div>
+                            
+                            <div class="tutorial-step">
+                                <h4>1. Slicers for Filtering</h4>
+                                <p>Slicers provide intuitive filtering for pivot tables and charts:</p>
+                                <ul style="margin: 10px 0 10px 20px;">
+                                    <li>Insert → Slicer (for pivot tables)</li>
+                                    <li>Connect multiple charts to one slicer</li>
+                                    <li>Format to match dashboard theme</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="tutorial-step">
+                                <h4>2. Form Controls</h4>
+                                <p>Add interactive controls using Developer tab:</p>
+                                <ul style="margin: 10px 0 10px 20px;">
+                                    <li>Dropdown lists (Combo Boxes)</li>
+                                    <li>Option buttons for mutually exclusive choices</li>
+                                    <li>Check boxes for multiple selections</li>
+                                    <li>Scroll bars for range selection</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="tutorial-step">
+                                <h4>3. Dynamic Charts</h4>
+                                <p>Create charts that update based on user selection:</p>
+                                <ul style="margin: 10px 0 10px 20px;">
+                                    <li>Use OFFSET and INDEX functions</li>
+                                    <li>Create dynamic named ranges</li>
+                                    <li>Link charts to filtered data ranges</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="interactive-element" onclick="showInteractiveDemo()">
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                                <span style="font-size: 24px;">🔄</span>
+                                <div>
+                                    <div style="font-weight: 600; margin-bottom: 5px;">Interactive Demo</div>
+                                    <div>Click here to see an interactive dashboard element in action</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tutorial-section">
+                            <div class="tutorial-title">💡 Pro Interactivity Tips</div>
+                            <div class="tip-box">
+                                <strong>Performance Tip:</strong> Limit the number of volatile functions (OFFSET, INDIRECT, TODAY, NOW) as they recalculate with every change and can slow down your dashboard.
+                            </div>
+                            <p>Always provide clear instructions for interactive elements. Users should immediately understand how to interact with your dashboard.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Final Polish Lesson -->
+                    <div class="lesson-content" id="lesson-dashboard-final">
+                        <div class="lesson-subtitle">Final Dashboard Polish & Review</div>
+                        
+                        <div class="steps-list">
+                            <div class="step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <h4>Consistency Check</h4>
+                                    <p>Ensure all elements follow the same design rules:</p>
+                                    <ul style="margin: 10px 0 10px 20px;">
+                                        <li>Fonts, colors, and sizes are consistent</li>
+                                        <li>Alignment follows the grid</li>
+                                        <li>Spacing is uniform throughout</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <h4>Error Prevention</h4>
+                                    <p>Protect your dashboard from user errors:</p>
+                                    <ul style="margin: 10px 0 10px 20px;">
+                                        <li>Lock cells with formulas (Review → Protect Sheet)</li>
+                                        <li>Data validation for input cells</li>
+                                        <li>Error handling in formulas (IFERROR)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <h4>Performance Optimization</h4>
+                                    <p>Ensure your dashboard loads quickly:</p>
+                                    <ul style="margin: 10px 0 10px 20px;">
+                                        <li>Convert formulas to values where possible</li>
+                                        <li>Minimize volatile functions</li>
+                                        <li>Use manual calculation mode for large datasets</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tutorial-section">
+                            <div class="tutorial-title">🏁 Final Checklist</div>
+                            
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Item</th>
+                                        <th>Check</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Spelling & Grammar</td>
+                                        <td>✅</td>
+                                        <td>No typos in titles, labels, or instructions</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Print Preview</td>
+                                        <td>✅</td>
+                                        <td>Dashboard looks good when printed</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mobile View</td>
+                                        <td>✅</td>
+                                        <td>Readable on different screen sizes</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Navigation</td>
+                                        <td>✅</td>
+                                        <td>Clear how to use interactive elements</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Data Accuracy</td>
+                                        <td>✅</td>
+                                        <td>All calculations and charts are correct</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="exercise-instructions">
+                            <strong>Final Exercise:</strong> Apply the final polish to the dashboard below:
+                            <ol style="margin: 10px 0 0 20px;">
+                                <li>Arrange widgets in a logical, professional layout</li>
+                                <li>Ensure consistent spacing and alignment</li>
+                                <li>Check that all elements are properly sized</li>
+                                <li>Save your final layout</li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <!-- Real Examples Lesson -->
+                    <div class="lesson-content" id="lesson-dashboard-examples">
+                        <div class="lesson-subtitle">Real-World Dashboard Examples</div>
+                        
+                        <div class="chart-types-grid">
+                            <div class="chart-type-card" style="border-color: #9b59b6;">
+                                <div class="chart-type-icon">💰</div>
+                                <div class="chart-type-title">Sales Dashboard</div>
+                                <p>Tracks revenue, conversions, and sales team performance.</p>
+                                <ul style="margin: 10px 0 10px 20px; font-size: 14px;">
+                                    <li>Revenue trends (line chart)</li>
+                                    <li>Top products (bar chart)</li>
+                                    <li>Regional performance (map or pie)</li>
+                                    <li>Sales funnel visualization</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="chart-type-card" style="border-color: #9b59b6;">
+                                <div class="chart-type-icon">📈</div>
+                                <div class="chart-type-title">Marketing Dashboard</div>
+                                <p>Monitors campaign performance and ROI.</p>
+                                <ul style="margin: 10px 0 10px 20px; font-size: 14px;">
+                                    <li>Website traffic sources</li>
+                                    <li>Conversion rates by channel</li>
+                                    <li>Campaign cost vs revenue</li>
+                                    <li>Social media engagement</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="chart-type-card" style="border-color: #9b59b6;">
+                                <div class="chart-type-icon">🏭</div>
+                                <div class="chart-type-title">Operations Dashboard</div>
+                                <p>Tracks production efficiency and resource utilization.</p>
+                                <ul style="margin: 10px 0 10px 20px; font-size: 14px;">
+                                    <li>Production volume vs target</li>
+                                    <li>Equipment downtime</li>
+                                    <li>Quality control metrics</li>
+                                    <li>Inventory levels</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="chart-type-card" style="border-color: #9b59b6;">
+                                <div class="chart-type-icon">👥</div>
+                                <div class="chart-type-title">HR Dashboard</div>
+                                <p>Monitors employee metrics and HR performance.</p>
+                                <ul style="margin: 10px 0 10px 20px; font-size: 14px;">
+                                    <li>Employee turnover rate</li>
+                                    <li>Time to hire</li>
+                                    <li>Training completion</li>
+                                    <li>Employee satisfaction</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="challenge-section">
+                            <div class="challenge-title">
+                                <span>🏆</span>
+                                Your Turn: Design Challenge
+                            </div>
+                            <p>Design a project management dashboard that tracks:</p>
+                            <ul style="margin: 15px 0 15px 20px;">
+                                <li>Project timelines and deadlines</li>
+                                <li>Resource allocation across projects</li>
+                                <li>Budget vs actual spending</li>
+                                <li>Milestone completion status</li>
+                            </ul>
+                            <p>Sketch your layout and select appropriate chart types for each metric.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Interactive Dashboard Preview Area -->
                     <div class="dashboard-preview" id="dashboardPreview">
                         <div class="dashboard-widget" draggable="true" data-type="sales">
                             <div class="widget-header">
@@ -1005,9 +2164,11 @@
                             Dashboard Layout Challenge
                         </div>
                         <p>Drag and arrange the widgets above to create an optimal dashboard layout. Consider the flow of information and visual hierarchy.</p>
-                        <div style="margin-top: 15px; display: flex; gap: 10px;">
+                        <div style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
                             <button class="chart-control-btn" onclick="resetDashboard()" style="background: #6c757d;">Reset Layout</button>
                             <button class="chart-control-btn" onclick="saveDashboard()">Save Layout</button>
+                            <button class="chart-control-btn" onclick="analyzeDashboard()" style="background: #3498db;">Analyze Layout</button>
+                            <button class="chart-control-btn" onclick="exportDashboard()" style="background: #27ae60;">Export Design</button>
                         </div>
                     </div>
                 </div>
@@ -1031,23 +2192,163 @@
                         </div>
                     </div>
                     
-                    <div class="practice-exercise">
-                        <div class="exercise-title">
-                            <span>⌨️</span>
-                            <div id="practiceQuestion">What is the shortcut to save a workbook?</div>
+                    <!-- Shortcuts Practice Lesson -->
+                    <div class="lesson-content active" id="lesson-shortcuts-practice">
+                        <div class="practice-exercise">
+                            <div class="exercise-title">
+                                <span>⌨️</span>
+                                <div id="practiceQuestion">What is the shortcut to save a workbook?</div>
+                            </div>
+                            
+                            <div class="keyboard-display" id="keyboardDisplay">
+                                <!-- Keys will be displayed here -->
+                            </div>
+                            
+                            <input type="text" class="keyboard-input" id="keyboardInput" 
+                                   placeholder="Click here and press the correct keys..." 
+                                   readonly>
+                            
+                            <div style="margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
+                                <button class="chart-control-btn" onclick="checkPracticeAnswer()">Check Answer</button>
+                                <button class="chart-control-btn" onclick="nextPracticeQuestion()" style="background: #6c757d;">Next Question</button>
+                                <button class="chart-control-btn" onclick="hintPractice()" style="background: #3498db;">Get Hint</button>
+                                <button class="chart-control-btn" onclick="showShortcutsReference()" style="background: #9b59b6;">Shortcuts Reference</button>
+                            </div>
                         </div>
                         
-                        <div class="keyboard-display" id="keyboardDisplay">
-                            <!-- Keys will be displayed here -->
+                        <div class="tutorial-section">
+                            <div class="tutorial-title">🏆 Shortcuts Leaderboard</div>
+                            <p>Practice makes perfect! Try to beat your high score:</p>
+                            <ul style="margin: 15px 0 15px 20px; color: #666;">
+                                <li><strong>Beginner:</strong> 0-3 correct answers</li>
+                                <li><strong>Intermediate:</strong> 4-7 correct answers</li>
+                                <li><strong>Advanced:</strong> 8-10 correct answers</li>
+                                <li><strong>Expert:</strong> 11+ correct answers</li>
+                            </ul>
+                            <div style="margin-top: 15px; display: flex; gap: 10px;">
+                                <button class="chart-control-btn" onclick="startTimedPractice()" style="background: #e74c3c;">Timed Challenge (60s)</button>
+                                <button class="chart-control-btn" onclick="resetPracticeScore()" style="background: #6c757d;">Reset Score</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Charts Practice Lesson -->
+                    <div class="lesson-content" id="lesson-charts-practice">
+                        <div class="practice-exercise">
+                            <div class="exercise-title">
+                                <span>📈</span>
+                                Chart Selection Challenge
+                            </div>
+                            <p>Given the following scenario, which chart type would be most appropriate?</p>
+                            <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                                <p id="chartScenario"><strong>Scenario 1:</strong> You need to show the market share of 5 different products in your company's portfolio.</p>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 20px 0;">
+                                <button class="chart-control-btn" onclick="checkChartAnswer('pie')" style="background: #f8f9fa; color: #333; border: 2px solid #ddd;">Pie Chart</button>
+                                <button class="chart-control-btn" onclick="checkChartAnswer('line')" style="background: #f8f9fa; color: #333; border: 2px solid #ddd;">Line Chart</button>
+                                <button class="chart-control-btn" onclick="checkChartAnswer('column')" style="background: #f8f9fa; color: #333; border: 2px solid #ddd;">Column Chart</button>
+                                <button class="chart-control-btn" onclick="checkChartAnswer('bar')" style="background: #f8f9fa; color: #333; border: 2px solid #ddd;">Bar Chart</button>
+                            </div>
+                            
+                            <div id="chartAnswerFeedback" style="margin-top: 20px;"></div>
+                            
+                            <div style="margin-top: 20px; display: flex; gap: 10px;">
+                                <button class="chart-control-btn" onclick="nextChartScenario()">Next Scenario</button>
+                                <button class="chart-control-btn" onclick="showChartExplanation()" style="background: #6c757d;">Show Explanation</button>
+                            </div>
                         </div>
                         
-                        <input type="text" class="keyboard-input" id="keyboardInput" 
-                               placeholder="Click here and press the correct keys..." 
-                               readonly>
-                        
-                        <div style="margin-top: 20px; display: flex; gap: 10px;">
-                            <button class="chart-control-btn" onclick="checkPracticeAnswer()">Check Answer</button>
-                            <button class="chart-control-btn" onclick="nextPracticeQuestion()" style="background: #6c757d;">Next Question</button>
+                        <div class="tutorial-section">
+                            <div class="tutorial-title">📊 Chart Creation Practice</div>
+                            <div class="exercise-instructions">
+                                <strong>Exercise:</strong> Create the following charts using the Chart Builder:
+                                <ol style="margin: 10px 0 0 20px;">
+                                    <li>A column chart showing monthly sales for Q1 (Jan: $50K, Feb: $65K, Mar: $80K)</li>
+                                    <li>A pie chart showing department budget allocation (Marketing: 35%, Sales: 25%, R&D: 20%, Operations: 20%)</li>
+                                    <li>A line chart showing website traffic growth over 6 months</li>
+                                </ol>
+                            </div>
+                            <div style="margin-top: 15px; display: flex; gap: 10px;">
+                                <button class="chart-control-btn" onclick="startChartPractice()">Start Chart Practice</button>
+                                <button class="chart-control-btn" onclick="viewChartSolutions()" style="background: #6c757d;">View Solutions</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Dashboard Practice Lesson -->
+                    <div class="lesson-content" id="lesson-dashboard-practice">
+                        <div class="practice-exercise">
+                            <div class="exercise-title">
+                                <span>🎨</span>
+                                Dashboard Design Challenge
+                            </div>
+                            <p>Design a sales dashboard with the following requirements:</p>
+                            <ul style="margin: 15px 0 15px 20px;">
+                                <li>Display monthly revenue trend</li>
+                                <li>Show top 5 products by sales</li>
+                                <li>Include regional performance comparison</li>
+                                <li>Display key metrics (Revenue, Growth, Orders, Customer Satisfaction)</li>
+                                <li>Add a date range filter</li>
+                            </ul>
+                            
+                            <div class="dashboard-preview" id="practiceDashboard">
+                                <!-- Practice dashboard widgets will be added here -->
+                            </div>
+                            
+                            <div style="margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
+                                <button class="chart-control-btn" onclick="addDashboardWidget('chart')">Add Chart</button>
+                                <button class="chart-control-btn" onclick="addDashboardWidget('kpi')">Add KPI</button>
+                                <button class="chart-control-btn" onclick="addDashboardWidget('table')">Add Table</button>
+                                <button class="chart-control-btn" onclick="clearDashboard()" style="background: #e74c3c;">Clear All</button>
+                                <button class="chart-control-btn" onclick="submitDashboardDesign()">Submit Design</button>
+                            </div>
+                            
+                            <div id="dashboardPracticeFeedback" style="margin-top: 20px;"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Final Challenge Lesson -->
+                    <div class="lesson-content" id="lesson-final-challenge">
+                        <div class="challenge-section">
+                            <div class="challenge-title">
+                                <span>🏆</span>
+                                Final Mastery Challenge
+                            </div>
+                            <p>Complete this comprehensive challenge to test all your Excel skills:</p>
+                            
+                            <div class="exercise-instructions">
+                                <strong>Challenge:</strong> Create a complete dashboard for a fictional company
+                                <ol style="margin: 10px 0 0 20px;">
+                                    <li>Use only keyboard shortcuts to navigate and format</li>
+                                    <li>Create at least 3 different chart types</li>
+                                    <li>Arrange widgets in a logical dashboard layout</li>
+                                    <li>Add appropriate titles and labels</li>
+                                    <li>Make it visually appealing and professional</li>
+                                    <li>Add at least one interactive element</li>
+                                </ol>
+                            </div>
+                            
+                            <div style="margin-top: 25px;">
+                                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                                    <button class="chart-control-btn" onclick="startFinalChallenge()" style="padding: 15px 40px; font-size: 18px;">Start Final Challenge</button>
+                                    <button class="chart-control-btn" onclick="viewChallengeRubric()" style="background: #6c757d; padding: 15px 40px; font-size: 18px;">View Rubric</button>
+                                </div>
+                                <div style="margin-top: 15px; text-align: center; color: #666; font-size: 14px;">
+                                    Estimated time: 15-20 minutes | Score based on completeness and accuracy
+                                </div>
+                            </div>
+                            
+                            <div class="tutorial-section" style="margin-top: 25px; background: #e8f4fc;">
+                                <div class="tutorial-title">🎯 Challenge Tips</div>
+                                <ul style="margin: 15px 0 15px 20px;">
+                                    <li>Plan your layout before starting</li>
+                                    <li>Use consistent colors and fonts</li>
+                                    <li>Test all interactive elements</li>
+                                    <li>Check data accuracy in charts</li>
+                                    <li>Proofread all text elements</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1072,18 +2373,47 @@
             currentQuestion: 0,
             score: 0,
             questionsAnswered: 0,
-            totalQuestions: 6
+            totalQuestions: 10,
+            category: 'shortcuts',
+            timedMode: false,
+            timeLeft: 60
         };
+        
+        let chartScenarios = [
+            {
+                scenario: "You need to show the market share of 5 different products in your company's portfolio.",
+                answer: "pie",
+                explanation: "Pie charts are perfect for showing proportions and percentages of a whole, like market share."
+            },
+            {
+                scenario: "You want to display monthly sales trends over the past 2 years.",
+                answer: "line",
+                explanation: "Line charts are ideal for showing trends over time with continuous data."
+            },
+            {
+                scenario: "You need to compare quarterly revenue across 4 different regions.",
+                answer: "column",
+                explanation: "Column charts are best for comparing values across different categories, like regions."
+            },
+            {
+                scenario: "You want to show customer satisfaction scores for 10 different service departments.",
+                answer: "bar",
+                explanation: "Bar charts (horizontal) work well when comparing many items or when labels are long."
+            }
+        ];
+        
+        let currentChartScenario = 0;
         
         // Track drag and drop
         let draggedWidget = null;
         
-        // Excel shortcuts data
+        // Excel shortcuts data - COMPLETE SET
         const shortcuts = {
             navigation: [
                 { task: "Close workbook", keys: ["Ctrl", "W"], description: "Close the current workbook" },
                 { task: "Open workbook", keys: ["Ctrl", "O"], description: "Open an existing workbook" },
                 { task: "Save workbook", keys: ["Ctrl", "S"], description: "Save the current workbook" },
+                { task: "Save As", keys: ["F12"], description: "Save with a different name/location" },
                 { task: "Move up one cell", keys: ["↑"], description: "Move selection upward" },
                 { task: "Move down one cell", keys: ["↓"], description: "Move selection downward" },
                 { task: "Move left one cell", keys: ["←"], description: "Move selection left" },
@@ -1095,55 +2425,137 @@
                 { task: "Copy", keys: ["Ctrl", "C"], description: "Copy selected cells" },
                 { task: "Cut", keys: ["Ctrl", "X"], description: "Cut selected cells" },
                 { task: "Paste", keys: ["Ctrl", "V"], description: "Paste copied/cut cells" },
+                { task: "Paste Special", keys: ["Ctrl", "Alt", "V"], description: "Open Paste Special dialog" },
                 { task: "Undo", keys: ["Ctrl", "Z"], description: "Undo last action" },
+                { task: "Redo", keys: ["Ctrl", "Y"], description: "Redo last undone action" },
                 { task: "Delete cell contents", keys: ["Delete"], description: "Clear cell contents" },
-                { task: "Edit active cell", keys: ["F2"], description: "Edit cell with cursor at end" }
+                { task: "Edit active cell", keys: ["F2"], description: "Edit cell with cursor at end" },
+                { task: "Fill down", keys: ["Ctrl", "D"], description: "Copy cell above to selected cells" },
+                { task: "Fill right", keys: ["Ctrl", "R"], description: "Copy cell left to selected cells" }
             ],
             formatting: [
                 { task: "Bold", keys: ["Ctrl", "B"], description: "Apply or remove bold formatting" },
                 { task: "Italic", keys: ["Ctrl", "I"], description: "Apply or remove italic formatting" },
                 { task: "Underline", keys: ["Ctrl", "U"], description: "Apply or remove underline" },
-                { task: "Format cells dialog", keys: ["Ctrl", "1"], description: "Open format cells dialog" }
+                { task: "Strikethrough", keys: ["Ctrl", "5"], description: "Apply or remove strikethrough" },
+                { task: "Format cells dialog", keys: ["Ctrl", "1"], description: "Open format cells dialog" },
+                { task: "Number format", keys: ["Ctrl", "Shift", "1"], description: "Apply number format" },
+                { task: "Currency format", keys: ["Ctrl", "Shift", "4"], description: "Apply currency format" },
+                { task: "Percent format", keys: ["Ctrl", "Shift", "5"], description: "Apply percentage format" },
+                { task: "Date format", keys: ["Ctrl", "Shift", "3"], description: "Apply date format" }
             ],
             selection: [
                 { task: "Select entire column", keys: ["Ctrl", "Space"], description: "Select the entire column" },
                 { task: "Select entire row", keys: ["Shift", "Space"], description: "Select the entire row" },
                 { task: "Select entire worksheet", keys: ["Ctrl", "A"], description: "Select all cells" },
-                { task: "Extend selection", keys: ["Shift", "Arrow Key"], description: "Extend selection in direction" }
+                { task: "Extend selection up", keys: ["Shift", "↑"], description: "Extend selection upward" },
+                { task: "Extend selection down", keys: ["Shift", "↓"], description: "Extend selection downward" },
+                { task: "Extend selection left", keys: ["Shift", "←"], description: "Extend selection left" },
+                { task: "Extend selection right", keys: ["Shift", "→"], description: "Extend selection right" },
+                { task: "Select current region", keys: ["Ctrl", "Shift", "*"], description: "Select data region around active cell" },
+                { task: "Select visible cells", keys: ["Alt", ";"], description: "Select only visible cells" },
+                { task: "Go to specific cell", keys: ["Ctrl", "G"], description: "Open Go To dialog" }
+            ],
+            formulas: [
+                { task: "Insert function", keys: ["Shift", "F3"], description: "Open Insert Function dialog" },
+                { task: "AutoSum", keys: ["Alt", "="], description: "Insert SUM formula" },
+                { task: "Toggle absolute reference", keys: ["F4"], description: "Cycle through reference types" },
+                { task: "Calculate worksheet", keys: ["F9"], description: "Calculate all formulas" },
+                { task: "Show formulas", keys: ["Ctrl", "`"], description: "Toggle formula display" },
+                { task: "Insert arguments", keys: ["Ctrl", "Shift", "A"], description: "Insert function arguments" }
+            ],
+            workbook: [
+                { task: "New workbook", keys: ["Ctrl", "N"], description: "Create a new workbook" },
+                { task: "Print", keys: ["Ctrl", "P"], description: "Open print dialog" },
+                { task: "Find", keys: ["Ctrl", "F"], description: "Open Find dialog" },
+                { task: "Replace", keys: ["Ctrl", "H"], description: "Open Replace dialog" },
+                { task: "Insert new worksheet", keys: ["Shift", "F11"], description: "Add new worksheet" },
+                { task: "Rename worksheet", keys: ["Alt", "O", "H", "R"], description: "Rename current sheet" },
+                { task: "Move between worksheets", keys: ["Ctrl", "Page Up/Down"], description: "Navigate between sheets" },
+                { task: "Switch workbooks", keys: ["Ctrl", "Tab"], description: "Switch between open workbooks" },
+                { task: "Close workbook", keys: ["Ctrl", "F4"], description: "Close current workbook" },
+                { task: "Save all workbooks", keys: ["Ctrl", "Shift", "S"], description: "Save all open workbooks" }
             ]
         };
         
-        // Practice questions
+        // Practice questions - COMPLETE SET
         const practiceQuestions = [
+            // Shortcuts questions
             {
                 question: "What shortcut saves a workbook?",
                 answer: ["Control", "S"],
-                category: "shortcuts"
+                category: "shortcuts",
+                hint: "Think about the first letter of Save"
             },
             {
                 question: "How do you copy selected cells?",
                 answer: ["Control", "C"],
-                category: "shortcuts"
+                category: "shortcuts",
+                hint: "C for Copy"
             },
             {
                 question: "What shortcut makes text bold?",
                 answer: ["Control", "B"],
-                category: "shortcuts"
+                category: "shortcuts",
+                hint: "B for Bold"
             },
             {
                 question: "How do you undo the last action?",
                 answer: ["Control", "Z"],
-                category: "shortcuts"
+                category: "shortcuts",
+                hint: "Z for Undo (common in many applications)"
             },
+            {
+                question: "What shortcut opens the Format Cells dialog?",
+                answer: ["Control", "1"],
+                category: "shortcuts",
+                hint: "Number 1, not F1"
+            },
+            {
+                question: "How do you insert a new worksheet?",
+                answer: ["Shift", "F11"],
+                category: "shortcuts",
+                hint: "Function key with Shift modifier"
+            },
+            {
+                question: "What shortcut selects an entire column?",
+                answer: ["Control", "Space"],
+                category: "shortcuts",
+                hint: "Think about the spacebar"
+            },
+            {
+                question: "How do you autosum selected cells?",
+                answer: ["Alt", "="],
+                category: "shortcuts",
+                hint: "Equals sign with Alt"
+            },
+            
+            // Charts questions
             {
                 question: "Which chart is best for showing proportions?",
                 answer: ["Pie", "Chart"],
-                category: "charts"
+                category: "charts",
+                hint: "Think of something you can slice"
             },
+            {
+                question: "What chart type shows trends over time?",
+                answer: ["Line", "Chart"],
+                category: "charts",
+                hint: "Connects data points with lines"
+            },
+            
+            // Dashboard questions
             {
                 question: "What's the first step in creating a dashboard?",
                 answer: ["Plan", "Layout"],
-                category: "dashboard"
+                category: "dashboard",
+                hint: "Always start with planning"
+            },
+            {
+                question: "What should a good dashboard answer at a glance?",
+                answer: ["Key", "Questions"],
+                category: "dashboard",
+                hint: "Think about what users need to know quickly"
             }
         ];
         
@@ -1156,6 +2568,25 @@
             setupPractice();
             setupEventListeners();
             setupDragAndDrop();
+            updateTotalLessons();
+            loadChartScenarios();
+        }
+        
+        // Update total lessons count
+        function updateTotalLessons() {
+            let total = 0;
+            document.querySelectorAll('.module-section').forEach(section => {
+                total += section.querySelectorAll('.module-nav-btn').length;
+            });
+            document.getElementById('total-lessons').textContent = total;
+        }
+        
+        // Load chart scenarios
+        function loadChartScenarios() {
+            const scenarioElement = document.getElementById('chartScenario');
+            if (scenarioElement && chartScenarios.length > 0) {
+                scenarioElement.innerHTML = `<strong>Scenario ${currentChartScenario + 1}:</strong> ${chartScenarios[currentChartScenario].scenario}`;
+            }
         }
         
         // Show module
@@ -1175,45 +2606,29 @@
             // Update module content visibility
             document.querySelectorAll('.module-content').forEach(content => {
                 content.classList.remove('active');
+                content.style.display = 'none';
             });
             
             const activeModule = document.getElementById(`module-${module}`);
             if (activeModule) {
                 activeModule.classList.add('active');
+                activeModule.style.display = 'block';
             }
             
             // Update lesson navigation visibility
-            updateLessonNavigation();
-            
-            // Load appropriate content
-            if (module === 'shortcuts') {
-                loadShortcuts();
-            }
-        }
-        
-        // Update lesson navigation visibility
-        function updateLessonNavigation() {
-            // Show/hide lesson sections based on current module
             document.querySelectorAll('.module-section').forEach(section => {
                 section.style.display = 'none';
             });
             
-            const activeSection = document.getElementById(`${currentModule}-section`);
+            const activeSection = document.getElementById(`${module}-section`);
             if (activeSection) {
                 activeSection.style.display = 'block';
             }
             
-            // Update active lesson button
-            document.querySelectorAll('.module-nav-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            
             // Set first lesson as active
-            const firstLessonBtn = document.querySelector(`#${currentModule}-section .module-nav-btn`);
+            const firstLessonBtn = activeSection.querySelector('.module-nav-btn');
             if (firstLessonBtn) {
-                firstLessonBtn.classList.add('active');
-                currentLesson = firstLessonBtn.dataset.lesson;
-                updateLessonContent();
+                showLesson(firstLessonBtn.dataset.lesson);
             }
         }
         
@@ -1231,24 +2646,97 @@
                 activeBtn.classList.add('active');
             }
             
-            // Update content based on lesson
-            updateLessonContent();
-        }
-        
-        // Update lesson content
-        function updateLessonContent() {
-            if (currentModule === 'shortcuts') {
-                loadShortcuts();
+            // Hide all lesson content
+            document.querySelectorAll('.lesson-content').forEach(content => {
+                content.classList.remove('active');
+                content.style.display = 'none';
+            });
+            
+            // Show current lesson content
+            const lessonContent = document.getElementById(`lesson-${lesson}`);
+            if (lessonContent) {
+                lessonContent.classList.add('active');
+                lessonContent.style.display = 'block';
             }
             
-            // Update feedback messages
-            updateFeedback();
+            // Update module titles
+            updateLessonTitles(lesson);
+            
+            // Load appropriate content
+            if (currentModule === 'shortcuts') {
+                loadShortcuts();
+            } else if (currentModule === 'practice' && lesson === 'shortcuts-practice') {
+                setupPractice();
+            }
+        }
+        
+        // Update lesson titles and descriptions
+        function updateLessonTitles(lesson) {
+            const lessonTitles = {
+                'navigation': 'Excel Navigation Shortcuts Mastery',
+                'editing': 'Excel Editing Shortcuts Guide',
+                'formatting': 'Excel Formatting Shortcuts Workshop',
+                'selection': 'Excel Selection Shortcuts Techniques',
+                'formulas': 'Excel Formula Shortcuts Mastery',
+                'workbook': 'Excel Workbook Management Shortcuts',
+                'chart-basics': 'Excel Chart Creation Fundamentals',
+                'column-chart': 'Perfect Column Charts in Excel',
+                'pie-chart': 'Creating Effective Pie Charts',
+                'line-chart': 'Line Charts for Trend Analysis',
+                'bar-chart': 'Bar Charts for Comparisons',
+                'advanced-charts': 'Advanced Excel Chart Techniques',
+                'dashboard-basics': 'Excel Dashboard Fundamentals',
+                'dashboard-setup': 'Dashboard Setup & Layout Design',
+                'dashboard-visuals': 'Dashboard Visual Design Principles',
+                'dashboard-interactivity': 'Adding Interactivity to Dashboards',
+                'dashboard-final': 'Final Dashboard Polish & Review',
+                'dashboard-examples': 'Real-World Dashboard Examples',
+                'shortcuts-practice': 'Keyboard Shortcuts Practice Arena',
+                'charts-practice': 'Chart Creation Practice Exercises',
+                'dashboard-practice': 'Dashboard Building Practice',
+                'final-challenge': 'Final Excel Mastery Challenge'
+            };
+            
+            const titleElement = document.querySelector('.module-title');
+            if (titleElement && lessonTitles[lesson]) {
+                titleElement.textContent = lessonTitles[lesson];
+            }
+            
+            // Update module descriptions
+            const descElements = {
+                'shortcuts': 'Learn essential keyboard shortcuts to work faster and more efficiently in Excel. Practice each shortcut in the interactive Excel simulation.',
+                'charts': 'Learn how to create various types of charts in Excel with step-by-step instructions and interactive visualizations.',
+                'dashboard': 'Learn how to create professional dashboards in Excel that tell compelling data stories. Drag and arrange the widgets to create your ideal layout.',
+                'practice': 'Test your Excel skills with interactive exercises covering shortcuts, chart creation, and dashboard building.'
+            };
+            
+            const descElement = document.querySelector('.module-description');
+            if (descElement && descElements[currentModule]) {
+                descElement.textContent = descElements[currentModule];
+            }
         }
         
         // Load shortcuts based on current lesson
         function loadShortcuts() {
-            const grid = document.getElementById('shortcutsGrid');
-            if (!grid) return;
+            const gridId = currentLesson + 'ShortcutsGrid';
+            let grid = document.getElementById(gridId);
+            
+            // If specific grid doesn't exist, use default
+            if (!grid) {
+                grid = document.getElementById('shortcutsGrid');
+            }
+            
+            if (!grid) {
+                // Create grid if it doesn't exist
+                grid = document.createElement('div');
+                grid.className = 'shortcuts-grid';
+                grid.id = gridId;
+                const lessonContent = document.getElementById(`lesson-${currentLesson}`);
+                if (lessonContent) {
+                    lessonContent.appendChild(grid);
+                }
+                return;
+            }
             
             grid.innerHTML = '';
             
@@ -1280,8 +2768,9 @@
                     <div class="shortcut-keys">${keysHtml}</div>
                     <div style="font-weight: 600; color: #1a237e; font-size: 18px; margin-bottom: 10px;">${shortcut.task}</div>
                     <div style="color: #666; font-size: 14px; line-height: 1.5; flex-grow: 1;">${shortcut.description}</div>
-                    ${isMastered ? '<div style="margin-top: 10px; color: #27ae60; font-size: 12px;">✅ Mastered</div>' : 
-                      '<div style="margin-top: 10px; color: #666; font-size: 12px;">Click to mark as mastered</div>'}
+                    ${isMastered ? 
+                        '<div style="margin-top: 10px; color: #27ae60; font-size: 12px;"><span style="margin-right: 5px;">✅</span> Mastered</div>' : 
+                        '<div style="margin-top: 10px; color: #666; font-size: 12px;">Click to mark as mastered</div>'}
                 `;
                 
                 // Add click handler
@@ -1305,9 +2794,17 @@
             } else {
                 masteredShortcuts.add(shortcutKey);
                 showFeedback('shortcuts', '✅ Shortcut marked as mastered!', 'success');
+                progress.shortcuts = Math.min(100, progress.shortcuts + 5);
             }
             
             loadShortcuts();
+            updateProgress();
+        }
+        
+        // Check shortcuts challenge
+        function checkShortcutsChallenge() {
+            showFeedback('shortcuts', '✅ Great job! Practice these shortcuts regularly to build muscle memory. The more you use them, the faster you\'ll become!', 'success');
+            progress.shortcuts = Math.min(100, progress.shortcuts + 15);
             updateProgress();
         }
         
@@ -1341,6 +2838,7 @@
                         if (row === 1 && col === 1) {
                             cell.className += ' active';
                             cell.textContent = 'Sales Data';
+                            cell.style.fontWeight = 'bold';
                         } else if (row === 2 && col === 1) {
                             cell.textContent = 'Q1: $10,000';
                         } else if (row === 3 && col === 1) {
@@ -1348,10 +2846,20 @@
                         } else if (row === 4 && col === 1) {
                             cell.textContent = 'Total: $25,000';
                             cell.style.fontWeight = 'bold';
+                            cell.style.backgroundColor = '#e8f5e9';
                         } else if (row === 1 && col === 3) {
                             cell.textContent = 'Click F2 to edit';
                             cell.style.color = '#666';
                             cell.style.fontSize = '11px';
+                            cell.style.fontStyle = 'italic';
+                        } else if (row === 5 && col === 1) {
+                            cell.textContent = 'Expenses: $8,000';
+                            cell.style.color = '#e74c3c';
+                        } else if (row === 6 && col === 1) {
+                            cell.textContent = 'Net: $17,000';
+                            cell.style.fontWeight = 'bold';
+                            cell.style.color = '#27ae60';
+                            cell.style.backgroundColor = '#e8f5e9';
                         }
                     }
                     
@@ -1372,7 +2880,7 @@
             }
         }
         
-        // Create chart preview - FIXED to show all chart types properly
+        // Chart creation functions
         function createChart(type) {
             const canvas = document.getElementById('chartCanvas');
             const preview = document.getElementById('chartPreview');
@@ -1380,136 +2888,293 @@
             if (!canvas || !preview) return;
             
             let chartHTML = '';
+            let chartTitle = '';
+            
             switch(type) {
                 case 'column':
-                    chartHTML = `
-                        <div style="display: flex; flex-direction: column; width: 100%; height: 100%; padding: 20px;">
-                            <div style="font-weight: 600; margin-bottom: 20px; text-align: center; color: #2c3e50; font-size: 18px;">Column Chart Preview</div>
-                            <div style="flex: 1; display: flex; align-items: flex-end; justify-content: space-around; height: calc(100% - 60px);">
-                                <div style="display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%;">
-                                    <div style="background: #3498db; width: 50px; height: 80%; min-height: 20px; border-radius: 4px 4px 0 0; margin-bottom: 10px;"></div>
-                                    <div style="font-size: 14px; font-weight: 600;">Jan</div>
-                                </div>
-                                <div style="display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%;">
-                                    <div style="background: #2ecc71; width: 50px; height: 60%; min-height: 20px; border-radius: 4px 4px 0 0; margin-bottom: 10px;"></div>
-                                    <div style="font-size: 14px; font-weight: 600;">Feb</div>
-                                </div>
-                                <div style="display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%;">
-                                    <div style="background: #e74c3c; width: 50px; height: 90%; min-height: 20px; border-radius: 4px 4px 0 0; margin-bottom: 10px;"></div>
-                                    <div style="font-size: 14px; font-weight: 600;">Mar</div>
-                                </div>
-                                <div style="display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%;">
-                                    <div style="background: #f39c12; width: 50px; height: 40%; min-height: 20px; border-radius: 4px 4px 0 0; margin-bottom: 10px;"></div>
-                                    <div style="font-size: 14px; font-weight: 600;">Apr</div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    showFeedback('charts', '✅ Column chart created successfully!', 'success');
+                    chartHTML = createColumnChart();
+                    chartTitle = 'Quarterly Sales Performance';
+                    showFeedback('charts', '✅ Column chart created successfully! Perfect for comparing values across categories.', 'success');
                     break;
                 case 'pie':
-                    chartHTML = `
-                        <div style="display: flex; flex-direction: column; width: 100%; height: 100%; padding: 20px; align-items: center;">
-                            <div style="font-weight: 600; margin-bottom: 20px; text-align: center; color: #2c3e50;">Pie Chart Preview</div>
-                            <div style="display: flex; align-items: center; gap: 40px;">
-                                <div style="width: 180px; height: 180px; border-radius: 50%; background: conic-gradient(#3498db 0% 40%, #2ecc71 40% 70%, #e74c3c 70% 85%, #f39c12 85% 100%);"></div>
-                                <div style="display: flex; flex-direction: column; gap: 10px;">
-                                    <div style="display: flex; align-items: center; gap: 10px;">
-                                        <div style="width: 15px; height: 15px; background: #3498db; border-radius: 3px;"></div>
-                                        <span style="font-size: 14px;">Product A: 40%</span>
-                                    </div>
-                                    <div style="display: flex; align-items: center; gap: 10px;">
-                                        <div style="width: 15px; height: 15px; background: #2ecc71; border-radius: 3px;"></div>
-                                        <span style="font-size: 14px;">Product B: 30%</span>
-                                    </div>
-                                    <div style="display: flex; align-items: center; gap: 10px;">
-                                        <div style="width: 15px; height: 15px; background: #e74c3c; border-radius: 3px;"></div>
-                                        <span style="font-size: 14px;">Product C: 15%</span>
-                                    </div>
-                                    <div style="display: flex; align-items: center; gap: 10px;">
-                                        <div style="width: 15px; height: 15px; background: #f39c12; border-radius: 3px;"></div>
-                                        <span style="font-size: 14px;">Product D: 15%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    showFeedback('charts', '✅ Pie chart created successfully!', 'success');
+                    chartHTML = createPieChart();
+                    chartTitle = 'Market Share Distribution';
+                    showFeedback('charts', '✅ Pie chart created! Great for showing proportions and percentages.', 'success');
                     break;
-                    case 'line':
-                        chartHTML = `
-                            <div class="chart-preview-container">
-                                <div class="chart-title">Line Chart Preview</div>
-                                <div class="chart-content">
-                                    <div class="line-chart-container">
-                                        <svg class="line-chart-svg" viewBox="0 0 400 300" width="100%" height="100%">
-                                            <!-- Grid lines -->
-                                            <line x1="60" y1="50" x2="60" y2="250" stroke="#e0e0e0" stroke-width="1"/>
-                                            <line x1="60" y1="250" x2="350" y2="250" stroke="#e0e0e0" stroke-width="1"/>
-                                            
-                                            <!-- Data line -->
-                                            <path d="M60,250 L100,150 L180,200 L260,100 L340,180" 
-                                                fill="none" stroke="#3498db" stroke-width="4" stroke-linecap="round"/>
-                                            
-                                            <!-- Data points -->
-                                            <circle cx="60" cy="250" r="7" fill="#3498db"/>
-                                            <circle cx="100" cy="150" r="7" fill="#3498db"/>
-                                            <circle cx="180" cy="200" r="7" fill="#3498db"/>
-                                            <circle cx="260" cy="100" r="7" fill="#3498db"/>
-                                            <circle cx="340" cy="180" r="7" fill="#3498db"/>
-                                            
-                                            <!-- Labels -->
-                                            <text x="60" y="280" text-anchor="middle" font-size="14" fill="#666">Jan</text>
-                                            <text x="100" y="280" text-anchor="middle" font-size="14" fill="#666">Feb</text>
-                                            <text x="180" y="280" text-anchor="middle" font-size="14" fill="#666">Mar</text>
-                                            <text x="260" y="280" text-anchor="middle" font-size="14" fill="#666">Apr</text>
-                                            <text x="340" y="280" text-anchor="middle" font-size="14" fill="#666">May</text>
-                                            
-                                            <!-- Value labels -->
-                                            <text x="40" y="60" text-anchor="middle" font-size="12" fill="#666">$120K</text>
-                                            <text x="40" y="160" text-anchor="middle" font-size="12" fill="#666">$80K</text>
-                                            <text x="40" y="260" text-anchor="middle" font-size="12" fill="#666">$40K</text>
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div>
-
-                    `;
-                    showFeedback('charts', '✅ Line chart created successfully!', 'success');
+                case 'line':
+                    chartHTML = createLineChart();
+                    chartTitle = 'Monthly Revenue Trend';
+                    showFeedback('charts', '✅ Line chart generated! Ideal for showing trends over time.', 'success');
                     break;
                 case 'bar':
-                    chartHTML = `
-                        <div style="display: flex; flex-direction: column; width: 100%; height: 100%; padding: 20px;">
-                            <div style="font-weight: 600; margin-bottom: 20px; text-align: center; color: #2c3e50;">Bar Chart Preview</div>
-                            <div style="display: flex; height: 100%; align-items: center; justify-content: space-around;">
-                                <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
-                                    <div style="background: #3498db; width: 80%; height: 40px; border-radius: 4px;"></div>
-                                    <div style="font-size: 12px;">Product A</div>
-                                </div>
-                                <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
-                                    <div style="background: #2ecc71; width: 80%; height: 60px; border-radius: 4px;"></div>
-                                    <div style="font-size: 12px;">Product B</div>
-                                </div>
-                                <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
-                                    <div style="background: #e74c3c; width: 80%; height: 90px; border-radius: 4px;"></div>
-                                    <div style="font-size: 12px;">Product C</div>
-                                </div>
-                                <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
-                                    <div style="background: #f39c12; width: 80%; height: 50px; border-radius: 4px;"></div>
-                                    <div style="font-size: 12px;">Product D</div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    showFeedback('charts', '✅ Bar chart created successfully!', 'success');
+                    chartHTML = createBarChart();
+                    chartTitle = 'Product Performance Comparison';
+                    showFeedback('charts', '✅ Bar chart created! Excellent for horizontal comparisons.', 'success');
+                    break;
+                case 'advanced':
+                    chartHTML = createAdvancedChart();
+                    chartTitle = 'Advanced Combo Chart';
+                    showFeedback('charts', '✅ Advanced combo chart created! Mixing chart types can provide powerful insights.', 'success');
                     break;
             }
             
             preview.innerHTML = chartHTML;
+            document.getElementById('chart-builder-title').textContent = `Chart Builder - ${chartTitle}`;
             
             // Update progress
             progress.charts = Math.min(100, progress.charts + 10);
             updateProgress();
+        }
+        
+        function createColumnChart() {
+            return `
+                <div style="display: flex; flex-direction: column; width: 100%; height: 100%; padding: 20px;">
+                    <div style="font-weight: 600; margin-bottom: 20px; text-align: center; color: #2c3e50; font-size: 18px;">Quarterly Sales Performance</div>
+                    <div style="flex: 1; display: flex; align-items: flex-end; justify-content: space-around; height: calc(100% - 60px);">
+                        <div style="display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%;">
+                            <div style="background: linear-gradient(to top, #3498db, #2980b9); width: 50px; height: 80%; min-height: 20px; border-radius: 4px 4px 0 0; margin-bottom: 10px;"></div>
+                            <div style="font-size: 14px; font-weight: 600;">Q1</div>
+                            <div style="font-size: 12px; color: #666;">$125K</div>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%;">
+                            <div style="background: linear-gradient(to top, #2ecc71, #27ae60); width: 50px; height: 65%; min-height: 20px; border-radius: 4px 4px 0 0; margin-bottom: 10px;"></div>
+                            <div style="font-size: 14px; font-weight: 600;">Q2</div>
+                            <div style="font-size: 12px; color: #666;">$98K</div>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%;">
+                            <div style="background: linear-gradient(to top, #e74c3c, #c0392b); width: 50px; height: 90%; min-height: 20px; border-radius: 4px 4px 0 0; margin-bottom: 10px;"></div>
+                            <div style="font-size: 14px; font-weight: 600;">Q3</div>
+                            <div style="font-size: 12px; color: #666;">$145K</div>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%;">
+                            <div style="background: linear-gradient(to top, #f39c12, #d35400); width: 50px; height: 75%; min-height: 20px; border-radius: 4px 4px 0 0; margin-bottom: 10px;"></div>
+                            <div style="font-size: 14px; font-weight: 600;">Q4</div>
+                            <div style="font-size: 12px; color: #666;">$112K</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function createPieChart() {
+            return `
+                <div style="display: flex; flex-direction: column; width: 100%; height: 100%; padding: 20px; align-items: center;">
+                    <div style="font-weight: 600; margin-bottom: 20px; text-align: center; color: #2c3e50;">Market Share Distribution</div>
+                    <div style="display: flex; align-items: center; gap: 40px;">
+                        <div style="width: 180px; height: 180px; border-radius: 50%; background: conic-gradient(
+                            #3498db 0% 35%,
+                            #2ecc71 35% 65%,
+                            #e74c3c 65% 85%,
+                            #f39c12 85% 100%
+                        );"></div>
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <div style="width: 15px; height: 15px; background: #3498db; border-radius: 3px;"></div>
+                                <span style="font-size: 14px;">Product A: 35%</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <div style="width: 15px; height: 15px; background: #2ecc71; border-radius: 3px;"></div>
+                                <span style="font-size: 14px;">Product B: 30%</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <div style="width: 15px; height: 15px; background: #e74c3c; border-radius: 3px;"></div>
+                                <span style="font-size: 14px;">Product C: 20%</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <div style="width: 15px; height: 15px; background: #f39c12; border-radius: 3px;"></div>
+                                <span style="font-size: 14px;">Product D: 15%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function createLineChart() {
+            return `
+                <div style="display: flex; flex-direction: column; width: 100%; height: 100%; padding: 20px;">
+                    <div style="font-weight: 600; margin-bottom: 20px; text-align: center; color: #2c3e50;">Monthly Revenue Trend</div>
+                    <div style="flex: 1; position: relative;">
+                        <svg width="100%" height="100%" viewBox="0 0 400 250">
+                            <!-- Grid lines -->
+                            <line x1="50" y1="50" x2="50" y2="200" stroke="#e0e0e0" stroke-width="1"/>
+                            <line x1="50" y1="200" x2="350" y2="200" stroke="#e0e0e0" stroke-width="1"/>
+                            
+                            <!-- Data line -->
+                            <path d="M50,150 L100,100 L150,120 L200,80 L250,140 L300,110 L350,160" 
+                                fill="none" stroke="#3498db" stroke-width="4" stroke-linecap="round"/>
+                            
+                            <!-- Data points -->
+                            <circle cx="50" cy="150" r="6" fill="#3498db"/>
+                            <circle cx="100" cy="100" r="6" fill="#3498db"/>
+                            <circle cx="150" cy="120" r="6" fill="#3498db"/>
+                            <circle cx="200" cy="80" r="6" fill="#3498db"/>
+                            <circle cx="250" cy="140" r="6" fill="#3498db"/>
+                            <circle cx="300" cy="110" r="6" fill="#3498db"/>
+                            <circle cx="350" cy="160" r="6" fill="#3498db"/>
+                            
+                            <!-- Labels -->
+                            <text x="50" y="220" text-anchor="middle" font-size="12" fill="#666">Jan</text>
+                            <text x="100" y="220" text-anchor="middle" font-size="12" fill="#666">Feb</text>
+                            <text x="150" y="220" text-anchor="middle" font-size="12" fill="#666">Mar</text>
+                            <text x="200" y="220" text-anchor="middle" font-size="12" fill="#666">Apr</text>
+                            <text x="250" y="220" text-anchor="middle" font-size="12" fill="#666">May</text>
+                            <text x="300" y="220" text-anchor="middle" font-size="12" fill="#666">Jun</text>
+                            <text x="350" y="220" text-anchor="middle" font-size="12" fill="#666">Jul</text>
+                            
+                            <!-- Value labels -->
+                            <text x="30" y="60" text-anchor="middle" font-size="10" fill="#666">$150K</text>
+                            <text x="30" y="125" text-anchor="middle" font-size="10" fill="#666">$100K</text>
+                            <text x="30" y="200" text-anchor="middle" font-size="10" fill="#666">$50K</text>
+                        </svg>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function createBarChart() {
+            return `
+                <div style="display: flex; flex-direction: column; width: 100%; height: 100%; padding: 20px;">
+                    <div style="font-weight: 600; margin-bottom: 20px; text-align: center; color: #2c3e50;">Product Performance Comparison</div>
+                    <div style="display: flex; height: 100%; align-items: center; justify-content: space-around;">
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                            <div style="background: linear-gradient(to right, #3498db, #2980b9); width: 40px; height: 120px; border-radius: 4px;"></div>
+                            <div style="font-size: 12px; font-weight: 600;">Product A</div>
+                            <div style="font-size: 11px; color: #666;">145 units</div>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                            <div style="background: linear-gradient(to right, #2ecc71, #27ae60); width: 40px; height: 180px; border-radius: 4px;"></div>
+                            <div style="font-size: 12px; font-weight: 600;">Product B</div>
+                            <div style="font-size: 11px; color: #666;">210 units</div>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                            <div style="background: linear-gradient(to right, #e74c3c, #c0392b); width: 40px; height: 90px; border-radius: 4px;"></div>
+                            <div style="font-size: 12px; font-weight: 600;">Product C</div>
+                            <div style="font-size: 11px; color: #666;">85 units</div>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                            <div style="background: linear-gradient(to right, #f39c12, #d35400); width: 40px; height: 150px; border-radius: 4px;"></div>
+                            <div style="font-size: 12px; font-weight: 600;">Product D</div>
+                            <div style="font-size: 11px; color: #666;">175 units</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function createAdvancedChart() {
+            return `
+                <div style="display: flex; flex-direction: column; width: 100%; height: 100%; padding: 20px;">
+                    <div style="font-weight: 600; margin-bottom: 20px; text-align: center; color: #2c3e50;">Advanced Combo Chart: Revenue vs Profit Margin</div>
+                    <div style="flex: 1; position: relative;">
+                        <svg width="100%" height="100%" viewBox="0 0 400 250">
+                            <!-- Grid lines -->
+                            <line x1="50" y1="50" x2="50" y2="200" stroke="#e0e0e0" stroke-width="1"/>
+                            <line x1="50" y1="200" x2="350" y2="200" stroke="#e0e0e0" stroke-width="1"/>
+                            
+                            <!-- Columns for revenue -->
+                            <rect x="60" y="120" width="30" height="80" fill="#3498db" opacity="0.7"/>
+                            <rect x="110" y="140" width="30" height="60" fill="#3498db" opacity="0.7"/>
+                            <rect x="160" y="100" width="30" height="100" fill="#3498db" opacity="0.7"/>
+                            <rect x="210" y="160" width="30" height="40" fill="#3498db" opacity="0.7"/>
+                            <rect x="260" y="80" width="30" height="120" fill="#3498db" opacity="0.7"/>
+                            <rect x="310" y="130" width="30" height="70" fill="#3498db" opacity="0.7"/>
+                            
+                            <!-- Line for profit margin -->
+                            <path d="M75,100 L125,80 L175,60 L225,140 L275,50 L325,90" 
+                                fill="none" stroke="#e74c3c" stroke-width="3" stroke-linecap="round"/>
+                            
+                            <!-- Data points for line -->
+                            <circle cx="75" cy="100" r="5" fill="#e74c3c"/>
+                            <circle cx="125" cy="80" r="5" fill="#e74c3c"/>
+                            <circle cx="175" cy="60" r="5" fill="#e74c3c"/>
+                            <circle cx="225" cy="140" r="5" fill="#e74c3c"/>
+                            <circle cx="275" cy="50" r="5" fill="#e74c3c"/>
+                            <circle cx="325" cy="90" r="5" fill="#e74c3c"/>
+                            
+                            <!-- Labels -->
+                            <text x="75" y="220" text-anchor="middle" font-size="10" fill="#666">Jan</text>
+                            <text x="125" y="220" text-anchor="middle" font-size="10" fill="#666">Feb</text>
+                            <text x="175" y="220" text-anchor="middle" font-size="10" fill="#666">Mar</text>
+                            <text x="225" y="220" text-anchor="middle" font-size="10" fill="#666">Apr</text>
+                            <text x="275" y="220" text-anchor="middle" font-size="10" fill="#666">May</text>
+                            <text x="325" y="220" text-anchor="middle" font-size="10" fill="#666">Jun</text>
+                            
+                            <!-- Legend -->
+                            <rect x="280" y="30" width="15" height="15" fill="#3498db" opacity="0.7"/>
+                            <text x="300" y="40" font-size="11" fill="#666">Revenue</text>
+                            <circle cx="280" cy="55" r="5" fill="#e74c3c"/>
+                            <text x="300" y="60" font-size="11" fill="#666">Profit Margin %</text>
+                        </svg>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Chart challenge functions
+        function submitChartChallenge() {
+            showFeedback('charts', '✅ Excellent work! Your chart has been submitted. Professional charts should always have clear titles, labeled axes, and appropriate colors.', 'success');
+            progress.charts = Math.min(100, progress.charts + 15);
+            updateProgress();
+        }
+        
+        function showChartExample() {
+            alert("Example: A line chart showing monthly sales from January to December with:\n1. Clear title: 'Monthly Sales 2024'\n2. X-axis: Months\n3. Y-axis: Revenue ($)\n4. Data points marked\n5. Grid lines for readability\n6. Professional color scheme");
+        }
+        
+        function resetChartBuilder() {
+            const preview = document.getElementById('chartPreview');
+            if (preview) {
+                preview.innerHTML = `
+                    <div>Select a chart type to preview</div>
+                    <div style="font-size: 14px; color: #666;">Click the buttons below to see different chart types</div>
+                `;
+                document.getElementById('chart-builder-title').textContent = 'Chart Builder - Create different chart types:';
+            }
+            showFeedback('charts', 'Chart builder has been reset. Try creating a new chart!', 'success');
+        }
+        
+        // Chart practice functions
+        function checkChartAnswer(answer) {
+            const feedback = document.getElementById('chartAnswerFeedback');
+            const correctAnswer = chartScenarios[currentChartScenario].answer;
+            
+            if (answer === correctAnswer) {
+                feedback.innerHTML = '<div class="feedback-message success">✅ Correct! ' + chartScenarios[currentChartScenario].explanation + '</div>';
+                practiceState.score++;
+                progress.practice = Math.min(100, progress.practice + 10);
+            } else {
+                feedback.innerHTML = `<div class="feedback-message error">❌ Not quite. The correct answer is ${correctAnswer.charAt(0).toUpperCase() + correctAnswer.slice(1)} Chart. ${chartScenarios[currentChartScenario].explanation}</div>`;
+            }
+            
+            updateProgress();
+        }
+        
+        function nextChartScenario() {
+            currentChartScenario = (currentChartScenario + 1) % chartScenarios.length;
+            const scenarioElement = document.getElementById('chartScenario');
+            if (scenarioElement) {
+                scenarioElement.innerHTML = `<strong>Scenario ${currentChartScenario + 1}:</strong> ${chartScenarios[currentChartScenario].scenario}`;
+            }
+            const feedback = document.getElementById('chartAnswerFeedback');
+            if (feedback) {
+                feedback.innerHTML = '';
+            }
+        }
+        
+        function showChartExplanation() {
+            const explanation = chartScenarios[currentChartScenario].explanation;
+            alert(`Explanation for Scenario ${currentChartScenario + 1}:\n\n${explanation}`);
+        }
+        
+        function startChartPractice() {
+            alert("Chart Practice Started!\n\nOpen the Chart Builder and create the three charts specified in the exercise. Pay attention to:\n1. Choosing the right chart type for each dataset\n2. Adding appropriate titles and labels\n3. Using consistent and professional colors\n4. Ensuring data is accurately represented");
+            progress.practice = Math.min(100, progress.practice + 10);
+            updateProgress();
+        }
+        
+        function viewChartSolutions() {
+            alert("Chart Solutions:\n\n1. Monthly Sales Column Chart:\n   - Use column chart for comparing discrete values\n   - Add title: 'Q1 Monthly Sales'\n   - Label axes: 'Month' and 'Sales ($)'\n\n2. Department Budget Pie Chart:\n   - Use pie chart for proportions\n   - Add percentage data labels\n   - Use distinct colors for each department\n\n3. Website Traffic Line Chart:\n   - Use line chart for trends over time\n   - Add markers for data points\n   - Include grid lines for readability");
         }
         
         // Dashboard drag and drop
@@ -1600,13 +3265,61 @@
             updateProgress();
         }
         
+        function analyzeDashboard() {
+            const widgets = document.querySelectorAll('.dashboard-widget');
+            let analysis = "Dashboard Layout Analysis:\n\n";
+            
+            widgets.forEach((widget, index) => {
+                const type = widget.dataset.type;
+                let assessment = '';
+                
+                switch(type) {
+                    case 'sales':
+                        assessment = "Good position for primary metric";
+                        break;
+                    case 'distribution':
+                        assessment = "Effective for showing proportions";
+                        break;
+                    case 'trend':
+                        assessment = "Perfect for trend visualization";
+                        break;
+                    case 'metrics':
+                        assessment = "Ideal for quick-glance KPIs";
+                        break;
+                }
+                
+                analysis += `${index + 1}. ${widget.querySelector('.widget-header').textContent}: ${assessment}\n`;
+            });
+            
+            analysis += "\nRecommendations:\n";
+            analysis += "• Consider adding a filter widget for interactivity\n";
+            analysis += "• Ensure consistent spacing between widgets\n";
+            analysis += "• Use a logical flow (top-left to bottom-right)\n";
+            analysis += "• Add clear titles to each widget";
+            
+            alert(analysis);
+        }
+        
+        function exportDashboard() {
+            showFeedback('dashboard', '✅ Dashboard design exported! In Excel, you would use File → Save As → PDF or File → Export to create a shareable version.', 'success');
+            progress.dashboard = Math.min(100, progress.dashboard + 10);
+            updateProgress();
+        }
+        
+        function showInteractiveDemo() {
+            alert("Interactive Dashboard Demo:\n\nIn a real Excel dashboard, you could add:\n\n1. Slicers: Click to filter all charts simultaneously\n2. Dropdowns: Select different data views\n3. Scroll bars: Adjust date ranges\n4. Checkboxes: Show/hide data series\n\nTry arranging the widgets to create a logical flow of information!");
+        }
+        
         // Practice functions
         function setupPractice() {
             practiceState = {
                 currentQuestion: 0,
                 score: 0,
                 questionsAnswered: 0,
-                totalQuestions: practiceQuestions.length
+                totalQuestions: practiceQuestions.length,
+                category: 'shortcuts',
+                timedMode: false,
+                timeLeft: 60
             };
             
             const keyboardInput = document.getElementById('keyboardInput');
@@ -1629,7 +3342,6 @@
                 if (displayKey === 'ArrowDown') displayKey = '↓';
                 if (displayKey === 'ArrowLeft') displayKey = '←';
                 if (displayKey === 'ArrowRight') displayKey = '→';
-                if (displayKey === ':') displayKey = ';'; // Handle colon key
                 
                 // Combine modifiers and main key
                 const allKeys = [...modifiers, displayKey];
@@ -1667,6 +3379,10 @@
         }
         
         function nextPracticeQuestion() {
+            if (practiceState.currentQuestion >= practiceState.totalQuestions) {
+                practiceState.currentQuestion = 0;
+            }
+            
             const question = practiceQuestions[practiceState.currentQuestion];
             if (!question) return;
             
@@ -1700,17 +3416,21 @@
             const normalizedEntered = enteredKeys.map(k => k.toLowerCase().trim());
             const normalizedAnswer = question.answer.map(k => k.toLowerCase().trim());
             
-            // Check if at least one key matches (simplified for demo)
-            if (normalizedEntered.some(key => normalizedAnswer.includes(key))) {
-                isCorrect = true;
+            // Check if answer matches (case insensitive)
+            if (normalizedEntered.length > 0) {
+                // For this demo, we'll check if any key matches
+                const matches = normalizedEntered.filter(key => 
+                    normalizedAnswer.some(ans => key.includes(ans.toLowerCase()))
+                );
+                isCorrect = matches.length > 0;
             }
             
             if (isCorrect) {
                 showFeedback('practice', '✅ Correct! Well done!', 'success');
                 practiceState.score++;
-                progress.practice = Math.min(100, progress.practice + 15);
+                progress.practice = Math.min(100, progress.practice + 10);
             } else {
-                showFeedback('practice', '❌ Not quite right. Try again!', 'error');
+                showFeedback('practice', `❌ Not quite right. The correct answer is: ${question.answer.join(' + ')}`, 'error');
             }
             
             practiceState.questionsAnswered++;
@@ -1719,13 +3439,142 @@
             updateProgress();
             
             if (practiceState.currentQuestion < practiceState.totalQuestions) {
-                setTimeout(nextPracticeQuestion, 1500);
+                setTimeout(nextPracticeQuestion, 2000);
             } else {
                 setTimeout(() => {
                     showFeedback('practice', `🎉 Practice Complete! Final Score: ${practiceState.score}/${practiceState.totalQuestions}`, 'success');
+                    // Reset for next round
                     practiceState.currentQuestion = 0;
-                }, 1500);
+                }, 2000);
             }
+        }
+        
+        function hintPractice() {
+            const question = practiceQuestions[practiceState.currentQuestion];
+            if (question && question.hint) {
+                alert(`Hint: ${question.hint}`);
+            }
+        }
+        
+        function showShortcutsReference() {
+            alert("Shortcuts Reference:\n\nNavigation:\nCtrl+Arrow: Jump to edge of data\nCtrl+Home/End: Beginning/End\n\nEditing:\nCtrl+C/V/X: Copy/Paste/Cut\nCtrl+Z/Y: Undo/Redo\nF2: Edit cell\n\nFormatting:\nCtrl+B/I/U: Bold/Italic/Underline\nCtrl+1: Format Cells\n\nSelection:\nCtrl+Space: Select column\nShift+Space: Select row\nCtrl+A: Select all");
+        }
+        
+        function startTimedPractice() {
+            practiceState.timedMode = true;
+            practiceState.timeLeft = 60;
+            practiceState.score = 0;
+            practiceState.currentQuestion = 0;
+            
+            alert("Timed Challenge Started!\n\nYou have 60 seconds to answer as many shortcut questions as possible. Press OK to begin!");
+            
+            nextPracticeQuestion();
+            
+            // Start timer
+            const timer = setInterval(() => {
+                practiceState.timeLeft--;
+                if (practiceState.timeLeft <= 0) {
+                    clearInterval(timer);
+                    showFeedback('practice', `⏰ Time's up! Final Score: ${practiceState.score} correct answers`, 'success');
+                    practiceState.timedMode = false;
+                }
+            }, 1000);
+        }
+        
+        function resetPracticeScore() {
+            practiceState.score = 0;
+            practiceState.questionsAnswered = 0;
+            practiceState.currentQuestion = 0;
+            updateProgress();
+            showFeedback('practice', 'Score has been reset. Good luck!', 'success');
+        }
+        
+        // Dashboard practice functions
+        function addDashboardWidget(type) {
+            const practiceDashboard = document.getElementById('practiceDashboard');
+            if (!practiceDashboard) return;
+            
+            const widget = document.createElement('div');
+            widget.className = 'dashboard-widget';
+            widget.draggable = true;
+            
+            let content = '';
+            let title = '';
+            
+            switch(type) {
+                case 'chart':
+                    title = 'Sales Chart';
+                    content = '<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #666;">📈 Chart Preview</div>';
+                    break;
+                case 'kpi':
+                    title = 'Key Metric';
+                    content = '<div style="width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;"><div style="font-size: 24px; font-weight: bold;">$0K</div><div style="font-size: 12px; color: #666;">Revenue</div></div>';
+                    break;
+                case 'table':
+                    title = 'Data Table';
+                    content = '<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #666;">📋 Table Preview</div>';
+                    break;
+            }
+            
+            widget.innerHTML = `
+                <div class="widget-header">
+                    <span>${type === 'chart' ? '📈' : type === 'kpi' ? '🎯' : '📋'}</span>
+                    ${title}
+                </div>
+                <div class="widget-content">
+                    ${content}
+                </div>
+            `;
+            
+            // Add drag and drop
+            widget.addEventListener('dragstart', dragStart);
+            widget.addEventListener('dragend', dragEnd);
+            
+            practiceDashboard.appendChild(widget);
+            
+            // Update drag and drop for new widget
+            practiceDashboard.addEventListener('dragover', function(event) {
+                event.preventDefault();
+                const afterElement = getDragAfterElement(practiceDashboard, event.clientY);
+                const draggable = document.querySelector('.dragging');
+                
+                if (afterElement == null) {
+                    practiceDashboard.appendChild(draggable);
+                } else {
+                    practiceDashboard.insertBefore(draggable, afterElement);
+                }
+            });
+        }
+        
+        function clearDashboard() {
+            const practiceDashboard = document.getElementById('practiceDashboard');
+            if (practiceDashboard) {
+                practiceDashboard.innerHTML = '';
+                showFeedback('dashboard', 'Dashboard cleared. Start fresh!', 'success');
+            }
+        }
+        
+        function submitDashboardDesign() {
+            const widgets = document.querySelectorAll('#practiceDashboard .dashboard-widget');
+            if (widgets.length === 0) {
+                showFeedback('dashboard', 'Please add at least one widget to your dashboard design.', 'error');
+                return;
+            }
+            
+            showFeedback('dashboard', `✅ Dashboard design submitted! You created ${widgets.length} widgets. In a real project, you would now connect these to live data sources.`, 'success');
+            progress.practice = Math.min(100, progress.practice + 20);
+            updateProgress();
+        }
+        
+        function startFinalChallenge() {
+            alert("Final Challenge Started!\n\nComplete these tasks in order:\n\n1. Navigation & Formatting:\n   - Navigate to cell B4 using only keyboard\n   - Format it as currency (Ctrl+Shift+4)\n   - Make A1 bold and centered\n\n2. Chart Creation:\n   - Create a column chart from A1:B4\n   - Add a line chart showing trends\n   - Create a pie chart for proportions\n\n3. Dashboard Design:\n   - Arrange widgets logically\n   - Add appropriate titles\n   - Ensure consistent styling\n\n4. Interactivity:\n   - Add at least one interactive element\n   - Test all functionality\n\nTime yourself and aim for completion in 15-20 minutes!");
+            
+            progress.practice = Math.min(100, progress.practice + 25);
+            updateProgress();
+        }
+        
+        function viewChallengeRubric() {
+            alert("Final Challenge Rubric:\n\nExcellent (25 points):\n- All tasks completed correctly\n- Professional design and layout\n- Efficient use of shortcuts\n- Clear data visualization\n\nGood (15-24 points):\n- Most tasks completed\n- Good design principles\n- Some shortcuts used\n- Clear charts\n\nNeeds Improvement (<15 points):\n- Incomplete tasks\n- Poor design choices\n- Limited shortcut usage\n- Unclear data presentation");
         }
         
         // Update progress
@@ -1738,11 +3587,20 @@
             const progressText = document.getElementById('progressText');
             const progressPercent = document.getElementById('progress-percent');
             const scoreElement = document.getElementById('score');
+            const masteryElement = document.getElementById('mastery-level');
             
             if (progressFill) progressFill.style.width = `${totalProgress}%`;
             if (progressText) progressText.textContent = `Progress: ${Math.round(totalProgress)}%`;
             if (progressPercent) progressPercent.textContent = `${Math.round(totalProgress)}%`;
             if (scoreElement) scoreElement.textContent = `Score: ${practiceState.score}/${practiceState.questionsAnswered}`;
+            
+            // Update mastery level
+            if (masteryElement) {
+                if (totalProgress >= 80) masteryElement.textContent = "Expert";
+                else if (totalProgress >= 60) masteryElement.textContent = "Advanced";
+                else if (totalProgress >= 40) masteryElement.textContent = "Intermediate";
+                else masteryElement.textContent = "Beginner";
+            }
             
             // Update module progress
             updateModuleProgress();
@@ -1777,13 +3635,6 @@
             } else {
                 feedbackElement.style.display = 'none';
             }
-        }
-        
-        function updateFeedback() {
-            // Clear all feedback messages
-            ['shortcuts', 'charts', 'dashboard', 'practice'].forEach(module => {
-                showFeedback(module, '');
-            });
         }
         
         // Setup event listeners
@@ -1831,6 +3682,10 @@
                                 selection.addRange(range);
                             }
                             break;
+                        case 'Escape':
+                            e.preventDefault();
+                            activeCell.setAttribute('contenteditable', 'false');
+                            break;
                     }
                     
                     if (newIndex !== currentIndex) {
@@ -1859,6 +3714,13 @@
                     document.getElementById('keyboardDisplay').innerHTML = '';
                 });
             }
+            
+            // Handle cell editing completion
+            document.addEventListener('focusout', function(e) {
+                if (e.target.classList.contains('excel-cell') && e.target.hasAttribute('contenteditable')) {
+                    e.target.setAttribute('contenteditable', 'false');
+                }
+            });
         }
         
         // Initialize on load

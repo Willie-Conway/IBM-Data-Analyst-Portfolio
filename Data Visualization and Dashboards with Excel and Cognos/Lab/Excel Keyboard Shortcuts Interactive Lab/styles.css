@@ -1,0 +1,797 @@
+:root {
+    --navigation-color: #3498db;
+    --editing-color: #2ecc71;
+    --formatting-color: #9b59b6;
+    --selection-color: #e74c3c;
+    --practice-color: #f39c12;
+    --achievement-color: #f1c40f;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+    color: #333;
+}
+
+.dashboard {
+    max-width: 1400px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    overflow: hidden;
+}
+
+/* Header */
+.header {
+    background: linear-gradient(135deg, #217346 0%, #1a5c35 100%);
+    color: white;
+    padding: 30px 40px;
+    position: relative;
+}
+
+.title {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 16px;
+    opacity: 0.9;
+}
+
+/* Stats Bar */
+.stats {
+    display: flex;
+    gap: 30px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.stat {
+    background: rgba(255,255,255,0.1);
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-align: center;
+    min-width: 120px;
+}
+
+.stat-number {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+/* Top Controls */
+.top-controls {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    display: flex;
+    gap: 10px;
+}
+
+.control-btn {
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s;
+    font-weight: 600;
+}
+
+.control-btn:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+/* Navigation */
+.navigation {
+    background: #f8f9fa;
+    padding: 15px 40px;
+    border-bottom: 1px solid #dee2e6;
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+}
+
+.nav-btn {
+    padding: 10px 20px;
+    background: white;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+    white-space: nowrap;
+}
+
+.nav-btn.active {
+    color: white;
+    border-color: transparent;
+}
+
+.nav-btn[data-section="all"] { border-color: #34495e; }
+.nav-btn[data-section="all"].active { background: #34495e; }
+
+.nav-btn[data-section="navigation"] { border-color: var(--navigation-color); }
+.nav-btn[data-section="navigation"].active { background: var(--navigation-color); }
+
+.nav-btn[data-section="editing"] { border-color: var(--editing-color); }
+.nav-btn[data-section="editing"].active { background: var(--editing-color); }
+
+.nav-btn[data-section="formatting"] { border-color: var(--formatting-color); }
+.nav-btn[data-section="formatting"].active { background: var(--formatting-color); }
+
+.nav-btn[data-section="selection"] { border-color: var(--selection-color); }
+.nav-btn[data-section="selection"].active { background: var(--selection-color); }
+
+.nav-btn[data-section="practice"] { border-color: var(--practice-color); }
+.nav-btn[data-section="practice"].active { background: var(--practice-color); }
+
+/* Search & Filter */
+.search-container {
+    padding: 20px 40px;
+    background: white;
+    border-bottom: 1px solid #eee;
+}
+
+.search-box {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+#searchInput {
+    flex: 1;
+    padding: 12px 20px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.filter-tags {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.filter-tag {
+    padding: 6px 15px;
+    background: #f1f1f1;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.filter-tag.active {
+    background: var(--navigation-color);
+    color: white;
+}
+
+/* Difficulty Selector */
+.difficulty-selector {
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#difficulty {
+    padding: 8px 15px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+/* Main Content */
+.main-content {
+    display: flex;
+    min-height: 800px;
+}
+
+/* Shortcuts Grid */
+.shortcuts-container {
+    flex: 1;
+    padding: 30px;
+    background: white;
+    overflow-y: auto;
+}
+
+.shortcuts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.shortcut-card {
+    background: white;
+    border-radius: 10px;
+    padding: 25px;
+    transition: all 0.3s;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;
+    border: 2px solid;
+}
+
+.shortcut-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* Target category inside navigation card */
+.shortcut-card.navigation .shortcut-category {
+    display: none; /* Hide it */
+    
+}
+
+.shortcut-card.navigation { 
+    border-color: var(--navigation-color);
+    
+}
+
+.shortcut-card.editing { 
+    border-color: var(--editing-color); 
+}
+
+.shortcut-card.formatting { 
+    border-color: var(--formatting-color); 
+}
+
+.shortcut-card.selection { 
+    border-color: var(--selection-color); 
+}
+
+.shortcut-keys {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.key {
+    background: #2c3e50;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-family: 'Consolas', monospace;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.key.plus {
+    background: transparent;
+    color: #666;
+    font-size: 20px;
+    padding: 0 5px;
+}
+
+.shortcut-task {
+    font-weight: 600;
+    color: #1a237e;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.shortcut-description {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.5;
+    flex-grow: 1;
+}
+
+.shortcut-category {
+    position: absolute;
+    top: -12px;
+    left: 20px;
+    padding: 6px 15px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.shortcut-card.navigation .shortcut-category { 
+    background: var(--navigation-color); 
+}
+
+.shortcut-card.editing .shortcut-category { 
+    background: var(--editing-color); 
+}
+
+.shortcut-card.formatting .shortcut-category { 
+    background: var(--formatting-color); 
+}
+
+.shortcut-card.selection .shortcut-category { 
+    background: var(--selection-color); 
+}
+
+/* Practice Area */
+.practice-area {
+    width: 400px;
+    background: #f8f9fa;
+    padding: 30px;
+    border-left: 1px solid #dee2e6;
+    overflow-y: auto;
+}
+
+.practice-card {
+    background: white;
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-top: 4px solid var(--practice-color);
+    position: relative;
+}
+
+.practice-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    color: #1a237e;
+}
+
+.exercise {
+    background: #e8f4fc;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border-left: 4px solid #2196f3;
+}
+
+.exercise-question {
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #1a237e;
+}
+
+.keyboard-input {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: 'Consolas', monospace;
+    margin: 15px 0;
+    text-align: center;
+    background: white;
+    cursor: pointer;
+}
+
+.keyboard-input:focus {
+    outline: none;
+    border-color: var(--practice-color);
+    box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.2);
+}
+
+.keyboard-display {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.key-display {
+    background: #2c3e50;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-family: 'Consolas', monospace;
+    font-weight: 600;
+    font-size: 16px;
+    min-width: 80px;
+    text-align: center;
+}
+
+.hint {
+    background: #fff3e0;
+    padding: 15px;
+    border-radius: 6px;
+    margin-top: 15px;
+    border-left: 4px solid #f39c12;
+    font-size: 14px;
+    color: #666;
+}
+
+.feedback {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    display: none;
+    animation: slideIn 0.3s;
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-10px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes correctPulse {
+    0% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(46, 204, 113, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
+}
+
+@keyframes incorrectShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+.feedback.correct {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    display: block;
+    animation: correctPulse 0.5s;
+}
+
+.feedback.incorrect {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    display: block;
+    animation: incorrectShake 0.5s;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background: var(--practice-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #e67e22;
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #5a6268;
+}
+
+/* Excel Simulation */
+.excel-simulation {
+    background: white;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 25px;
+    margin-top: 30px;
+}
+
+.excel-header {
+    background: #217346;
+    color: white;
+    padding: 15px;
+    border-radius: 6px 6px 0 0;
+    margin: -25px -25px 20px -25px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.excel-grid {
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    grid-template-rows: repeat(11, 40px);
+    border: 1px solid #ddd;
+    margin-top: 15px;
+    width: 100%;
+    overflow: auto;
+}
+
+.excel-cell {
+    border: 1px solid #ddd;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    position: relative;
+    min-width: 80px;
+    min-height: 40px;
+    cursor: pointer;
+}
+
+.excel-cell.active {
+    background: #e3f2fd;
+    border: 2px solid #2196f3;
+}
+
+.excel-cell.header {
+    background: #f8f9fa;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Achievements */
+.achievements-panel {
+    background: #fff9e6;
+    border: 2px solid var(--achievement-color);
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+    display: none;
+}
+
+.achievement {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px;
+    margin: 10px 0;
+    background: white;
+    border-radius: 8px;
+    border-left: 4px solid #ddd;
+}
+
+.achievement.unlocked {
+    border-left-color: var(--achievement-color);
+    background: #fffde7;
+}
+
+.achievement-icon {
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f9f9f9;
+    border-radius: 50%;
+}
+
+.achievement.unlocked .achievement-icon {
+    background: var(--achievement-color);
+    color: white;
+}
+
+/* Sound Toggle */
+.sound-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+/* Notification */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    z-index: 1000;
+    animation: slideIn 0.3s;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    display: none;
+}
+
+/* Timer */
+#timer {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #e74c3c;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* Progress */
+.progress {
+    margin: 30px 0;
+}
+
+.progress-bar {
+    height: 10px;
+    background: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--navigation-color), var(--editing-color), var(--formatting-color));
+    width: 0%;
+    transition: width 0.5s;
+}
+
+.progress-text {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #666;
+}
+
+/* Animation */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .main-content {
+        flex-direction: column;
+    }
+    
+    .practice-area {
+        width: 100%;
+        border-left: none;
+        border-top: 1px solid #dee2e6;
+    }
+    
+    .shortcuts-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+    
+    .top-controls {
+        position: static;
+        margin-top: 20px;
+        justify-content: flex-end;
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 20px;
+    }
+    
+    .navigation {
+        padding: 10px;
+    }
+    
+    .nav-btn {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+    
+    .shortcuts-container, .practice-area {
+        padding: 20px;
+    }
+    
+    .shortcut-card {
+        padding: 25px 20px 20px 20px;
+        min-height: 180px;
+    }
+    
+    .shortcuts-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+    
+    .shortcut-category {
+        left: 15px;
+        padding: 5px 12px;
+        font-size: 11px;
+    }
+    
+    .excel-grid {
+        grid-template-columns: repeat(11, 60px);
+        overflow-x: auto;
+    }
+    
+    .search-container {
+        padding: 15px;
+    }
+    
+    .sound-toggle {
+        top: 10px;
+        right: 10px;
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+
+    /* Update the .shortcut-category style - FIXED POSITION */
+.shortcut-category {
+    position: absolute;
+    top: -16px;
+    left: 20px;
+    padding: 6px 15px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 10; /* Added z-index */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Added shadow for visibility */
+    white-space: nowrap; /* Prevent text wrapping */
+    
+        
+}
+
+/* Specific fix for navigation category */
+.shortcut-card.navigation .shortcut-category { 
+    background: var(--navigation-color);
+          
+}
+
+/* Keep existing styles for other categories */
+.shortcut-card.editing .shortcut-category { 
+    background: var(--editing-color); 
+}
+
+.shortcut-card.formatting .shortcut-category { 
+    background: var(--formatting-color); 
+}
+
+.shortcut-card.selection .shortcut-category { 
+    background: var(--selection-color); 
+}
+
+/* Add hover effect for better visibility */
+.shortcut-card:hover .shortcut-category {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+}
