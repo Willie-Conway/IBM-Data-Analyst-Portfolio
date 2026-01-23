@@ -6368,15 +6368,62 @@ implementation_roadmap = {
         const ctx = document.getElementById('dashboardFrameworksChart');
         if (!ctx || charts.dashboardFrameworksChart) return;
         
+        // Bubble chart data with three dimensions:
+        // x: Year Released (normalized)
+        // y: Current Adoption (%)
+        // r: Growth Rate (bubble size)
+        
+        const frameworksData = [
+            { framework: 'React', x: 0.9, y: 42.6, r: 8, growth: 18, maturity: 'Mature' },
+            { framework: 'Node.js', x: 0.85, y: 47.1, r: 7, growth: 15, maturity: 'Mature' },
+            { framework: 'Next.js', x: 0.6, y: 15.6, r: 12, growth: 45, maturity: 'Growing' },
+            { framework: 'Vue.js', x: 0.75, y: 18.8, r: 9, growth: 25, maturity: 'Established' },
+            { framework: 'Angular', x: 0.95, y: 20.4, r: 6, growth: 5, maturity: 'Mature' },
+            { framework: 'Express', x: 0.88, y: 22.0, r: 7, growth: 12, maturity: 'Mature' },
+            { framework: 'jQuery', x: 1.0, y: 28.6, r: 4, growth: -8, maturity: 'Declining' },
+            { framework: 'ASP.NET', x: 0.92, y: 15.2, r: 5, growth: 8, maturity: 'Stable' },
+            { framework: 'Spring', x: 0.96, y: 12.0, r: 6, growth: 10, maturity: 'Enterprise' },
+            { framework: 'Django', x: 0.82, y: 11.9, r: 7, growth: 15, maturity: 'Stable' }
+        ];
+        
+        const data = frameworksData.map(f => ({
+            x: f.x,
+            y: f.y,
+            r: f.r,
+            label: f.framework,
+            growth: f.growth,
+            maturity: f.maturity
+        }));
+        
         charts.dashboardFrameworksChart = new Chart(ctx.getContext('2d'), {
-            type: 'bar',
+            type: 'bubble',
             data: {
-                labels: ['Node.js', 'React', 'jQuery', 'Express', 'Angular', 'Vue.js', 'Next.js', 'ASP.NET', 'Spring', 'Django'],
                 datasets: [{
-                    label: 'Framework Usage',
-                    data: [47.1, 42.6, 28.6, 22.0, 20.4, 18.8, 15.6, 15.2, 12.0, 11.9],
-                    backgroundColor: colors.javascript,
-                    borderColor: '#D4B72A',
+                    label: 'Web Frameworks',
+                    data: data,
+                    backgroundColor: data.map(f => {
+                        // Color coding by maturity
+                        switch(f.maturity) {
+                            case 'Mature': return 'rgba(52, 152, 219, 0.7)'; // Blue
+                            case 'Growing': return 'rgba(46, 204, 113, 0.7)'; // Green
+                            case 'Established': return 'rgba(155, 89, 182, 0.7)'; // Purple
+                            case 'Declining': return 'rgba(231, 76, 60, 0.7)'; // Red
+                            case 'Stable': return 'rgba(241, 196, 15, 0.7)'; // Yellow
+                            case 'Enterprise': return 'rgba(149, 165, 166, 0.7)'; // Gray
+                            default: return 'rgba(52, 152, 219, 0.7)';
+                        }
+                    }),
+                    borderColor: data.map(f => {
+                        switch(f.maturity) {
+                            case 'Mature': return '#2980b9';
+                            case 'Growing': return '#27ae60';
+                            case 'Established': return '#8e44ad';
+                            case 'Declining': return '#c0392b';
+                            case 'Stable': return '#f39c12';
+                            case 'Enterprise': return '#7f8c8d';
+                            default: return '#2980b9';
+                        }
+                    }),
                     borderWidth: 1
                 }]
             },
@@ -6386,14 +6433,21 @@ implementation_roadmap = {
                 plugins: {
                     title: { 
                         display: true, 
-                        text: 'Top 10 Web Frameworks Used',
+                        text: 'Web Frameworks Analysis: Adoption vs Maturity',
                         font: { size: 12, weight: 'bold' }
                     },
                     legend: { display: false },
                     tooltip: {
                         callbacks: {
                             label: function(context) {
-                                return `${context.label}: ${context.raw}% usage`;
+                                const point = context.raw;
+                                return [
+                                    `${point.label}`,
+                                    `Current Adoption: ${point.y}%`,
+                                    `Growth Rate: ${point.growth}%`,
+                                    `Maturity: ${point.maturity}`,
+                                    `Market Position: ${(point.x * 100).toFixed(0)}/100`
+                                ];
                             }
                         }
                     }
@@ -6401,7 +6455,11 @@ implementation_roadmap = {
                 scales: {
                     y: { 
                         beginAtZero: true,
-                        title: { display: true, text: 'Usage (%)' },
+                        title: { 
+                            display: true, 
+                            text: 'Current Adoption (%)',
+                            font: { weight: 'bold' }
+                        },
                         max: 50,
                         ticks: {
                             callback: function(value) {
@@ -6410,9 +6468,17 @@ implementation_roadmap = {
                         }
                     },
                     x: {
-                        ticks: { 
-                            maxRotation: 45,
-                            minRotation: 45
+                        title: { 
+                            display: true, 
+                            text: 'Maturity / Market Position',
+                            font: { weight: 'bold' }
+                        },
+                        min: 0.5,
+                        max: 1.0,
+                        ticks: {
+                            callback: function(value) {
+                                return (value * 100).toFixed(0) + '%';
+                            }
                         }
                     }
                 }
@@ -6561,26 +6627,49 @@ implementation_roadmap = {
         const ctx = document.getElementById('futureFrameworksChart');
         if (!ctx || charts.futureFrameworksChart) return;
         
+        const futureFrameworksData = [
+            { framework: 'Next.js', current: 15.6, future: 22.8, growth: 46, category: 'Full-Stack' },
+            { framework: 'React', current: 42.6, future: 28.5, growth: -33, category: 'Frontend' },
+            { framework: 'FastAPI', current: 8.4, future: 15.7, growth: 87, category: 'Backend' },
+            { framework: 'Vue.js', current: 18.8, future: 20.1, growth: 7, category: 'Frontend' },
+            { framework: 'Svelte', current: 7.8, future: 19.4, growth: 149, category: 'Frontend' },
+            { framework: 'Node.js', current: 47.1, future: 25.4, growth: -46, category: 'Backend' },
+            { framework: 'Spring', current: 12.0, future: 16.3, growth: 36, category: 'Enterprise' },
+            { framework: 'ASP.NET', current: 15.2, future: 14.2, growth: -7, category: 'Enterprise' },
+            { framework: 'Express', current: 22.0, future: 18.6, growth: -15, category: 'Backend' },
+            { framework: 'Angular', current: 20.4, future: 12.8, growth: -37, category: 'Frontend' }
+        ];
+        
+        const data = futureFrameworksData.map(f => ({
+            x: f.current,
+            y: f.future,
+            r: Math.abs(f.growth) / 3, // Scale bubble size by growth rate
+            label: f.framework,
+            growth: f.growth,
+            category: f.category
+        }));
+        
         charts.futureFrameworksChart = new Chart(ctx.getContext('2d'), {
-            type: 'bar',
+            type: 'bubble',
             data: {
-                labels: ['React', 'Node.js', 'Next.js', 'Vue.js', 'Express', 'Spring', 'FastAPI', 'ASP.NET', 'Angular', 'Svelte'],
-                datasets: [
-                    {
-                        label: 'Current Usage',
-                        data: [42.6, 47.1, 15.6, 18.8, 22.0, 12.0, 8.4, 15.2, 20.4, 7.8],
-                        backgroundColor: 'rgba(52, 152, 219, 0.7)',
-                        borderColor: colors.module1,
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'Future Interest',
-                        data: [28.5, 25.4, 22.8, 20.1, 18.6, 16.3, 15.7, 14.2, 12.8, 19.4],
-                        backgroundColor: 'rgba(46, 204, 113, 0.7)',
-                        borderColor: colors.module2,
-                        borderWidth: 1
-                    }
-                ]
+                datasets: [{
+                    label: 'Framework Demand',
+                    data: data,
+                    backgroundColor: data.map(f => {
+                        // Color by growth direction
+                        if (f.growth > 30) return 'rgba(46, 204, 113, 0.7)'; // High growth - Green
+                        if (f.growth > 0) return 'rgba(52, 152, 219, 0.7)'; // Moderate growth - Blue
+                        if (f.growth > -20) return 'rgba(241, 196, 15, 0.7)'; // Slight decline - Yellow
+                        return 'rgba(231, 76, 60, 0.7)'; // Significant decline - Red
+                    }),
+                    borderColor: data.map(f => {
+                        if (f.growth > 30) return '#27ae60';
+                        if (f.growth > 0) return '#2980b9';
+                        if (f.growth > -20) return '#f39c12';
+                        return '#c0392b';
+                    }),
+                    borderWidth: 1
+                }]
             },
             options: {
                 responsive: true,
@@ -6588,14 +6677,21 @@ implementation_roadmap = {
                 plugins: {
                     title: { 
                         display: true, 
-                        text: 'Frameworks: Current vs Future Interest',
+                        text: 'Framework Demand Analysis: Current vs Future',
                         font: { size: 12, weight: 'bold' }
                     },
+                    legend: { display: false },
                     tooltip: {
                         callbacks: {
                             label: function(context) {
-                                const labels = ['Current Usage', 'Future Interest'];
-                                return `${labels[context.datasetIndex]}: ${context.raw}%`;
+                                const point = context.raw;
+                                const direction = point.growth > 0 ? '↑' : '↓';
+                                return [
+                                    `${point.label} (${point.category})`,
+                                    `Current: ${point.x}%`,
+                                    `Future Interest: ${point.y}%`,
+                                    `Growth: ${direction}${Math.abs(point.growth)}%`
+                                ];
                             }
                         }
                     }
@@ -6603,8 +6699,12 @@ implementation_roadmap = {
                 scales: {
                     y: { 
                         beginAtZero: true,
-                        title: { display: true, text: 'Percentage (%)' },
-                        max: 50,
+                        title: { 
+                            display: true, 
+                            text: 'Future Interest (%)',
+                            font: { weight: 'bold' }
+                        },
+                        max: 30,
                         ticks: {
                             callback: function(value) {
                                 return value + '%';
@@ -6612,9 +6712,17 @@ implementation_roadmap = {
                         }
                     },
                     x: {
-                        ticks: { 
-                            maxRotation: 45,
-                            minRotation: 45
+                        beginAtZero: true,
+                        title: { 
+                            display: true, 
+                            text: 'Current Adoption (%)',
+                            font: { weight: 'bold' }
+                        },
+                        max: 50,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            }
                         }
                     }
                 }
