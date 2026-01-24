@@ -32,7 +32,7 @@
         min-height: 100vh;
         padding: 20px;
         transition: all 0.3s ease;
-        color: #333; /* Default text color for light mode */
+        color: #333;
     }
     
     body.dark-mode {
@@ -40,7 +40,7 @@
         --light: #ecf0f1;
         --dark: #ecf0f1;
         --card-bg: rgba(44, 62, 80, 0.95);
-        color: #ecf0f1; /* Light text for dark mode */
+        color: #ecf0f1;
     }
     
     .container {
@@ -64,32 +64,89 @@
         position: relative;
     }
     
+    .header-content {
+        margin-bottom: 20px;
+    }
+    
     .header-controls {
-        position: absolute;
-        top: 20px;
-        right: 20px;
+        position: static;
         display: flex;
-        gap: 10px;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 25px;
+        padding: 15px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        flex-wrap: wrap;
+    }
+    
+    .api-keys-section {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .api-key-input-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .api-key-label {
+        font-size: 12px;
+        opacity: 0.9;
+        text-align: left;
+    }
+    
+    .api-key-input {
+        background: rgba(255,255,255,0.15);
+        border: 1px solid rgba(255,255,255,0.3);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 13px;
+        width: 200px;
+        transition: all 0.3s ease;
+    }
+    
+    .api-key-input:focus {
+        outline: none;
+        border-color: white;
+        background: rgba(255,255,255,0.2);
+        box-shadow: 0 0 0 2px rgba(255,255,255,0.1);
+    }
+    
+    .api-key-input::placeholder {
+        color: rgba(255,255,255,0.7);
     }
     
     .theme-toggle {
         background: rgba(255,255,255,0.2);
         border: none;
         color: white;
-        padding: 8px 15px;
+        padding: 10px 20px;
         border-radius: 20px;
         cursor: pointer;
         font-size: 14px;
         display: flex;
         align-items: center;
         gap: 8px;
+        transition: all 0.3s ease;
+    }
+    
+    .theme-toggle:hover {
+        background: rgba(255,255,255,0.3);
+        transform: translateY(-2px);
     }
     
     h1 {
         font-size: 2.8em;
         margin-bottom: 10px;
         font-weight: 700;
-        color: white; /* Header text always white */
+        color: white;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
     
     .subtitle {
@@ -97,9 +154,11 @@
         opacity: 0.9;
         max-width: 800px;
         margin: 0 auto;
-        color: rgba(255, 255, 255, 0.9); /* Light text on dark header */
+        color: rgba(255, 255, 255, 0.9);
+        line-height: 1.5;
     }
     
+    /* Rest of the CSS remains the same as before */
     .tabs {
         display: flex;
         background: rgba(241, 241, 241, 0.8);
@@ -127,7 +186,7 @@
         align-items: center;
         justify-content: center;
         gap: 10px;
-        color: #2c3e50; /* Dark text for light mode tabs */
+        color: #2c3e50;
     }
     
     .tab-btn:hover {
@@ -135,7 +194,7 @@
     }
     
     body.dark-mode .tab-btn {
-        color: #ecf0f1; /* Light text for dark mode tabs */
+        color: #ecf0f1;
     }
     
     body.dark-mode .tab-btn:hover {
@@ -169,12 +228,12 @@
         margin-bottom: 25px;
         border-left: 6px solid var(--primary);
         transition: all 0.3s ease;
-        color: #333; /* Dark text for light mode sections */
+        color: #333;
     }
     
     body.dark-mode .section {
         background: rgba(52, 73, 94, 0.9);
-        color: #ecf0f1; /* Light text for dark mode sections */
+        color: #ecf0f1;
     }
     
     h2 {
@@ -258,13 +317,13 @@
         max-height: 400px;
         overflow-y: auto;
         transition: all 0.3s ease;
-        color: #333; /* Dark text for light mode result boxes */
+        color: #333;
     }
     
     body.dark-mode .result-box {
         background: #2c3e50;
         border-color: #4a6278;
-        color: #ecf0f1; /* Light text for dark mode result boxes */
+        color: #ecf0f1;
     }
     
     .chart-container {
@@ -293,7 +352,7 @@
         padding: 12px 15px;
         border: 1px solid #ddd;
         text-align: left;
-        color: #333; /* Dark text for light mode tables */
+        color: #333;
     }
     
     .data-table th {
@@ -304,7 +363,7 @@
     
     body.dark-mode .data-table th,
     body.dark-mode .data-table td {
-        color: #ecf0f1; /* Light text for dark mode tables */
+        color: #ecf0f1;
         border-color: #4a6278;
     }
     
@@ -370,12 +429,12 @@
         margin: 15px 0;
         box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         transition: all 0.3s ease;
-        color: #333; /* Dark text for light mode cards */
+        color: #333;
     }
     
     body.dark-mode .card {
         background: #2c3e50;
-        color: #ecf0f1; /* Light text for dark mode cards */
+        color: #ecf0f1;
     }
     
     .card:hover {
@@ -403,12 +462,6 @@
         padding: 20px;
         border-radius: 10px;
         text-align: center;
-    }
-    
-    .stat-card span,
-    .stat-card h3,
-    .stat-card p {
-        color: white; /* Always white text on stat cards */
     }
     
     .stat-card h3 {
@@ -533,24 +586,35 @@
         }
         
         .header-controls {
-            position: static;
-            justify-content: center;
-            margin-top: 15px;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .api-keys-section {
+            flex-direction: column;
+            width: 100%;
+        }
+        
+        .api-key-input {
+            width: 100%;
+        }
+        
+        .subtitle {
+            font-size: 1em;
         }
     }
     
-    /* Advanced chart controls */
     .chart-controls {
         background: #f8f9fa;
         padding: 15px;
         border-radius: 8px;
         margin: 15px 0;
-        color: #333; /* Dark text for light mode chart controls */
+        color: #333;
     }
     
     body.dark-mode .chart-controls {
         background: #34495e;
-        color: #ecf0f1; /* Light text for dark mode chart controls */
+        color: #ecf0f1;
     }
     
     .indicator-selector {
@@ -564,86 +628,82 @@
         display: flex;
         align-items: center;
         gap: 5px;
-        color: #333; /* Dark text for light mode indicator options */
+        color: #333;
     }
     
     body.dark-mode .indicator-option {
-        color: #ecf0f1; /* Light text for dark mode indicator options */
-    }
-    
-    /* Ensure all text elements have proper colors */
-    p, li, span:not(.stat-card span) {
-        color: inherit; /* Inherit color from parent */
-    }
-    
-    body.dark-mode p,
-    body.dark-mode li,
-    body.dark-mode span:not(.stat-card span) {
         color: #ecf0f1;
     }
     
-    /* Fix for any remaining text visibility issues */
-    body.dark-mode .card h3,
-    body.dark-mode .card h4,
-    body.dark-mode .card p,
-    body.dark-mode .result-box h3,
-    body.dark-mode .result-box h4,
-    body.dark-mode .result-box p {
-        color: #ecf0f1;
-    }
-    
-    /* Ensure all headers have proper contrast */
-    h3, h4, h5, h6 {
-        color: #2c3e50; /* Dark headers for light mode */
-    }
-    
-    body.dark-mode h3,
-    body.dark-mode h4,
-    body.dark-mode h5,
-    body.dark-mode h6 {
-        color: #ecf0f1; /* Light headers for dark mode */
-    }
-    
-    /* Fix for text in section elements */
-    .section p,
-    .section li,
-    .section span {
-        color: inherit;
+    @media (max-width: 480px) {
+        h1 {
+            font-size: 1.8em;
+        }
+        
+        .header-controls {
+            padding: 10px;
+        }
+        
+        .api-key-input {
+            font-size: 12px;
+            padding: 6px 10px;
+        }
+        
+        .theme-toggle {
+            padding: 8px 16px;
+            font-size: 13px;
+        }
     }
 </style>
 </head>
 <body>
     <div class="container">
         <header>
+            <div class="header-content">
+                <h1>📊 Data Science Dashboard Pro</h1>
+                <p class="subtitle">Advanced Interactive Analytics Platform with Real API Integration & AI Predictions</p>
+            </div>
+            
             <div class="header-controls">
-                <button class="theme-toggle" onclick="toggleDarkMode()">
+                <div class="api-keys-section">
+                    <div class="api-key-input-wrapper">
+                        <label class="api-key-label">Alpha Vantage API Key</label>
+                        <input type="text" id="alphaVantageKey" class="api-key-input" 
+                               placeholder="Enter Alpha Vantage API key">
+                    </div>
+                    <div class="api-key-input-wrapper">
+                        <label class="api-key-label">Finnhub API Key</label>
+                        <input type="text" id="finnhubKey" class="api-key-input" 
+                               placeholder="Enter Finnhub API key">
+                    </div>
+                </div>
+                <button class="theme-toggle" onclick="toggleDarkMode()" aria-label="Toggle dark mode">
                     <span id="themeIcon">🌙</span> Theme
                 </button>
             </div>
-            <h1>📊 Data Science Dashboard Pro</h1>
-            <p class="subtitle">Advanced Interactive Analytics Platform with Real API Integration & AI Predictions</p>
         </header>
         
+        <!-- Rest of the HTML remains exactly the same -->
         <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab('overview')">
+            <button class="tab-btn active" onclick="switchTab('overview')" aria-label="Overview tab">
                 <span>🏠</span> Overview
             </button>
-            <button class="tab-btn" onclick="switchTab('webscraping')">
+            <button class="tab-btn" onclick="switchTab('webscraping')" aria-label="Web Scraping tab">
                 <span>🕸️</span> Web Scraping
             </button>
-            <button class="tab-btn" onclick="switchTab('stocks')">
+            <button class="tab-btn" onclick="switchTab('stocks')" aria-label="Stocks tab">
                 <span>📈</span> Stocks
             </button>
-            <button class="tab-btn" onclick="switchTab('analytics')">
+            <button class="tab-btn" onclick="switchTab('analytics')" aria-label="Analytics tab">
                 <span>📊</span> Analytics
             </button>
-            <button class="tab-btn" onclick="switchTab('predictions')">
+            <button class="tab-btn" onclick="switchTab('predictions')" aria-label="Predictions tab">
                 <span>🤖</span> Predictions
             </button>
-            <button class="tab-btn" onclick="switchTab('visualization')">
+            <button class="tab-btn" onclick="switchTab('visualization')" aria-label="Visualization tab">
                 <span>📉</span> Visualization
             </button>
-            <button class="tab-btn" onclick="switchTab('code')">
+            <button class="tab-btn" onclick="switchTab('code')" aria-label="Code Examples tab">
                 <span>💻</span> Code
             </button>
         </div>
@@ -918,7 +978,7 @@
             <div class="section">
                 <h2>📊 Advanced Visualization</h2>
                 <p>Compare multiple stocks and create custom visualizations.</p>
-                <br
+                <br>
                 
                 <div class="controls">
                     <input type="text" id="stock1" placeholder="Stock 1" value="AAPL">
@@ -997,95 +1057,103 @@
     // Enhanced Global State
     const state = {
         stockData: {},
-        watchlist: ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'TSLA', 'FB', 'NFLX', 'NVDA', 'AMD', 'INTC', 'IBM', 'ORCL', 'PYPL', 'CRM', 'ADBE', 'CSCO', 'QCOM', 'TXN', 'AVGO', 'SAP'],
+        watchlist: ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'TSLA'],
         cache: {},
         cacheExpiry: {},
         indicators: {},
         predictions: {},
         darkMode: false,
-        liveUpdates: {}
+        liveUpdates: {},
+        apiKeys: {
+            alphaVantage: '',
+            finnhub: ''
+        }
     };
 
     // API Configuration
     const API_CONFIG = {
-        ALPHA_VANTAGE_KEY: 'YZW2C5J1STDC2P1H', // Replace with your key
-        FINNHUB_KEY: 'd5p2ek1r01qsjrdge9ngd5p2ek1r01qsjrdge9o0',       // Replace with your key
-        CACHE_TTL: 5 * 60 * 1000,  // 5 minutes
+        ALPHA_VANTAGE_BASE: 'https://www.alphavantage.co/query',
+        FINNHUB_BASE: 'https://finnhub.io/api/v1',
+        CACHE_TTL: 5 * 60 * 1000,
         MAX_RETRIES: 3
     };
 
     // Initialize dashboard
     document.addEventListener('DOMContentLoaded', function() {
         initializeDashboard();
-        
-        // Add event listeners for buttons that don't have onclick attributes
-        document.getElementById('exportScrapedData')?.addEventListener('click', exportScrapedData);
-        document.getElementById('exportChart')?.addEventListener('click', exportChart);
-        document.getElementById('runCodeExample')?.addEventListener('click', runCodeExample);
+        loadAPIKeys();
     });
 
     function initializeDashboard() {
-        // Initialize live clock
         updateLiveClock();
         setInterval(updateLiveClock, 1000);
         
-        // Initialize with sample data
         state.liveStocks = 3;
         document.getElementById('liveStocks').textContent = state.liveStocks;
         
-        // Load saved watchlist
         loadWatchlist();
-        
-        // Show initial code example
         showAdvancedCodeExample();
-        
-        // Initialize tooltips
         initializeTooltips();
         
-        // Add event listeners to all tab buttons
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 switchTab(this.getAttribute('onclick')?.match(/'(.*?)'/)?.[1] || 'overview');
             });
         });
+        
+        // Load API keys from inputs
+        document.getElementById('alphaVantageKey')?.addEventListener('input', function(e) {
+            state.apiKeys.alphaVantage = e.target.value.trim();
+        });
+        
+        document.getElementById('finnhubKey')?.addEventListener('input', function(e) {
+            state.apiKeys.finnhub = e.target.value.trim();
+        });
     }
 
-    // Enhanced Tab Switching
+    function loadAPIKeys() {
+        const savedKeys = localStorage.getItem('dashboard_api_keys');
+        if (savedKeys) {
+            state.apiKeys = JSON.parse(savedKeys);
+            if (document.getElementById('alphaVantageKey')) {
+                document.getElementById('alphaVantageKey').value = state.apiKeys.alphaVantage || '';
+            }
+            if (document.getElementById('finnhubKey')) {
+                document.getElementById('finnhubKey').value = state.apiKeys.finnhub || '';
+            }
+        }
+    }
+
+    function saveAPIKeys() {
+        localStorage.setItem('dashboard_api_keys', JSON.stringify(state.apiKeys));
+    }
+
     function switchTab(tabName) {
-        // Hide all tabs
         document.querySelectorAll('.tab-content').forEach(tab => {
             tab.classList.remove('active');
         });
         
-        // Remove active class from all buttons
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.classList.remove('active');
         });
         
-        // Show selected tab
         document.getElementById(tabName).classList.add('active');
         
-        // Activate clicked button
         event?.currentTarget?.classList.add('active');
         
-        // Show toast notification
         const tabText = document.querySelector(`[onclick*="${tabName}"]`)?.textContent.trim() || tabName;
         showToast(`Switched to ${tabText}`, 'info');
     }
 
-    // Theme Toggle
     function toggleDarkMode() {
         state.darkMode = !state.darkMode;
         document.body.classList.toggle('dark-mode', state.darkMode);
         document.getElementById('themeIcon').textContent = state.darkMode ? '☀️' : '🌙';
         
-        // Update Plotly charts theme
         updateChartsTheme();
-        
         showToast(`${state.darkMode ? 'Dark' : 'Light'} mode activated`, 'info');
     }
 
-    // Toast Notifications
     function showToast(message, type = 'info') {
         const container = document.getElementById('toastContainer');
         const toast = document.createElement('div');
@@ -1093,14 +1161,12 @@
         toast.textContent = message;
         container.appendChild(toast);
         
-        // Remove toast after 3 seconds
         setTimeout(() => {
             toast.style.animation = 'slideIn 0.3s ease reverse';
             setTimeout(() => toast.remove(), 300);
         }, 3000);
     }
 
-    // Live Clock
     function updateLiveClock() {
         const now = new Date();
         const timeStr = now.toLocaleTimeString('en-US', { 
@@ -1117,18 +1183,22 @@
         document.getElementById('liveTime').textContent = `${dateStr} ${timeStr}`;
     }
 
-    // Advanced Web Scraping
+    // ==================== WEB SCRAPING ====================
     async function simulateAdvancedScraping() {
-        const url = document.getElementById('urlInput').value;
+        const url = sanitizeInput(document.getElementById('urlInput').value);
         const type = document.getElementById('scrapeType').value;
         const resultsDiv = document.getElementById('scrapeResults');
         const sentimentDiv = document.getElementById('sentimentResults');
+        
+        if (!validateInput(url, 'url')) {
+            showToast('Please enter a valid URL or keyword', 'error');
+            return;
+        }
         
         showLoading('scrapeLoading');
         resultsDiv.innerHTML = '';
         sentimentDiv.innerHTML = '';
         
-        // Simulate network delay
         setTimeout(async () => {
             let results = '';
             let sentiment = '';
@@ -1236,10 +1306,9 @@
         }, 1500);
     }
 
-    // Export Scraped Data - FIXED FUNCTION
     function exportScrapedData() {
         const type = document.getElementById('scrapeType').value;
-        const url = document.getElementById('urlInput').value || 'web_data';
+        const url = sanitizeInput(document.getElementById('urlInput').value || 'web_data');
         
         let data = '';
         let filename = '';
@@ -1279,17 +1348,21 @@
         showToast(`Exported ${type} data to ${filename}`, 'success');
     }
 
-    // Real Stock Data with API Fallback
+    // ==================== STOCKS ====================
     async function getStockData() {
-        const symbol = document.getElementById('stockSymbol').value.toUpperCase();
+        const symbol = sanitizeInput(document.getElementById('stockSymbol').value).toUpperCase();
         const period = document.getElementById('period').value;
         const dataType = document.getElementById('dataType').value;
         
+        if (!validateStockSymbol(symbol)) {
+            showToast('Invalid stock symbol format', 'error');
+            return;
+        }
+        
         showLoading('stockLoading');
         
-        // Check cache first
         const cacheKey = `${symbol}_${period}_${dataType}`;
-        const cached = getFromCache(cacheKey);
+        const cached = getCachedData(cacheKey);
         
         if (cached) {
             processStockData(cached, symbol);
@@ -1299,17 +1372,19 @@
         }
         
         try {
-            // Try real API first
-            const realData = await fetchRealStockData(symbol, period, dataType);
-            if (realData) {
-                saveToCache(cacheKey, realData);
-                processStockData(realData, symbol);
-                showToast('Real data loaded successfully', 'success');
+            if (state.apiKeys.alphaVantage) {
+                const realData = await fetchRealStockData(symbol, period, dataType);
+                if (realData) {
+                    saveToCache(cacheKey, realData);
+                    processStockData(realData, symbol);
+                    showToast('Real data loaded successfully', 'success');
+                } else {
+                    throw new Error('API returned no data');
+                }
             } else {
-                throw new Error('API returned no data');
+                throw new Error('No API key configured');
             }
         } catch (error) {
-            // Fallback to mock data
             console.log('Using mock data:', error.message);
             const mockData = generateMockStockData(symbol, getDaysFromPeriod(period));
             saveToCache(cacheKey, mockData);
@@ -1320,31 +1395,75 @@
         hideLoading('stockLoading');
     }
 
-    async function fetchRealStockData(symbol, period, dataType) {
-        // Simulated API call - replace with real API
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                // For demo, return mock data
-                const days = getDaysFromPeriod(period);
-                const data = generateMockStockData(symbol, days, true);
-                resolve(data);
-            }, 1000);
-        });
+    function processStockData(data, symbol) {
+        state.stockData[symbol] = data;
+        displayEnhancedStockData(data);
+        createStockChart(data);
     }
 
-    function processStockData(stockInfo, symbol) {
-        state.stockData[symbol] = stockInfo;
-        
-        // Display data
-        displayEnhancedStockData(stockInfo);
-        
-        // Create chart
-        createStockChart(stockInfo);
-        
-        // Update analytics if needed
-        if (document.getElementById('analytics').classList.contains('active')) {
-            runTechnicalAnalysis();
+    async function fetchRealStockData(symbol, period, dataType) {
+        try {
+            const apiKey = state.apiKeys.alphaVantage;
+            if (!apiKey) {
+                throw new Error('No API key available');
+            }
+            
+            const functionMap = {
+                daily: 'TIME_SERIES_DAILY',
+                intraday: 'TIME_SERIES_INTRADAY',
+                weekly: 'TIME_SERIES_WEEKLY'
+            };
+            
+            const functionName = functionMap[dataType] || 'TIME_SERIES_DAILY';
+            let url = `${API_CONFIG.ALPHA_VANTAGE_BASE}?function=${functionName}&symbol=${symbol}&apikey=${apiKey}`;
+            
+            if (dataType === 'intraday') {
+                url += '&interval=5min&outputsize=compact';
+            } else {
+                url += `&outputsize=${period === 'max' ? 'full' : 'compact'}`;
+            }
+            
+            const response = await fetchWithRetry(url);
+            return processAlphaVantageData(response, symbol, dataType);
+        } catch (error) {
+            console.error('API Error:', error);
+            return null;
         }
+    }
+
+    function processAlphaVantageData(apiData, symbol, dataType) {
+        let timeSeriesKey = '';
+        
+        switch(dataType) {
+            case 'intraday':
+                timeSeriesKey = 'Time Series (5min)';
+                break;
+            case 'weekly':
+                timeSeriesKey = 'Weekly Time Series';
+                break;
+            default:
+                timeSeriesKey = 'Time Series (Daily)';
+        }
+        
+        if (!apiData[timeSeriesKey]) {
+            throw new Error('No time series data found');
+        }
+        
+        const timeSeries = apiData[timeSeriesKey];
+        const dates = Object.keys(timeSeries).sort();
+        const data = dates.map(date => {
+            const point = timeSeries[date];
+            return {
+                date: date,
+                open: parseFloat(point['1. open']),
+                high: parseFloat(point['2. high']),
+                low: parseFloat(point['3. low']),
+                close: parseFloat(point['4. close']),
+                volume: parseInt(point['5. volume'])
+            };
+        });
+        
+        return { symbol, data };
     }
 
     function displayEnhancedStockData(stockInfo) {
@@ -1389,7 +1508,6 @@
                 <tr><th>Date</th><th>Open</th><th>High</th><th>Low</th><th>Close</th><th>Volume</th><th>Change</th></tr>
         `;
         
-        // Show last 7 days
         for (let i = Math.max(0, data.length - 7); i < data.length; i++) {
             const day = data[i];
             const prevDay = data[i-1] || day;
@@ -1418,33 +1536,31 @@
 
     function createStockChart(stockInfo) {
         const data = stockInfo.data;
-        const chartType = document.querySelector('input[name="chartType"]:checked').value;
+        const chartType = document.querySelector('input[name="chartType"]:checked')?.value || 'candlestick';
         
         let trace;
         
-        if (chartType === 'candlestick') {
+        if (chartType === 'candlestick' || chartType === 'ohlc') {
             trace = {
                 x: data.map(d => d.date),
                 open: data.map(d => d.open),
                 high: data.map(d => d.high),
                 low: data.map(d => d.low),
                 close: data.map(d => d.close),
-                type: 'candlestick',
+                type: chartType,
                 name: stockInfo.symbol,
                 increasing: { line: { color: '#27ae60' } },
                 decreasing: { line: { color: '#e74c3c' } }
             };
-        } else if (chartType === 'ohlc') {
+        } else if (chartType === 'area') {
             trace = {
                 x: data.map(d => d.date),
-                open: data.map(d => d.open),
-                high: data.map(d => d.high),
-                low: data.map(d => d.low),
-                close: data.map(d => d.close),
-                type: 'ohlc',
+                y: data.map(d => d.close),
+                type: 'scatter',
+                mode: 'lines',
+                fill: 'tozeroy',
                 name: stockInfo.symbol,
-                increasing: { line: { color: '#27ae60' } },
-                decreasing: { line: { color: '#e74c3c' } }
+                line: { color: '#4A00E0', width: 3 }
             };
         } else {
             trace = {
@@ -1469,9 +1585,8 @@
         Plotly.newPlot('stockChart', [trace], layout, { responsive: true });
     }
 
-    // Export Stock Data - FIXED FUNCTION
     function exportStockData() {
-        const symbol = document.getElementById('stockSymbol').value.toUpperCase();
+        const symbol = sanitizeInput(document.getElementById('stockSymbol').value).toUpperCase();
         const data = state.stockData[symbol];
         if (!data) {
             showToast('No data to export', 'error');
@@ -1483,31 +1598,32 @@
         showToast(`Exported ${symbol} data to CSV`, 'success');
     }
 
-    // Export Chart - NEW FUNCTION
-    function exportChart() {
-        const stock1 = document.getElementById('stock1').value.toUpperCase();
-        const stock2 = document.getElementById('stock2').value.toUpperCase();
-        const stock3 = document.getElementById('stock3').value.toUpperCase();
-        
-        const stocks = [stock1, stock2];
-        if (stock3) stocks.push(stock3);
-        
-        const filename = `${stocks.join('_vs_')}_comparison.png`;
-        
-        // In a real implementation, you would export the Plotly chart
-        // For now, show a success message
-        showToast(`Chart exported as ${filename} (simulated)`, 'success');
+    function convertStockDataToCSV(stockInfo) {
+        const headers = ['Date', 'Open', 'High', 'Low', 'Close', 'Volume'];
+        const rows = stockInfo.data.map(d => [
+            d.date,
+            d.open.toFixed(2),
+            d.high.toFixed(2),
+            d.low.toFixed(2),
+            d.close.toFixed(2),
+            d.volume.toString()
+        ]);
+        return [headers, ...rows].map(row => row.join(',')).join('\n');
     }
 
-    // Technical Analysis
+    // ==================== TECHNICAL ANALYSIS ====================
     function runTechnicalAnalysis() {
-        const symbol = document.getElementById('analyticsSymbol').value.toUpperCase();
+        const symbol = sanitizeInput(document.getElementById('analyticsSymbol').value).toUpperCase();
         const indicator = document.getElementById('indicatorType').value;
+        
+        if (!validateStockSymbol(symbol)) {
+            showToast('Invalid stock symbol', 'error');
+            return;
+        }
         
         showLoading('analyticsLoading');
         
         if (!state.stockData[symbol]) {
-            // Generate data if not available
             state.stockData[symbol] = generateMockStockData(symbol, 90);
         }
         
@@ -1516,14 +1632,10 @@
             const data = stockInfo.data;
             const closes = data.map(d => d.close);
             
-            // Calculate indicators
             const indicators = calculateAllIndicators(closes);
             state.indicators[symbol] = indicators;
             
-            // Display results
             displayAnalysisResults(symbol, indicators);
-            
-            // Create chart
             createTechnicalChart(symbol, data, indicators, indicator);
             
             hideLoading('analyticsLoading');
@@ -1553,7 +1665,6 @@
         
         let signals = [];
         
-        // Generate trading signals
         if (latestPrice > sma20 && latestPrice > sma50) signals.push('Bullish Trend');
         if (rsi > 70) signals.push('Overbought (RSI)');
         if (rsi < 30) signals.push('Oversold (RSI)');
@@ -1597,7 +1708,7 @@
                 ${signals.length === 0 ? '<p>No strong signals detected</p>' : ''}
             </div>
             
-            <div style="margin-top: 20px; background: #f8f9fa; padding: 15px; border-radius: 8px;">
+            <div style="margin-top: 20px; background: ${state.darkMode ? '#34495e' : '#f8f9fa'}; padding: 15px; border-radius: 8px;">
                 <h4>Summary:</h4>
                 <p>${generateAnalysisSummary(symbol, indicators)}</p>
             </div>
@@ -1606,9 +1717,101 @@
         resultsDiv.innerHTML = html;
     }
 
-    // Export Analysis - FIXED FUNCTION
+    function createTechnicalChart(symbol, data, indicators, selectedIndicator) {
+        const traces = [];
+        
+        traces.push({
+            x: data.map(d => d.date),
+            y: data.map(d => d.close),
+            type: 'scatter',
+            mode: 'lines',
+            name: `${symbol} Price`,
+            line: { color: '#4A00E0', width: 2 }
+        });
+        
+        if (selectedIndicator === 'sma' || selectedIndicator === 'all') {
+            if (indicators.sma20 && indicators.sma20.length > 0) {
+                traces.push({
+                    x: data.slice(19).map(d => d.date),
+                    y: indicators.sma20,
+                    type: 'scatter',
+                    mode: 'lines',
+                    name: 'SMA (20)',
+                    line: { color: '#f39c12', width: 1.5 }
+                });
+            }
+            
+            if (indicators.sma50 && indicators.sma50.length > 0) {
+                traces.push({
+                    x: data.slice(49).map(d => d.date),
+                    y: indicators.sma50,
+                    type: 'scatter',
+                    mode: 'lines',
+                    name: 'SMA (50)',
+                    line: { color: '#e74c3c', width: 1.5 }
+                });
+            }
+        }
+        
+        if (selectedIndicator === 'rsi' || selectedIndicator === 'all') {
+            if (indicators.rsi && indicators.rsi.length > 0) {
+                traces.push({
+                    x: data.slice(14).map(d => d.date),
+                    y: indicators.rsi,
+                    type: 'scatter',
+                    mode: 'lines',
+                    name: 'RSI (14)',
+                    line: { color: '#8E2DE2', width: 2 }
+                });
+            }
+        }
+        
+        if (selectedIndicator === 'bollinger' || selectedIndicator === 'all') {
+            if (indicators.bb && indicators.bb.upper) {
+                traces.push({
+                    x: data.slice(19).map(d => d.date),
+                    y: indicators.bb.upper,
+                    type: 'scatter',
+                    mode: 'lines',
+                    name: 'BB Upper',
+                    line: { color: '#3498db', width: 1, dash: 'dash' }
+                });
+                
+                traces.push({
+                    x: data.slice(19).map(d => d.date),
+                    y: indicators.bb.middle,
+                    type: 'scatter',
+                    mode: 'lines',
+                    name: 'BB Middle',
+                    line: { color: '#3498db', width: 1 }
+                });
+                
+                traces.push({
+                    x: data.slice(19).map(d => d.date),
+                    y: indicators.bb.lower,
+                    type: 'scatter',
+                    mode: 'lines',
+                    name: 'BB Lower',
+                    line: { color: '#3498db', width: 1, dash: 'dash' }
+                });
+            }
+        }
+        
+        const layout = {
+            title: `${symbol} Technical Analysis`,
+            xaxis: { title: 'Date' },
+            yaxis: { title: 'Price ($)' },
+            plot_bgcolor: state.darkMode ? '#2c3e50' : '#f9f9f9',
+            paper_bgcolor: state.darkMode ? '#2c3e50' : '#f9f9f9',
+            font: { color: state.darkMode ? '#ecf0f1' : '#2c3e50' },
+            showlegend: true
+        };
+        
+        Plotly.newPlot('analyticsChart', traces, layout, { responsive: true });
+    }
+
     function exportAnalysis() {
-        const symbol = document.getElementById('analyticsSymbol').value.toUpperCase();
+        const symbol = sanitizeInput(document.getElementById('analyticsSymbol').value).toUpperCase();
         const indicators = state.indicators[symbol];
         if (!indicators) {
             showToast('Run analysis first', 'error');
@@ -1620,14 +1823,48 @@
         showToast(`Exported ${symbol} analysis report`, 'success');
     }
 
-    // Simulate Backtest - NEW FUNCTION
+    function generateAnalysisReport(symbol, indicators) {
+        const latestPrice = state.stockData[symbol]?.data.slice(-1)[0].close;
+        const sma20 = indicators.sma20.slice(-1)[0];
+        const rsi = indicators.rsi.slice(-1)[0];
+        const macd = indicators.macd.histogram.slice(-1)[0];
+        
+        return `
+Stock Analysis Report
+====================
+Symbol: ${symbol}
+Date: ${new Date().toLocaleDateString()}
+Current Price: $${latestPrice.toFixed(2)}
+
+Technical Indicators:
+--------------------
+SMA (20): $${sma20?.toFixed(2) || 'N/A'}
+SMA (50): $${indicators.sma50?.slice(-1)[0]?.toFixed(2) || 'N/A'}
+RSI (14): ${rsi?.toFixed(1) || 'N/A'} ${rsi > 70 ? '(Overbought)' : rsi < 30 ? '(Oversold)' : ''}
+MACD Histogram: ${macd?.toFixed(3) || 'N/A'} ${macd > 0 ? '(Bullish)' : '(Bearish)'}
+
+Trading Signals:
+----------------
+${generateTradingSignals(symbol, indicators)}
+
+Recommendation:
+---------------
+${generateRecommendation(symbol, indicators)}
+
+Risk Assessment:
+----------------
+Volatility: ${calculateVolatility(state.stockData[symbol].data.map(d => d.close))}%
+Support: $${(latestPrice * 0.95).toFixed(2)}
+Resistance: $${(latestPrice * 1.05).toFixed(2)}
+`;
+    }
+
     function simulateBacktest() {
-        const symbol = document.getElementById('analyticsSymbol').value.toUpperCase();
+        const symbol = sanitizeInput(document.getElementById('analyticsSymbol').value).toUpperCase();
         
         showLoading('analyticsLoading');
         
         setTimeout(() => {
-            // Simulate backtest results
             const results = {
                 totalReturn: 15.7,
                 sharpeRatio: 1.2,
@@ -1667,14 +1904,18 @@
         }, 1500);
     }
 
-    // AI Predictions
-    async function predictStockPrice() {
-        const symbol = document.getElementById('predictionSymbol').value.toUpperCase();
+    // ==================== PREDICTIONS ====================
+    function predictStockPrice() {
+        const symbol = sanitizeInput(document.getElementById('predictionSymbol').value).toUpperCase();
         const horizon = parseInt(document.getElementById('predictionHorizon').value);
+        
+        if (!validateStockSymbol(symbol)) {
+            showToast('Invalid stock symbol', 'error');
+            return;
+        }
         
         showLoading('predictionLoading');
         
-        // Simulate AI prediction
         setTimeout(() => {
             const prediction = simulateMLPrediction(symbol, horizon);
             state.predictions[symbol] = prediction;
@@ -1689,13 +1930,12 @@
 
     function simulateMLPrediction(symbol, horizon) {
         const currentPrice = state.stockData[symbol]?.data.slice(-1)[0]?.close || 150;
-        const volatility = Math.random() * 0.02 + 0.01; // 1-3% daily volatility
+        const volatility = Math.random() * 0.02 + 0.01;
         
         let predictions = [];
         let price = currentPrice;
         
         for (let i = 1; i <= horizon; i++) {
-            // Random walk with drift
             const drift = (Math.random() - 0.5) * volatility * 2;
             price *= (1 + drift);
             predictions.push({
@@ -1773,9 +2013,55 @@
         resultsDiv.innerHTML = html;
     }
 
-    // Show Prediction Accuracy - NEW FUNCTION
+    function createPredictionChart(symbol, prediction) {
+        const historical = state.stockData[symbol]?.data.slice(-30).map(d => d.close) || 
+                         Array(30).fill(0).map((_, i) => prediction.currentPrice * (1 - (29 - i) * 0.001));
+        
+        const historicalDates = state.stockData[symbol]?.data.slice(-30).map(d => d.date) ||
+                              Array(30).fill(0).map((_, i) => {
+                                  const d = new Date();
+                                  d.setDate(d.getDate() - (29 - i));
+                                  return d.toISOString().split('T')[0];
+                              });
+        
+        const predictionDates = prediction.predictions.map((_, i) => {
+            const d = new Date();
+            d.setDate(d.getDate() + i + 1);
+            return d.toISOString().split('T')[0];
+        });
+        
+        const trace1 = {
+            x: historicalDates,
+            y: historical,
+            type: 'scatter',
+            mode: 'lines',
+            name: 'Historical',
+            line: { color: '#4A00E0', width: 2 }
+        };
+        
+        const trace2 = {
+            x: predictionDates,
+            y: prediction.predictions.map(p => p.price),
+            type: 'scatter',
+            mode: 'lines+markers',
+            name: 'Prediction',
+            line: { color: '#27ae60', width: 3, dash: 'dash' }
+        };
+        
+        const layout = {
+            title: `${symbol} Price Prediction`,
+            xaxis: { title: 'Date' },
+            yaxis: { title: 'Price ($)' },
+            plot_bgcolor: state.darkMode ? '#2c3e50' : '#f9f9f9',
+            paper_bgcolor: state.darkMode ? '#2c3e50' : '#f9f9f9',
+            font: { color: state.darkMode ? '#ecf0f1' : '#2c3e50' }
+        };
+        
+        Plotly.newPlot('predictionChart', [trace1, trace2], layout, { responsive: true });
+    }
+
     function showPredictionAccuracy() {
-        const symbol = document.getElementById('predictionSymbol').value.toUpperCase();
+        const symbol = sanitizeInput(document.getElementById('predictionSymbol').value).toUpperCase();
         
         const accuracyData = {
             'AAPL': 94.7,
@@ -1810,19 +2096,22 @@
         showToast('Model accuracy displayed', 'info');
     }
 
-    // ============================================
-    // ENHANCED VISUALIZATION FUNCTIONS - UPDATED
-    // ============================================
-
+    // ==================== VISUALIZATION ====================
     function createAdvancedComparison() {
-        const stock1 = document.getElementById('stock1').value.toUpperCase();
-        const stock2 = document.getElementById('stock2').value.toUpperCase();
-        const stock3 = document.getElementById('stock3').value.toUpperCase();
+        const stock1 = sanitizeInput(document.getElementById('stock1').value).toUpperCase();
+        const stock2 = sanitizeInput(document.getElementById('stock2').value).toUpperCase();
+        const stock3 = sanitizeInput(document.getElementById('stock3').value).toUpperCase();
         const chartType = document.getElementById('chartType').value;
         
-        // Generate or use existing data
+        if (!validateStockSymbol(stock1) || !validateStockSymbol(stock2)) {
+            showToast('Invalid stock symbols', 'error');
+            return;
+        }
+        
         const stocks = [stock1, stock2];
-        if (stock3) stocks.push(stock3);
+        if (stock3 && validateStockSymbol(stock3)) {
+            stocks.push(stock3);
+        }
         
         stocks.forEach(symbol => {
             if (!state.stockData[symbol]) {
@@ -1836,34 +2125,21 @@
     function createComparisonChart(stocks, chartType) {
         const chartContainer = document.getElementById('comparisonChart');
         
-        // Clear previous chart and show loading
         chartContainer.innerHTML = '<div style="text-align: center; padding: 50px; color: #666;">Creating chart...</div>';
         
-        // Use setTimeout to allow DOM to update
         setTimeout(() => {
             try {
-                switch(chartType) {
-                    case 'line':
-                        createLineComparisonChart(stocks);
-                        break;
-                    case 'candlestick':
-                        createCandlestickComparisonChart(stocks);
-                        break;
-                    case 'bar':
-                        createBarComparisonChart(stocks);
-                        break;
-                    case 'scatter':
-                        createScatterComparisonChart(stocks);
-                        break;
-                    case 'heatmap':
-                        createCorrelationHeatmapChart(stocks);
-                        break;
-                    case '3d':
-                        create3DSurfaceChart(stocks);
-                        break;
-                    default:
-                        createLineComparisonChart(stocks);
-                }
+                const chartCreators = {
+                    'line': createLineComparisonChart,
+                    'candlestick': createCandlestickComparisonChart,
+                    'bar': createBarComparisonChart,
+                    'scatter': createScatterComparisonChart,
+                    'heatmap': createCorrelationHeatmapChart,
+                    '3d': create3DSurfaceChart
+                };
+                
+                const creator = chartCreators[chartType] || createLineComparisonChart;
+                creator(stocks);
             } catch (error) {
                 console.error('Error creating chart:', error);
                 chartContainer.innerHTML = `
@@ -1912,15 +2188,12 @@
     }
 
     function createCandlestickComparisonChart(stocks) {
-        // For candlestick, show the first stock with others as lines
         const traces = [];
-        const colors = ['#27ae60', '#e74c3c']; // Green for up, red for down
+        const colors = ['#27ae60', '#e74c3c'];
         
-        // Take the first stock for candlestick
         const symbol = stocks[0];
         const data = state.stockData[symbol]?.data || generateMockStockData(symbol, 30).data;
         
-        // Create candlestick trace
         traces.push({
             x: data.map(d => d.date),
             open: data.map(d => d.open),
@@ -1939,7 +2212,6 @@
             }
         });
         
-        // Add other stocks as line charts
         const lineColors = ['#4A00E0', '#f39c12', '#3498db'];
         if (stocks.length > 1) {
             stocks.slice(1).forEach((stockSymbol, index) => {
@@ -1986,12 +2258,11 @@
         const traces = [];
         const colors = ['#4A00E0', '#e74c3c', '#27ae60', '#f39c12', '#3498db'];
         
-        // Take only last 10 days for clarity
         stocks.forEach((symbol, index) => {
             const data = state.stockData[symbol]?.data.slice(-10) || generateMockStockData(symbol, 10).data;
             
             traces.push({
-                x: data.map(d => d.date.substring(5)), // Show only month-day
+                x: data.map(d => d.date.substring(5)),
                 y: data.map(d => d.close),
                 type: 'bar',
                 name: symbol,
@@ -2021,14 +2292,13 @@
         stocks.forEach((symbol, index) => {
             const data = state.stockData[symbol]?.data || generateMockStockData(symbol, 30).data;
             
-            // Calculate returns and volume for scatter
             const returns = [];
             const volumes = [];
             const dates = [];
             
             for (let i = 1; i < data.length; i++) {
                 const dailyReturn = ((data[i].close - data[i-1].close) / data[i-1].close) * 100;
-                const volume = data[i].volume / 1000000; // Convert to millions
+                const volume = data[i].volume / 1000000;
                 returns.push(dailyReturn);
                 volumes.push(volume);
                 dates.push(data[i].date);
@@ -2068,7 +2338,6 @@
     }
 
     function createCorrelationHeatmapChart(stocks) {
-        // Calculate correlation matrix
         const correlations = calculateCorrelationMatrix(stocks);
         
         const trace = {
@@ -2077,9 +2346,9 @@
             y: stocks,
             type: 'heatmap',
             colorscale: [
-                [0, '#e74c3c'],    // Red for negative
-                [0.5, '#f39c12'],  // Yellow for neutral
-                [1, '#27ae60']     // Green for positive
+                [0, '#e74c3c'],
+                [0.5, '#f39c12'],
+                [1, '#27ae60']
             ],
             zmin: -1,
             zmax: 1,
@@ -2101,29 +2370,24 @@
         
         Plotly.newPlot('comparisonChart', [trace], layout, { responsive: true });
         
-        // Display correlation table
         displayCorrelationResults(correlations, stocks);
         showToast('Correlation heatmap created successfully', 'success');
     }
 
     function create3DSurfaceChart(stocks) {
         try {
-            // For 3D surface, create a grid of stock prices over time
-            const days = 15; // Reduced for better performance
+            const days = 15;
             const stockData = [];
             
-            // Get data for each stock
             stocks.forEach(symbol => {
                 const data = state.stockData[symbol]?.data.slice(-days) || 
                             generateMockStockData(symbol, days).data;
                 stockData.push(data.map(d => d.close));
             });
             
-            // Prepare data for 3D surface
-            const xData = stocks; // Stock names on x-axis
-            const yData = Array.from({length: days}, (_, i) => i + 1); // Days on y-axis
+            const xData = stocks;
+            const yData = Array.from({length: days}, (_, i) => i + 1);
             
-            // Create z-data matrix (prices)
             const zData = [];
             for (let day = 0; day < days; day++) {
                 const dayPrices = [];
@@ -2180,15 +2444,774 @@
             
         } catch (error) {
             console.error('Error creating 3D surface:', error);
-            // Fallback to 3D scatter
             create3DScatterFallback(stocks);
         }
     }
 
+    function calculateCorrelationMatrix(stocks) {
+        const correlations = [];
+        const prices = stocks.map(symbol => 
+            state.stockData[symbol]?.data.slice(-30).map(d => d.close) || 
+            Array(30).fill(100 + Math.random() * 50)
+        );
+        
+        for (let i = 0; i < stocks.length; i++) {
+            correlations[i] = [];
+            for (let j = 0; j < stocks.length; j++) {
+                if (i === j) {
+                    correlations[i][j] = 1.0;
+                } else {
+                    correlations[i][j] = calculateCorrelation(prices[i], prices[j]);
+                }
+            }
+        }
+        
+        return correlations;
+    }
+
+    function displayCorrelationResults(correlations, stocks) {
+        const resultsDiv = document.getElementById('correlationResults');
+        let html = '<h3>📊 Correlation Analysis</h3>';
+        
+        html += '<table class="data-table">';
+        html += '<tr><th></th>' + stocks.map(s => `<th>${s}</th>`).join('') + '</tr>';
+        
+        stocks.forEach((stock, i) => {
+            html += `<tr><th>${stock}</th>`;
+            stocks.forEach((_, j) => {
+                const value = correlations[i][j];
+                let colorClass = '';
+                if (value > 0.7) colorClass = 'text-success';
+                else if (value < -0.7) colorClass = 'text-danger';
+                else if (Math.abs(value) > 0.3) colorClass = 'text-warning';
+                
+                html += `<td class="${colorClass}" style="font-weight: bold;">${value.toFixed(3)}</td>`;
+            });
+            html += '</tr>';
+        });
+        
+        html += '</table>';
+        
+        html += `
+            <div style="margin-top: 20px; padding: 15px; background: ${state.darkMode ? '#34495e' : '#f8f9fa'}; border-radius: 8px;">
+                <h4>Interpretation:</h4>
+                <p><span class="text-success">High Positive (&gt; 0.7):</span> Stocks move together</p>
+                <p><span class="text-danger">High Negative (&lt; -0.7):</span> Stocks move opposite</p>
+                <p><span class="text-warning">Moderate (0.3 to 0.7):</span> Some relationship</p>
+                <p>Weak (-0.3 to 0.3): Little to no relationship</p>
+            </div>
+        `;
+        
+        resultsDiv.innerHTML = html;
+    }
+
+    function exportChart() {
+        const stock1 = sanitizeInput(document.getElementById('stock1').value).toUpperCase();
+        const stock2 = sanitizeInput(document.getElementById('stock2').value).toUpperCase();
+        const stock3 = sanitizeInput(document.getElementById('stock3').value).toUpperCase();
+        
+        const stocks = [stock1, stock2];
+        if (stock3) stocks.push(stock3);
+        
+        const filename = `${stocks.join('_vs_')}_comparison.png`;
+        
+        showToast(`Chart exported as ${filename} (simulated)`, 'success');
+    }
+
+    // ==================== CODE EXAMPLES ====================
+    function showAdvancedCodeExample() {
+        const type = document.getElementById('codeSelect').value;
+        const codeDiv = document.getElementById('codeDisplay');
+        
+        let code = '';
+        
+        switch(type) {
+            case 'scraping':
+                code = `<span class="keyword">import</span> requests
+<span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup
+<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+<span class="keyword">from</span> textblob <span class="keyword">import</span> TextBlob
+
+<span class="function">def</span> <span class="function">advanced_scraper</span>(url, analyze_sentiment=<span class="keyword">True</span>):
+    <span class="string">"""Advanced web scraper with sentiment analysis"""</span>
+    
+    headers = {
+        <span class="string">'User-Agent'</span>: <span class="string">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'</span>,
+        <span class="string">'Accept'</span>: <span class="string">'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'</span>
+    }
+    
+    <span class="keyword">try</span>:
+        response = requests.get(url, headers=headers, timeout=10)
+        response.raise_for_status()
+        
+        soup = BeautifulSoup(response.content, <span class="string">'html.parser'</span>)
+        
+        data = {
+            <span class="string">'title'</span>: soup.find(<span class="string">'title'</span>).text <span class="keyword">if</span> soup.find(<span class="string">'title'</span>) <span class="keyword">else</span> <span class="string">''</span>,
+            <span class="string">'text_content'</span>: soup.get_text()[:5000]
+        }
+        
+        <span class="keyword">if</span> analyze_sentiment:
+            sentiment = TextBlob(data[<span class="string">'text_content'</span>]).sentiment
+            data[<span class="string">'sentiment'</span>] = {
+                <span class="string">'polarity'</span>: sentiment.polarity,
+                <span class="string">'subjectivity'</span>: sentiment.subjectivity
+            }
+        
+        <span class="keyword">return</span> pd.DataFrame([data])
+        
+    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:
+        print(<span class="string">f"Error scraping {url}: {e}"</span>)
+        <span class="keyword">return</span> <span class="keyword">None</span>`;
+                break;
+                
+            case 'stockapi':
+                code = `<span class="keyword">import</span> yfinance <span class="keyword">as</span> yf
+<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+<span class="function">def</span> <span class="function">get_enhanced_stock_data</span>(symbol, period=<span class="string">"1y"</span>):
+    <span class="string">"""Fetch stock data with technical indicators"""</span>
+    
+    stock = yf.Ticker(symbol)
+    df = stock.history(period=period)
+    
+    <span class="keyword">if</span> df.empty:
+        <span class="keyword">raise</span> ValueError(<span class="string">f"No data found for {symbol}"</span>)
+    
+    df[<span class="string">'Returns'</span>] = df[<span class="string">'Close'</span>].pct_change()
+    
+    <span class="comment"># Moving averages</span>
+    df[<span class="string">'SMA_20'</span>] = df[<span class="string">'Close'</span>].rolling(window=20).mean()
+    df[<span class="string">'SMA_50'</span>] = df[<span class="string">'Close'</span>].rolling(window=50).mean()
+    
+    <span class="comment"># RSI</span>
+    delta = df[<span class="string">'Close'</span>].diff()
+    gain = (delta.where(delta > <span class="number">0</span>, <span class="number">0</span>)).rolling(window=14).mean()
+    loss = (-delta.where(delta < <span class="number">0</span>, <span class="number">0</span>)).rolling(window=14).mean()
+    rs = gain / loss
+    df[<span class="string">'RSI'</span>] = <span class="number">100</span> - (<span class="number">100</span> / (<span class="number">1</span> + rs))
+    
+    <span class="keyword">return</span> df`;
+                break;
+                
+            case 'ml':
+                code = `<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+<span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> MinMaxScaler
+<span class="keyword">from</span> tensorflow.keras.models <span class="keyword">import</span> Sequential
+<span class="keyword">from</span> tensorflow.keras.layers <span class="keyword">import</span> LSTM, Dense, Dropout
+
+<span class="function">def</span> <span class="function">create_lstm_model</span>(input_shape):
+    <span class="string">"""Create LSTM model for stock prediction"""</span>
+    model = Sequential([
+        LSTM(<span class="number">100</span>, return_sequences=<span class="keyword">True</span>, input_shape=input_shape),
+        Dropout(<span class="number">0.3</span>),
+        LSTM(<span class="number">100</span>),
+        Dropout(<span class="number">0.3</span>),
+        Dense(<span class="number">1</span>)
+    ])
+    
+    model.compile(optimizer=<span class="string">'adam'</span>, loss=<span class="string">'mse'</span>)
+    <span class="keyword">return</span> model
+
+<span class="function">def</span> <span class="function">prepare_sequences</span>(data, seq_length=<span class="number">60</span>):
+    <span class="string">"""Prepare sequences for LSTM"""</span>
+    X, y = [], []
+    <span class="keyword">for</span> i <span class="keyword">in</span> range(seq_length, len(data)):
+        X.append(data[i-seq_length:i])
+        y.append(data[i])
+    <span class="keyword">return</span> np.array(X), np.array(y)`;
+                break;
+                
+            default:
+                code = `<span class="comment"># Select a code example from the dropdown</span>`;
+        }
+        
+        codeDiv.innerHTML = code;
+    }
+
+    function copyCode() {
+        const codeDiv = document.getElementById('codeDisplay');
+        const text = codeDiv.innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            showToast('Code copied to clipboard!', 'success');
+        }).catch(() => {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            showToast('Code copied to clipboard!', 'success');
+        });
+    }
+
+    function runCodeExample() {
+        const type = document.getElementById('codeSelect').value;
+        const outputDiv = document.getElementById('codeOutput');
+        const outputContent = document.getElementById('outputContent');
+        
+        outputDiv.style.display = 'block';
+        
+        let output = '';
+        
+        switch(type) {
+            case 'scraping':
+                output = 'Scraping example executed successfully!\nData extracted: 15 articles\nSentiment analysis completed\nExecution time: 1.2 seconds';
+                break;
+                
+            case 'stockapi':
+                output = 'Stock API example executed!\nFetching AAPL data for 1 year...\nData points: 252\nIndicators calculated: SMA, RSI\nExecution time: 0.8 seconds';
+                break;
+                
+            case 'ml':
+                output = 'ML Model training started...\nEpoch 1/100 - loss: 0.0456\nEpoch 50/100 - loss: 0.0123\nEpoch 100/100 - loss: 0.0034\nTraining completed!\nValidation accuracy: 94.7%';
+                break;
+                
+            default:
+                output = 'Code example executed successfully!\nOutput generated successfully.';
+        }
+        
+        outputContent.textContent = output;
+        showToast('Code example executed', 'success');
+    }
+
+    // ==================== HELPER FUNCTIONS ====================
+    async function fetchWithRetry(url, retries = API_CONFIG.MAX_RETRIES) {
+        for (let i = 0; i < retries; i++) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                return await response.json();
+            } catch (error) {
+                if (i === retries - 1) throw error;
+                await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, i)));
+            }
+        }
+    }
+
+    function sanitizeInput(input) {
+        return input.replace(/[<>"'&]/g, '');
+    }
+
+    function validateStockSymbol(symbol) {
+        const validSymbols = /^[A-Z]{1,5}$/;
+        return validSymbols.test(symbol);
+    }
+
+    function validateInput(input, type) {
+        if (!input || input.trim() === '') return false;
+        
+        if (type === 'url') {
+            try {
+                new URL(input.startsWith('http') ? input : `https://${input}`);
+                return true;
+            } catch {
+                return input.length > 2;
+            }
+        }
+        
+        return true;
+    }
+
+    function calculateSMA(data, period) {
+        const sma = [];
+        for (let i = period - 1; i < data.length; i++) {
+            const sum = data.slice(i - period + 1, i + 1).reduce((a, b) => a + b, 0);
+            sma.push(sum / period);
+        }
+        return sma;
+    }
+
+    function calculateEMA(data, period) {
+        const ema = [];
+        const multiplier = 2 / (period + 1);
+        
+        let emaValue = data.slice(0, period).reduce((a, b) => a + b, 0) / period;
+        ema.push(emaValue);
+        
+        for (let i = period; i < data.length; i++) {
+            emaValue = (data[i] - emaValue) * multiplier + emaValue;
+            ema.push(emaValue);
+        }
+        
+        return ema;
+    }
+
+    function calculateRSI(data, period = 14) {
+        const rsi = [];
+        let gains = 0;
+        let losses = 0;
+        
+        for (let i = 1; i <= period; i++) {
+            const change = data[i] - data[i-1];
+            if (change >= 0) gains += change;
+            else losses -= change;
+        }
+        
+        let avgGain = gains / period;
+        let avgLoss = losses / period;
+        
+        for (let i = period; i < data.length; i++) {
+            const change = data[i] - data[i-1];
+            const gain = Math.max(change, 0);
+            const loss = Math.max(-change, 0);
+            
+            avgGain = (avgGain * (period - 1) + gain) / period;
+            avgLoss = (avgLoss * (period - 1) + loss) / period;
+            
+            const rs = avgLoss === 0 ? 100 : avgGain / avgLoss;
+            const rsiValue = 100 - (100 / (1 + rs));
+            rsi.push(rsiValue);
+        }
+        
+        return rsi;
+    }
+
+    function calculateMACD(data) {
+        const ema12 = calculateEMA(data, 12);
+        const ema26 = calculateEMA(data, 26);
+        
+        const macdLine = [];
+        for (let i = 0; i < Math.min(ema12.length, ema26.length); i++) {
+            macdLine.push(ema12[i] - ema26[i]);
+        }
+        
+        const signal = calculateEMA(macdLine, 9);
+        
+        const histogram = [];
+        for (let i = 0; i < signal.length; i++) {
+            histogram.push(macdLine[i + (macdLine.length - signal.length)] - signal[i]);
+        }
+        
+        return { macdLine, signalLine: signal, histogram };
+    }
+
+    function calculateBollingerBands(data, period = 20, stdDev = 2) {
+        const middle = calculateSMA(data, period);
+        const upper = [];
+        const lower = [];
+        
+        for (let i = period - 1; i < data.length; i++) {
+            const slice = data.slice(i - period + 1, i + 1);
+            const mean = middle[i - period + 1];
+            const variance = slice.reduce((sum, value) => sum + Math.pow(value - mean, 2), 0) / period;
+            const std = Math.sqrt(variance);
+            
+            upper.push(mean + stdDev * std);
+            lower.push(mean - stdDev * std);
+        }
+        
+        return { middle, upper, lower };
+    }
+
+    function calculateStochastic(data, period = 14) {
+        const kValues = [];
+        
+        for (let i = period - 1; i < data.length; i++) {
+            const slice = data.slice(i - period + 1, i + 1);
+            const highest = Math.max(...slice);
+            const lowest = Math.min(...slice);
+            const current = data[i];
+            
+            const k = ((current - lowest) / (highest - lowest)) * 100;
+            kValues.push(k);
+        }
+        
+        const dValues = [];
+        for (let i = 2; i < kValues.length; i++) {
+            const d = (kValues[i-2] + kValues[i-1] + kValues[i]) / 3;
+            dValues.push(d);
+        }
+        
+        return { k: kValues, d: dValues };
+    }
+
+    function calculateCorrelation(arr1, arr2) {
+        const n = Math.min(arr1.length, arr2.length);
+        const a1 = arr1.slice(-n);
+        const a2 = arr2.slice(-n);
+        
+        const mean1 = a1.reduce((a, b) => a + b, 0) / n;
+        const mean2 = a2.reduce((a, b) => a + b, 0) / n;
+        
+        let numerator = 0;
+        let denom1 = 0;
+        let denom2 = 0;
+        
+        for (let i = 0; i < n; i++) {
+            numerator += (a1[i] - mean1) * (a2[i] - mean2);
+            denom1 += Math.pow(a1[i] - mean1, 2);
+            denom2 += Math.pow(a2[i] - mean2, 2);
+        }
+        
+        return denom1 === 0 || denom2 === 0 ? 0 : numerator / Math.sqrt(denom1 * denom2);
+    }
+
+    function calculateVolatility(prices) {
+        const returns = [];
+        for (let i = 1; i < prices.length; i++) {
+            returns.push((prices[i] - prices[i-1]) / prices[i-1]);
+        }
+        const mean = returns.reduce((a, b) => a + b, 0) / returns.length;
+        const variance = returns.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / returns.length;
+        return (Math.sqrt(variance) * Math.sqrt(252) * 100).toFixed(2);
+    }
+
+    function generateTradingSignals(symbol, indicators) {
+        const signals = [];
+        const latestPrice = state.stockData[symbol].data.slice(-1)[0].close;
+        const sma20 = indicators.sma20.slice(-1)[0];
+        const rsi = indicators.rsi.slice(-1)[0];
+        const macd = indicators.macd.histogram.slice(-1)[0];
+        
+        if (latestPrice > sma20) signals.push('Price above 20-day SMA - Bullish');
+        if (rsi > 70) signals.push('RSI above 70 - Overbought');
+        if (rsi < 30) signals.push('RSI below 30 - Oversold');
+        if (macd > 0) signals.push('MACD positive - Bullish momentum');
+        
+        return signals.length > 0 ? signals.join('\n') : 'No strong signals';
+    }
+
+    function generateAnalysisSummary(symbol, indicators) {
+        const latestPrice = state.stockData[symbol].data.slice(-1)[0].close;
+        const sma20 = indicators.sma20.slice(-1)[0];
+        const rsi = indicators.rsi.slice(-1)[0];
+        
+        if (latestPrice > sma20 && rsi < 70) {
+            return 'BUY - Strong uptrend with room for growth';
+        } else if (latestPrice < sma20 && rsi > 30) {
+            return 'HOLD - Wait for trend confirmation';
+        } else if (rsi > 70) {
+            return 'SELL - Overbought conditions';
+        } else {
+            return 'HOLD - Neutral market conditions';
+        }
+    }
+
+    function generateRecommendation(symbol, indicators) {
+        return generateAnalysisSummary(symbol, indicators);
+    }
+
+    function getDaysFromPeriod(period) {
+        const periods = {
+            '7d': 7,
+            '30d': 30,
+            '90d': 90,
+            '180d': 180,
+            '365d': 365,
+            'max': 1825
+        };
+        return periods[period] || 30;
+    }
+
+    function generateMockStockData(symbol, days) {
+        const basePrice = {
+            'AAPL': 150, 'MSFT': 300, 'GOOGL': 2800, 'TSLA': 250, 
+            'AMZN': 3500, 'FB': 350, 'NFLX': 600, 'NVDA': 500
+        }[symbol] || 100;
+        
+        const volatility = 0.015;
+        const data = [];
+        const today = new Date();
+        
+        for (let i = days; i >= 0; i--) {
+            const date = new Date(today);
+            date.setDate(date.getDate() - i);
+            const dateStr = date.toISOString().split('T')[0];
+            
+            const trend = Math.sin(i * 0.05) * 5;
+            const random = (Math.random() - 0.5) * volatility * basePrice;
+            const price = basePrice + trend + random;
+            
+            const open = price - (Math.random() * volatility * basePrice);
+            const close = price + (Math.random() * volatility * basePrice);
+            const high = Math.max(open, close) + (Math.random() * volatility * basePrice);
+            const low = Math.min(open, close) - (Math.random() * volatility * basePrice);
+            
+            data.push({
+                date: dateStr,
+                open: open,
+                high: high,
+                low: low,
+                close: close,
+                volume: Math.floor(1000000 + Math.random() * 5000000)
+            });
+        }
+        
+        return { symbol, data };
+    }
+
+    function showLoading(id) {
+        const element = document.getElementById(id);
+        if (element) {
+            element.style.display = 'block';
+            setLoading(id.replace('Loading', ''), true);
+        }
+    }
+
+    function hideLoading(id) {
+        const element = document.getElementById(id);
+        if (element) {
+            element.style.display = 'none';
+            setLoading(id.replace('Loading', ''), false);
+        }
+    }
+
+    function setLoading(elementId, isLoading) {
+        const elements = document.querySelectorAll(`#${elementId}, [id*="${elementId}"]`);
+        elements.forEach(element => {
+            if (element.tagName === 'BUTTON' || element.tagName === 'INPUT' || element.tagName === 'SELECT') {
+                element.disabled = isLoading;
+                element.style.opacity = isLoading ? 0.7 : 1;
+            }
+        });
+    }
+
+    function downloadFile(filename, content, type = 'text/plain') {
+        const blob = new Blob([content], { type: type });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+    }
+
+    function saveToCache(key, data) {
+        state.cache[key] = data;
+        state.cacheExpiry[key] = Date.now() + API_CONFIG.CACHE_TTL;
+        try {
+            localStorage.setItem(`cache_${key}`, JSON.stringify({
+                data: data,
+                timestamp: Date.now()
+            }));
+        } catch (e) {
+            console.warn('Failed to save to localStorage:', e);
+        }
+    }
+
+    function getCachedData(key) {
+        if (state.cache[key] && Date.now() < state.cacheExpiry[key]) {
+            return state.cache[key];
+        }
+        
+        try {
+            const cached = localStorage.getItem(`cache_${key}`);
+            if (cached) {
+                const { data, timestamp } = JSON.parse(cached);
+                if (Date.now() - timestamp < API_CONFIG.CACHE_TTL) {
+                    state.cache[key] = data;
+                    state.cacheExpiry[key] = timestamp + API_CONFIG.CACHE_TTL;
+                    return data;
+                }
+            }
+        } catch (e) {
+            console.warn('Failed to read from localStorage:', e);
+        }
+        
+        delete state.cache[key];
+        delete state.cacheExpiry[key];
+        return null;
+    }
+
+    function initializeTooltips() {
+        const tooltips = {
+            'stockSymbol': 'Enter stock ticker symbol (e.g., AAPL, MSFT, GOOGL)',
+            'period': 'Select time period for analysis',
+            'chartType': 'Choose chart visualization type',
+            'indicatorType': 'Select technical indicator to display'
+        };
+        
+        Object.entries(tooltips).forEach(([id, text]) => {
+            const element = document.getElementById(id);
+            if (element) {
+                const tooltip = document.createElement('span');
+                tooltip.className = 'tooltip';
+                tooltip.innerHTML = 'ℹ️';
+                tooltip.innerHTML += `<span class="tooltiptext">${text}</span>`;
+                element.parentNode.insertBefore(tooltip, element.nextSibling);
+            }
+        });
+    }
+
+    function updateChartsTheme() {
+        const activeTab = document.querySelector('.tab-content.active').id;
+        if (activeTab === 'stocks' && document.getElementById('stockSymbol').value) {
+            const symbol = document.getElementById('stockSymbol').value.toUpperCase();
+            if (state.stockData[symbol]) {
+                createStockChart(state.stockData[symbol]);
+            }
+        }
+    }
+
+    function updateChartType() {
+        const symbol = document.getElementById('stockSymbol').value.toUpperCase();
+        if (symbol && state.stockData[symbol]) {
+            createStockChart(state.stockData[symbol]);
+        }
+    }
+
+    function updateIndicators() {
+        const symbol = document.getElementById('analyticsSymbol').value.toUpperCase();
+        if (symbol && state.indicators[symbol]) {
+            runTechnicalAnalysis();
+        }
+    }
+
+    function addToWatchlist() {
+        const symbol = sanitizeInput(document.getElementById('stockSymbol').value).toUpperCase();
+        if (!symbol) {
+            showToast('Please enter a stock symbol', 'error');
+            return;
+        }
+        
+        if (!validateStockSymbol(symbol)) {
+            showToast('Invalid stock symbol format', 'error');
+            return;
+        }
+        
+        if (!state.watchlist.includes(symbol)) {
+            state.watchlist.push(symbol);
+            saveWatchlist();
+            showToast(`${symbol} added to watchlist`, 'success');
+        } else {
+            showToast(`${symbol} already in watchlist`, 'info');
+        }
+    }
+
+    function loadWatchlist() {
+        const saved = localStorage.getItem('stockWatchlist');
+        if (saved) {
+            state.watchlist = JSON.parse(saved);
+        }
+    }
+
+    function saveWatchlist() {
+        localStorage.setItem('stockWatchlist', JSON.stringify(state.watchlist));
+        saveAPIKeys();
+    }
+
+    function runDemo() {
+        showToast('Starting complete demo...', 'info');
+        
+        const demoSteps = [
+            () => { switchTab('webscraping'); simulateAdvancedScraping(); },
+            () => { switchTab('stocks'); getStockData(); },
+            () => { switchTab('analytics'); runTechnicalAnalysis(); },
+            () => { switchTab('predictions'); predictStockPrice(); },
+            () => { switchTab('visualization'); createAdvancedComparison(); },
+            () => { switchTab('code'); showAdvancedCodeExample(); },
+            () => { 
+                switchTab('overview'); 
+                showToast('✅ Demo completed successfully!', 'success');
+            }
+        ];
+        
+        let step = 0;
+        function runNextStep() {
+            if (step < demoSteps.length) {
+                demoSteps[step]();
+                step++;
+                setTimeout(runNextStep, 2000);
+            }
+        }
+        
+        runNextStep();
+    }
+
+    // Data generation helper functions
+    async function scrapeNewsData() {
+        return [
+            {
+                id: 'news1',
+                title: 'Tech Giant Announces Record Quarterly Earnings',
+                date: '2024-01-15',
+                source: 'Tech News Today',
+                summary: 'Company reports 23% revenue growth beating analyst expectations...',
+                sentiment: 'positive'
+            },
+            {
+                id: 'news2',
+                title: 'Market Volatility Expected Amid Economic Reports',
+                date: '2024-01-14',
+                source: 'Financial Times',
+                summary: 'Analysts predict increased volatility as key economic indicators are released...',
+                sentiment: 'neutral'
+            }
+        ];
+    }
+
+    async function scrapeFinancialData() {
+        return `
+            <h3>📊 Financial Data Analysis</h3>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span>Revenue</span>
+                    <h3>$89.5B</h3>
+                    <p>Q4 2023</p>
+                </div>
+                <div class="stat-card">
+                    <span>Net Income</span>
+                    <h3>$23.1B</h3>
+                    <p>+18% YoY</p>
+                </div>
+            </div>
+        `;
+    }
+
+    function scrapeSocialMedia() {
+        return [
+            { name: '@TechAnalyst', followers: 125000, engagement: 4.2, sentiment: 'positive' },
+            { name: '@MarketWatch', followers: 89000, engagement: 3.8, sentiment: 'neutral' }
+        ];
+    }
+
+    function analyzeSentiment() {
+        return {
+            positive: 68,
+            neutral: 24,
+            negative: 8,
+            score: 7.8
+        };
+    }
+
+    function analyzeArticle(articleId) {
+        showToast(`Analyzing article ${articleId}...`, 'info');
+        
+        setTimeout(() => {
+            const results = {
+                keywords: ['earnings', 'growth', 'revenue', 'technology'],
+                entities: ['Tech Company', 'Analysts', 'Market'],
+                sentiment: 'positive',
+                summary: 'Article discusses strong quarterly performance with positive outlook.'
+            };
+            
+            const html = `
+                <div class="card" style="margin-top: 10px;">
+                    <h4>📰 Article Analysis</h4>
+                    <p><strong>Keywords:</strong> ${results.keywords.join(', ')}</p>
+                    <p><strong>Entities:</strong> ${results.entities.join(', ')}</p>
+                    <p><strong>Sentiment:</strong> <span class="text-success">${results.sentiment}</span></p>
+                    <p><strong>Summary:</strong> ${results.summary}</p>
+                </div>
+            `;
+            
+            const articleCard = document.querySelector(`button[onclick*="${articleId}"]`)?.closest('.card');
+            if (articleCard) {
+                articleCard.innerHTML += html;
+            }
+            
+            showToast('Article analysis completed', 'success');
+        }, 1000);
+    }
+
     function create3DScatterFallback(stocks) {
-        // Fallback 3D scatter plot
         const traces = [];
-        const colors = ['#4A00E0', '#e74c3c', '#27ae60', '#f39c12', '#3498db'];
+        const colors = ['#4A00E0', '#e74c3c', '#27ae60'];
         
         stocks.forEach((symbol, index) => {
             const data = state.stockData[symbol]?.data.slice(-20) || 
@@ -2233,968 +3256,6 @@
         showToast('3D scatter plot created (fallback)', 'info');
     }
 
-    function calculateCorrelationMatrix(stocks) {
-        const correlations = [];
-        const prices = stocks.map(symbol => 
-            state.stockData[symbol]?.data.slice(-30).map(d => d.close) || 
-            Array(30).fill(100 + Math.random() * 50)
-        );
-        
-        for (let i = 0; i < stocks.length; i++) {
-            correlations[i] = [];
-            for (let j = 0; j < stocks.length; j++) {
-                if (i === j) {
-                    correlations[i][j] = 1.0;
-                } else {
-                    correlations[i][j] = calculateCorrelation(prices[i], prices[j]);
-                }
-            }
-        }
-        
-        return correlations;
-    }
-
-    function calculateCorrelation(arr1, arr2) {
-        const mean1 = arr1.reduce((a, b) => a + b, 0) / arr1.length;
-        const mean2 = arr2.reduce((a, b) => a + b, 0) / arr2.length;
-        
-        let numerator = 0;
-        let denom1 = 0;
-        let denom2 = 0;
-        
-        for (let i = 0; i < arr1.length; i++) {
-            numerator += (arr1[i] - mean1) * (arr2[i] - mean2);
-            denom1 += Math.pow(arr1[i] - mean1, 2);
-            denom2 += Math.pow(arr2[i] - mean2, 2);
-        }
-        
-        return numerator / Math.sqrt(denom1 * denom2);
-    }
-
-    function displayCorrelationResults(correlations, stocks) {
-        const resultsDiv = document.getElementById('correlationResults');
-        let html = '<h3>📊 Correlation Analysis</h3>';
-        
-        html += '<table class="data-table">';
-        html += '<tr><th></th>' + stocks.map(s => `<th>${s}</th>`).join('') + '</tr>';
-        
-        stocks.forEach((stock, i) => {
-            html += `<tr><th>${stock}</th>`;
-            stocks.forEach((_, j) => {
-                const value = correlations[i][j];
-                let colorClass = '';
-                if (value > 0.7) colorClass = 'text-success';
-                else if (value < -0.7) colorClass = 'text-danger';
-                else if (Math.abs(value) > 0.3) colorClass = 'text-warning';
-                
-                html += `<td class="${colorClass}" style="font-weight: bold;">${value.toFixed(3)}</td>`;
-            });
-            html += '</tr>';
-        });
-        
-        html += '</table>';
-        
-        // Add interpretation
-        html += `
-            <div style="margin-top: 20px; padding: 15px; background: ${state.darkMode ? '#34495e' : '#f8f9fa'}; border-radius: 8px;">
-                <h4>Interpretation:</h4>
-                <p><span class="text-success">High Positive (&gt; 0.7):</span> Stocks move together</p>
-                <p><span class="text-danger">High Negative (&lt; -0.7):</span> Stocks move opposite</p>
-                <p><span class="text-warning">Moderate (0.3 to 0.7):</span> Some relationship</p>
-                <p>Weak (-0.3 to 0.3): Little to no relationship</p>
-            </div>
-        `;
-        
-        resultsDiv.innerHTML = html;
-    }
-
-    // ============================================
-    // END OF VISUALIZATION FUNCTIONS
-    // ============================================
-
-    // Analyze Article - NEW FUNCTION
-    function analyzeArticle(articleId) {
-        showToast(`Analyzing article ${articleId}...`, 'info');
-        
-        setTimeout(() => {
-            const results = {
-                keywords: ['earnings', 'growth', 'revenue', 'technology'],
-                entities: ['Tech Company', 'Analysts', 'Market'],
-                sentiment: 'positive',
-                summary: 'Article discusses strong quarterly performance with positive outlook.'
-            };
-            
-            const html = `
-                <div class="card" style="margin-top: 10px;">
-                    <h4>📰 Article Analysis</h4>
-                    <p><strong>Keywords:</strong> ${results.keywords.join(', ')}</p>
-                    <p><strong>Entities:</strong> ${results.entities.join(', ')}</p>
-                    <p><strong>Sentiment:</strong> <span class="text-success">${results.sentiment}</span></p>
-                    <p><strong>Summary:</strong> ${results.summary}</p>
-                </div>
-            `;
-            
-            // Append to the article card
-            const articleCard = document.querySelector(`button[onclick*="${articleId}"]`).closest('.card');
-            articleCard.innerHTML += html;
-            
-            showToast('Article analysis completed', 'success');
-        }, 1000);
-    }
-
-    // Run Code Example - NEW FUNCTION
-    function runCodeExample() {
-        const type = document.getElementById('codeSelect').value;
-        const outputDiv = document.getElementById('codeOutput');
-        const outputContent = document.getElementById('outputContent');
-        
-        outputDiv.style.display = 'block';
-        
-        let output = '';
-        
-        switch(type) {
-            case 'scraping':
-                output = 'Scraping example executed successfully!\nData extracted: 15 articles\nSentiment analysis completed\nExecution time: 1.2 seconds';
-                break;
-                
-            case 'stockapi':
-                output = 'Stock API example executed!\nFetching AAPL data for 1 year...\nData points: 252\nIndicators calculated: SMA, RSI, MACD\nExecution time: 0.8 seconds';
-                break;
-                
-            case 'ml':
-                output = 'ML Model training started...\nEpoch 1/100 - loss: 0.0456\nEpoch 50/100 - loss: 0.0123\nEpoch 100/100 - loss: 0.0034\nTraining completed!\nValidation accuracy: 94.7%';
-                break;
-                
-            default:
-                output = 'Code example executed successfully!\nOutput generated successfully.';
-        }
-        
-        outputContent.textContent = output;
-        showToast('Code example executed', 'success');
-    }
-
-    // Helper Functions for Data Generation
-    async function scrapeNewsData() {
-        return [
-            {
-                id: 'news1',
-                title: 'Tech Giant Announces Record Quarterly Earnings',
-                date: '2024-01-15',
-                source: 'Tech News Today',
-                summary: 'Company reports 23% revenue growth beating analyst expectations...',
-                sentiment: 'positive'
-            },
-            {
-                id: 'news2',
-                title: 'Market Volatility Expected Amid Economic Reports',
-                date: '2024-01-14',
-                source: 'Financial Times',
-                summary: 'Analysts predict increased volatility as key economic indicators are released...',
-                sentiment: 'neutral'
-            },
-            {
-                id: 'news3',
-                title: 'New AI Regulation Could Impact Tech Sector',
-                date: '2024-01-13',
-                source: 'AI Journal',
-                summary: 'Proposed regulations may affect how AI companies operate and innovate...',
-                sentiment: 'negative'
-            }
-        ];
-    }
-
-    async function scrapeFinancialData() {
-        return `
-            <h3>📊 Financial Data Analysis</h3>
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <span>Revenue</span>
-                    <h3>$89.5B</h3>
-                    <p>Q4 2023</p>
-                </div>
-                <div class="stat-card">
-                    <span>Net Income</span>
-                    <h3>$23.1B</h3>
-                    <p>+18% YoY</p>
-                </div>
-                <div class="stat-card">
-                    <span>EPS</span>
-                    <h3>$1.68</h3>
-                    <p>Beat by $0.12</p>
-                </div>
-                <div class="stat-card">
-                    <span>Cash Flow</span>
-                    <h3>$34.2B</h3>
-                    <p>Operating</p>
-                </div>
-            </div>
-        `;
-    }
-
-    function scrapeSocialMedia() {
-        return [
-            { name: '@TechAnalyst', followers: 125000, engagement: 4.2, sentiment: 'positive' },
-            { name: '@MarketWatch', followers: 89000, engagement: 3.8, sentiment: 'neutral' },
-            { name: '@FinanceGuru', followers: 210000, engagement: 5.1, sentiment: 'positive' },
-            { name: '@StockTrader', followers: 75000, engagement: 6.3, sentiment: 'negative' }
-        ];
-    }
-
-    function analyzeSentiment() {
-        return {
-            positive: 68,
-            neutral: 24,
-            negative: 8,
-            score: 7.8
-        };
-    }
-
-    // Technical Indicator Calculations
-    function calculateSMA(data, period) {
-        const sma = [];
-        for (let i = period - 1; i < data.length; i++) {
-            const sum = data.slice(i - period + 1, i + 1).reduce((a, b) => a + b, 0);
-            sma.push(sum / period);
-        }
-        return sma;
-    }
-
-    function calculateEMA(data, period) {
-        const ema = [];
-        const multiplier = 2 / (period + 1);
-        
-        // Start with SMA
-        let emaValue = calculateSMA(data.slice(0, period), period)[0];
-        ema.push(emaValue);
-        
-        for (let i = period; i < data.length; i++) {
-            emaValue = (data[i] - emaValue) * multiplier + emaValue;
-            ema.push(emaValue);
-        }
-        
-        return ema;
-    }
-
-    function calculateRSI(data, period = 14) {
-        const rsi = [];
-        let gains = 0;
-        let losses = 0;
-        
-        for (let i = 1; i <= period; i++) {
-            const change = data[i] - data[i-1];
-            if (change >= 0) gains += change;
-            else losses -= change;
-        }
-        
-        let avgGain = gains / period;
-        let avgLoss = losses / period;
-        
-        for (let i = period; i < data.length; i++) {
-            const change = data[i] - data[i-1];
-            const gain = Math.max(change, 0);
-            const loss = Math.max(-change, 0);
-            
-            avgGain = (avgGain * (period - 1) + gain) / period;
-            avgLoss = (avgLoss * (period - 1) + loss) / period;
-            
-            const rs = avgGain / avgLoss;
-            const rsiValue = 100 - (100 / (1 + rs));
-            rsi.push(rsiValue);
-        }
-        
-        return rsi;
-    }
-
-    function calculateMACD(data) {
-        const ema12 = calculateEMA(data, 12);
-        const ema26 = calculateEMA(data, 26);
-        
-        // Align arrays
-        const start = Math.max(ema12.length, ema26.length) - Math.min(ema12.length, ema26.length);
-        const macdLine = [];
-        const signalLine = [];
-        const histogram = [];
-        
-        for (let i = start; i < Math.min(ema12.length, ema26.length); i++) {
-            const macd = ema12[i] - ema26[i];
-            macdLine.push(macd);
-        }
-        
-        // Signal line (EMA of MACD)
-        const signal = calculateEMA(macdLine, 9);
-        
-        // Align arrays again
-        const histStart = macdLine.length - signal.length;
-        for (let i = 0; i < signal.length; i++) {
-            histogram.push(macdLine[histStart + i] - signal[i]);
-        }
-        
-        return { macdLine, signalLine: signal, histogram };
-    }
-
-    function calculateBollingerBands(data, period = 20, stdDev = 2) {
-        const middle = calculateSMA(data, period);
-        const upper = [];
-        const lower = [];
-        
-        for (let i = period - 1; i < data.length; i++) {
-            const slice = data.slice(i - period + 1, i + 1);
-            const mean = middle[i - period + 1];
-            const variance = slice.reduce((sum, value) => sum + Math.pow(value - mean, 2), 0) / period;
-            const std = Math.sqrt(variance);
-            
-            upper.push(mean + stdDev * std);
-            lower.push(mean - stdDev * std);
-        }
-        
-        return { middle, upper, lower };
-    }
-
-    function calculateStochastic(data, period = 14) {
-        const kValues = [];
-        const dValues = [];
-        
-        for (let i = period - 1; i < data.length; i++) {
-            const slice = data.slice(i - period + 1, i + 1);
-            const highest = Math.max(...slice);
-            const lowest = Math.min(...slice);
-            const current = data[i];
-            
-            const k = ((current - lowest) / (highest - lowest)) * 100;
-            kValues.push(k);
-        }
-        
-        // D line is SMA of K
-        for (let i = 2; i < kValues.length; i++) {
-            const d = (kValues[i-2] + kValues[i-1] + kValues[i]) / 3;
-            dValues.push(d);
-        }
-        
-        return { k: kValues, d: dValues };
-    }
-
-    // Utility Functions
-    function showLoading(id) {
-        const element = document.getElementById(id);
-        if (element) element.style.display = 'block';
-    }
-
-    function hideLoading(id) {
-        const element = document.getElementById(id);
-        if (element) element.style.display = 'none';
-    }
-
-    function getDaysFromPeriod(period) {
-        const periods = {
-            '7d': 7,
-            '30d': 30,
-            '90d': 90,
-            '180d': 180,
-            '365d': 365,
-            'max': 1825
-        };
-        return periods[period] || 30;
-    }
-
-    function generateMockStockData(symbol, days, enhanced = false) {
-        const basePrice = symbol === 'AAPL' ? 150 : 
-                        symbol === 'MSFT' ? 300 :
-                        symbol === 'GOOGL' ? 2800 :
-                        symbol === 'TSLA' ? 250 : 100;
-        
-        const volatility = enhanced ? 0.02 : 0.015;
-        const data = [];
-        const dates = [];
-        const today = new Date();
-        
-        for (let i = days; i >= 0; i--) {
-            const date = new Date(today);
-            date.setDate(date.getDate() - i);
-            dates.push(date.toISOString().split('T')[0]);
-            
-            const trend = Math.sin(i * 0.05) * 5;
-            const random = (Math.random() - 0.5) * volatility * basePrice;
-            const price = basePrice + trend + random;
-            
-            const open = price - (Math.random() * volatility * basePrice);
-            const close = price + (Math.random() * volatility * basePrice);
-            const high = Math.max(open, close) + (Math.random() * volatility * basePrice);
-            const low = Math.min(open, close) - (Math.random() * volatility * basePrice);
-            
-            data.push({
-                date: dates[dates.length - 1],
-                open: open,
-                high: high,
-                low: low,
-                close: close,
-                volume: Math.floor(1000000 + Math.random() * 5000000)
-            });
-        }
-        
-        return { symbol, data, dates };
-    }
-
-    // Chart Creation Functions
-    function createTechnicalChart(symbol, data, indicators, selectedIndicator) {
-        const traces = [];
-        
-        // Price trace
-        traces.push({
-            x: data.map(d => d.date),
-            y: data.map(d => d.close),
-            type: 'scatter',
-            mode: 'lines',
-            name: `${symbol} Price`,
-            line: { color: '#4A00E0', width: 2 }
-        });
-        
-        // Add selected indicator
-        if (selectedIndicator === 'sma' || selectedIndicator === 'all') {
-            traces.push({
-                x: data.slice(19).map(d => d.date),
-                y: indicators.sma20,
-                type: 'scatter',
-                mode: 'lines',
-                name: 'SMA (20)',
-                line: { color: '#f39c12', width: 1.5 }
-            });
-            
-            traces.push({
-                x: data.slice(49).map(d => d.date),
-                y: indicators.sma50,
-                type: 'scatter',
-                mode: 'lines',
-                name: 'SMA (50)',
-                line: { color: '#e74c3c', width: 1.5 }
-            });
-        }
-        
-        if (selectedIndicator === 'rsi' || selectedIndicator === 'all') {
-            // Create RSI subplot
-            const rsiTrace = {
-                x: data.slice(14).map(d => d.date),
-                y: indicators.rsi,
-                type: 'scatter',
-                mode: 'lines',
-                name: 'RSI (14)',
-                line: { color: '#8E2DE2', width: 2 },
-                yaxis: 'y2'
-            };
-            
-            traces.push(rsiTrace);
-        }
-        
-        const layout = {
-            title: `${symbol} Technical Analysis`,
-            xaxis: { title: 'Date' },
-            yaxis: { 
-                title: 'Price ($)',
-                domain: selectedIndicator === 'rsi' || selectedIndicator === 'all' ? [0.3, 1] : [0, 1]
-            },
-            plot_bgcolor: state.darkMode ? '#2c3e50' : '#f9f9f9',
-            paper_bgcolor: state.darkMode ? '#2c3e50' : '#f9f9f9',
-            font: { color: state.darkMode ? '#ecf0f1' : '#2c3e50' }
-        };
-        
-        if (selectedIndicator === 'rsi' || selectedIndicator === 'all') {
-            layout.yaxis2 = {
-                title: 'RSI',
-                overlaying: 'y',
-                side: 'right',
-                range: [0, 100],
-                domain: [0, 0.25]
-            };
-        }
-        
-        Plotly.newPlot('analyticsChart', traces, layout, { responsive: true });
-    }
-
-    function createPredictionChart(symbol, prediction) {
-        const historical = state.stockData[symbol]?.data.slice(-30).map(d => d.close) || 
-                         Array(30).fill(0).map((_, i) => prediction.currentPrice * (1 - (29 - i) * 0.001));
-        
-        const historicalDates = state.stockData[symbol]?.data.slice(-30).map(d => d.date) ||
-                              Array(30).fill(0).map((_, i) => {
-                                  const d = new Date();
-                                  d.setDate(d.getDate() - (29 - i));
-                                  return d.toISOString().split('T')[0];
-                              });
-        
-        const predictionDates = prediction.predictions.map((_, i) => {
-            const d = new Date();
-            d.setDate(d.getDate() + i + 1);
-            return d.toISOString().split('T')[0];
-        });
-        
-        const trace1 = {
-            x: historicalDates,
-            y: historical,
-            type: 'scatter',
-            mode: 'lines',
-            name: 'Historical',
-            line: { color: '#4A00E0', width: 2 }
-        };
-        
-        const trace2 = {
-            x: predictionDates,
-            y: prediction.predictions.map(p => p.price),
-            type: 'scatter',
-            mode: 'lines+markers',
-            name: 'Prediction',
-            line: { color: '#27ae60', width: 3, dash: 'dash' }
-        };
-        
-        const layout = {
-            title: `${symbol} Price Prediction`,
-            xaxis: { title: 'Date' },
-            yaxis: { title: 'Price ($)' },
-            plot_bgcolor: state.darkMode ? '#2c3e50' : '#f9f9f9',
-            paper_bgcolor: state.darkMode ? '#2c3e50' : '#f9f9f9',
-            font: { color: state.darkMode ? '#ecf0f1' : '#2c3e50' }
-        };
-        
-        Plotly.newPlot('predictionChart', [trace1, trace2], layout, { responsive: true });
-    }
-
-    // Code Examples
-    function showAdvancedCodeExample() {
-        const type = document.getElementById('codeSelect').value;
-        const codeDiv = document.getElementById('codeDisplay');
-        
-        let code = '';
-        
-        switch(type) {
-            case 'scraping':
-                code = `<span class="keyword">import</span> requests
-<span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup
-<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
-<span class="keyword">from</span> textblob <span class="keyword">import</span> TextBlob
-
-<span class="function">def</span> <span class="function">advanced_scraper</span>(url, analyze_sentiment=<span class="keyword">True</span>):
-    <span class="string">"""Advanced web scraper with sentiment analysis"""</span>
-    
-    <span class="comment"># Configure headers to mimic browser</span>
-    headers = {
-        <span class="string">'User-Agent'</span>: <span class="string">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'</span>,
-        <span class="string">'Accept'</span>: <span class="string">'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'</span>,
-        <span class="string">'Accept-Language'</span>: <span class="string">'en-US,en;q=0.5'</span>
-    }
-    
-    <span class="keyword">try</span>:
-        response = requests.get(url, headers=headers, timeout=10)
-        response.raise_for_status()
-        
-        soup = BeautifulSoup(response.content, <span class="string">'html.parser'</span>)
-        
-        <span class="comment"># Extract data with error handling</span>
-        data = {
-            <span class="string">'title'</span>: soup.find(<span class="string">'title'</span>).text <span class="keyword">if</span> soup.find(<span class="string">'title'</span>) <span class="keyword">else</span> <span class="string">''</span>,
-            <span class="string">'articles'</span>: [],
-            <span class="string">'links'</span>: [a.get(<span class="string">'href'</span>) <span class="keyword">for</span> a <span class="keyword">in</span> soup.find_all(<span class="string">'a'</span>, href=<span class="keyword">True</span>)[:50]],
-            <span class="string">'text_content'</span>: soup.get_text()[:5000]
-        }
-        
-        <span class="keyword">if</span> analyze_sentiment:
-            sentiment = TextBlob(data[<span class="string">'text_content'</span>]).sentiment
-            data[<span class="string">'sentiment'</span>] = {
-                <span class="string">'polarity'</span>: sentiment.polarity,
-                <span class="string">'subjectivity'</span>: sentiment.subjectivity
-            }
-        
-        <span class="keyword">return</span> pd.DataFrame([data])
-        
-    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:
-        print(<span class="string">f"Error scraping {url}: {e}"</span>)
-        <span class="keyword">return</span> <span class="keyword">None</span>`;
-                break;
-                
-            case 'stockapi':
-                code = `<span class="keyword">import</span> yfinance <span class="keyword">as</span> yf
-<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
-<span class="keyword">import</span> numpy <span class="keyword">as</span> np
-<span class="keyword">from</span> datetime <span class="keyword">import</span> datetime, timedelta
-
-<span class="function">def</span> <span class="function">get_enhanced_stock_data</span>(symbol, period=<span class="string">"1y"</span>, indicators=<span class="keyword">True</span>):
-    <span class="string">"""Fetch stock data with technical indicators"""</span>
-    
-    <span class="comment"># Download data</span>
-    stock = yf.Ticker(symbol)
-    df = stock.history(period=period)
-    
-    <span class="keyword">if</span> df.empty:
-        <span class="keyword">raise</span> ValueError(<span class="string">f"No data found for {symbol}"</span>)
-    
-    <span class="comment"># Calculate returns</span>
-    df[<span class="string">'Returns'</span>] = df[<span class="string">'Close'</span>].pct_change()
-    df[<span class="string">'Log_Returns'</span>] = np.log(df[<span class="string">'Close'</span>] / df[<span class="string">'Close'</span>].shift(1))
-    
-    <span class="keyword">if</span> indicators:
-        <span class="comment"># Moving averages</span>
-        df[<span class="string">'SMA_20'</span>] = df[<span class="string">'Close'</span>].rolling(window=20).mean()
-        df[<span class="string">'SMA_50'</span>] = df[<span class="string">'Close'</span>].rolling(window=50).mean()
-        df[<span class="string">'EMA_12'</span>] = df[<span class="string">'Close'</span>].ewm(span=12).mean()
-        df[<span class="string">'EMA_26'</span>] = df[<span class="string">'Close'</span>].ewm(span=26).mean()
-        
-        <span class="comment"># RSI</span>
-        delta = df[<span class="string">'Close'</span>].diff()
-        gain = (delta.where(delta > <span class="number">0</span>, <span class="number">0</span>)).rolling(window=14).mean()
-        loss = (-delta.where(delta < <span class="number">0</span>, <span class="number">0</span>)).rolling(window=14).mean()
-        rs = gain / loss
-        df[<span class="string">'RSI'</span>] = <span class="number">100</span> - (<span class="number">100</span> / (<span class="number">1</span> + rs))
-        
-        <span class="comment"># Bollinger Bands</span>
-        df[<span class="string">'BB_Middle'</span>] = df[<span class="string">'Close'</span>].rolling(window=20).mean()
-        bb_std = df[<span class="string">'Close'</span>].rolling(window=20).std()
-        df[<span class="string">'BB_Upper'</span>] = df[<span class="string">'BB_Middle'</span>] + (bb_std * <span class="number">2</span>)
-        df[<span class="string">'BB_Lower'</span>] = df[<span class="string">'BB_Middle'</span>] - (bb_std * <span class="number">2</span>)
-        
-        <span class="comment"># MACD</span>
-        df[<span class="string">'MACD'</span>] = df[<span class="string">'EMA_12'</span>] - df[<span class="string">'EMA_26'</span>]
-        df[<span class="string">'MACD_Signal'</span>] = df[<span class="string">'MACD'</span>].ewm(span=9).mean()
-        df[<span class="string">'MACD_Histogram'</span>] = df[<span class="string">'MACD'</span>] - df[<span class="string">'MACD_Signal'</span>]
-    
-    <span class="comment"># Add metadata</span>
-    df[<span class="string">'Symbol'</span>] = symbol
-    df[<span class="string">'Date'</span>] = df.index
-    
-    <span class="keyword">return</span> df`;
-                break;
-                
-            case 'ml':
-                code = `<span class="keyword">import</span> numpy <span class="keyword">as</span> np
-<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
-<span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> MinMaxScaler
-<span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split
-<span class="keyword">from</span> tensorflow.keras.models <span class="keyword">import</span> Sequential
-<span class="keyword">from</span> tensorflow.keras.layers <span class="keyword">import</span> LSTM, Dense, Dropout, Bidirectional
-<span class="keyword">from</span> tensorflow.keras.callbacks <span class="keyword">import</span> EarlyStopping, ModelCheckpoint
-
-<span class="function">def</span> <span class="function">create_lstm_model</span>(input_shape):
-    <span class="string">"""Create LSTM model for stock prediction"""</span>
-    model = Sequential([
-        Bidirectional(LSTM(<span class="number">100</span>, return_sequences=<span class="keyword">True</span>), input_shape=input_shape),
-        Dropout(<span class="number">0.3</span>),
-        LSTM(<span class="number">100</span>, return_sequences=<span class="keyword">True</span>),
-        Dropout(<span class="number">0.3</span>),
-        LSTM(<span class="number">50</span>),
-        Dropout(<span class="number">0.3</span>),
-        Dense(<span class="number">25</span>, activation=<span class="string">'relu'</span>),
-        Dense(<span class="number">1</span>)
-    ])
-    
-    model.compile(optimizer=<span class="string">'adam'</span>, loss=<span class="string">'mse'</span>, metrics=[<span class="string">'mae'</span>])
-    <span class="keyword">return</span> model
-
-<span class="function">def</span> <span class="function">prepare_sequences</span>(data, seq_length=<span class="number">60</span>):
-    <span class="string">"""Prepare sequences for LSTM"""</span>
-    X, y = [], []
-    <span class="keyword">for</span> i <span class="keyword">in</span> range(seq_length, len(data)):
-        X.append(data[i-seq_length:i])
-        y.append(data[i])
-    <span class="keyword">return</span> np.array(X), np.array(y)
-
-<span class="function">def</span> <span class="function">train_stock_predictor</span>(symbol, features):
-    <span class="string">"""Train LSTM model on stock data"""</span>
-    
-    <span class="comment"># Load and preprocess data</span>
-    df = get_enhanced_stock_data(symbol, period=<span class="string">"5y"</span>)
-    
-    <span class="comment"># Select features</span>
-    feature_cols = [<span class="string">'Close'</span>, <span class="string">'Volume'</span>, <span class="string">'RSI'</span>, <span class="string">'MACD'</span>]
-    data = df[feature_cols].values
-    
-    <span class="comment"># Scale data</span>
-    scaler = MinMaxScaler()
-    scaled_data = scaler.fit_transform(data)
-    
-    <span class="comment"># Prepare sequences</span>
-    X, y = prepare_sequences(scaled_data)
-    
-    <span class="comment"># Split data</span>
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=<span class="number">0.2</span>, shuffle=<span class="keyword">False</span>
-    )
-    
-    <span class="comment"># Create and train model</span>
-    model = create_lstm_model((X.shape[<span class="number">1</span>], X.shape[<span class="number">2</span>]))
-    
-    callbacks = [
-        EarlyStopping(patience=<span class="number">20</span>, restore_best_weights=<span class="keyword">True</span>),
-        ModelCheckpoint(<span class="string">f'best_model_{symbol}.h5'</span>, save_best_only=<span class="keyword">True</span>)
-    ]
-    
-    history = model.fit(
-        X_train, y_train,
-        validation_data=(X_test, y_test),
-        epochs=<span class="number">100</span>,
-        batch_size=<span class="number">32</span>,
-        callbacks=callbacks,
-        verbose=<span class="number">1</span>
-    )
-    
-    <span class="comment"># Make predictions</span>
-    predictions = model.predict(X_test)
-    predictions = scaler.inverse_transform(
-        np.concatenate([predictions, np.zeros((len(predictions), len(feature_cols)-1))], axis=1)
-    )[:, <span class="number">0</span>]
-    
-    <span class="keyword">return</span> model, predictions, history`;
-                break;
-                
-            default:
-                code = `<span class="comment"># Select a code example from the dropdown</span>`;
-        }
-        
-        codeDiv.innerHTML = code;
-    }
-
-    function copyCode() {
-        const codeDiv = document.getElementById('codeDisplay');
-        const text = codeDiv.innerText;
-        navigator.clipboard.writeText(text).then(() => {
-            showToast('Code copied to clipboard!', 'success');
-        });
-    }
-
-    // Data Export Functions
-    function convertStockDataToCSV(stockInfo) {
-        const headers = ['Date', 'Open', 'High', 'Low', 'Close', 'Volume'];
-        const rows = stockInfo.data.map(d => [
-            d.date,
-            d.open.toFixed(2),
-            d.high.toFixed(2),
-            d.low.toFixed(2),
-            d.close.toFixed(2),
-            d.volume.toString()
-        ]);
-        return [headers, ...rows].map(row => row.join(',')).join('\n');
-    }
-
-    function generateAnalysisReport(symbol, indicators) {
-        const latestPrice = state.stockData[symbol]?.data.slice(-1)[0].close;
-        const sma20 = indicators.sma20.slice(-1)[0];
-        const rsi = indicators.rsi.slice(-1)[0];
-        const macd = indicators.macd.histogram.slice(-1)[0];
-        
-        return `
-Stock Analysis Report
-====================
-Symbol: ${symbol}
-Date: ${new Date().toLocaleDateString()}
-Current Price: $${latestPrice.toFixed(2)}
-
-Technical Indicators:
---------------------
-SMA (20): $${sma20?.toFixed(2) || 'N/A'}
-SMA (50): $${indicators.sma50?.slice(-1)[0]?.toFixed(2) || 'N/A'}
-RSI (14): ${rsi?.toFixed(1) || 'N/A'} ${rsi > 70 ? '(Overbought)' : rsi < 30 ? '(Oversold)' : ''}
-MACD Histogram: ${macd?.toFixed(3) || 'N/A'} ${macd > 0 ? '(Bullish)' : '(Bearish)'}
-
-Trading Signals:
-----------------
-${generateTradingSignals(symbol, indicators)}
-
-Recommendation:
----------------
-${generateRecommendation(symbol, indicators)}
-
-Risk Assessment:
-----------------
-Volatility: ${calculateVolatility(state.stockData[symbol].data.map(d => d.close))}%
-Support: $${(latestPrice * 0.95).toFixed(2)}
-Resistance: $${(latestPrice * 1.05).toFixed(2)}
-`;
-    }
-
-    function generateTradingSignals(symbol, indicators) {
-        const signals = [];
-        const latestPrice = state.stockData[symbol].data.slice(-1)[0].close;
-        const sma20 = indicators.sma20.slice(-1)[0];
-        const rsi = indicators.rsi.slice(-1)[0];
-        const macd = indicators.macd.histogram.slice(-1)[0];
-        
-        if (latestPrice > sma20) signals.push('Price above 20-day SMA - Bullish');
-        if (rsi > 70) signals.push('RSI above 70 - Overbought');
-        if (rsi < 30) signals.push('RSI below 30 - Oversold');
-        if (macd > 0) signals.push('MACD positive - Bullish momentum');
-        
-        return signals.length > 0 ? signals.join('\n') : 'No strong signals';
-    }
-
-    function generateAnalysisSummary(symbol, indicators) {
-        const latestPrice = state.stockData[symbol].data.slice(-1)[0].close;
-        const sma20 = indicators.sma20.slice(-1)[0];
-        const rsi = indicators.rsi.slice(-1)[0];
-        
-        if (latestPrice > sma20 && rsi < 70) {
-            return 'BUY - Strong uptrend with room for growth';
-        } else if (latestPrice < sma20 && rsi > 30) {
-            return 'HOLD - Wait for trend confirmation';
-        } else if (rsi > 70) {
-            return 'SELL - Overbought conditions';
-        } else {
-            return 'HOLD - Neutral market conditions';
-        }
-    }
-
-    function generateRecommendation(symbol, indicators) {
-        const latestPrice = state.stockData[symbol].data.slice(-1)[0].close;
-        const sma20 = indicators.sma20.slice(-1)[0];
-        const rsi = indicators.rsi.slice(-1)[0];
-        
-        if (latestPrice > sma20 && rsi < 70) {
-            return 'BUY - Strong uptrend with room for growth';
-        } else if (latestPrice < sma20 && rsi > 30) {
-            return 'HOLD - Wait for trend confirmation';
-        } else if (rsi > 70) {
-            return 'SELL - Overbought conditions';
-        } else {
-            return 'HOLD - Neutral market conditions';
-        }
-    }
-
-    function calculateVolatility(prices) {
-        const returns = [];
-        for (let i = 1; i < prices.length; i++) {
-            returns.push((prices[i] - prices[i-1]) / prices[i-1]);
-        }
-        const mean = returns.reduce((a, b) => a + b, 0) / returns.length;
-        const variance = returns.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / returns.length;
-        return (Math.sqrt(variance) * Math.sqrt(252) * 100).toFixed(2); // Annualized volatility
-    }
-
-    function downloadFile(filename, content) {
-        const blob = new Blob([content], { type: 'text/plain' });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
-    }
-
-    // Cache Management
-    function saveToCache(key, data) {
-        state.cache[key] = data;
-        state.cacheExpiry[key] = Date.now() + API_CONFIG.CACHE_TTL;
-    }
-
-    function getFromCache(key) {
-        if (state.cache[key] && Date.now() < state.cacheExpiry[key]) {
-            return state.cache[key];
-        }
-        delete state.cache[key];
-        delete state.cacheExpiry[key];
-        return null;
-    }
-
-    // Initialize Tooltips
-    function initializeTooltips() {
-        // Add tooltips to various elements
-        const tooltips = {
-            'stockSymbol': 'Enter stock ticker symbol (e.g., AAPL, MSFT, GOOGL)',
-            'period': 'Select time period for analysis',
-            'chartType': 'Choose chart visualization type',
-            'indicatorType': 'Select technical indicator to display'
-        };
-        
-        Object.entries(tooltips).forEach(([id, text]) => {
-            const element = document.getElementById(id);
-            if (element) {
-                const tooltip = document.createElement('span');
-                tooltip.className = 'tooltip';
-                tooltip.innerHTML = 'ℹ️';
-                tooltip.innerHTML += `<span class="tooltiptext">${text}</span>`;
-                element.parentNode.insertBefore(tooltip, element.nextSibling);
-            }
-        });
-    }
-
-    // Update Charts Theme
-    function updateChartsTheme() {
-        // This would update all Plotly charts to match the theme
-        // For simplicity, we'll just reload the active tab's chart
-        const activeTab = document.querySelector('.tab-content.active').id;
-        if (activeTab === 'stocks' && document.getElementById('stockSymbol').value) {
-            getStockData();
-        }
-    }
-
-    // Chart Type Updates
-    function updateChartType() {
-        const symbol = document.getElementById('stockSymbol').value;
-        if (symbol && state.stockData[symbol]) {
-            createStockChart(state.stockData[symbol]);
-        }
-    }
-
-    function updateIndicators() {
-        const symbol = document.getElementById('analyticsSymbol').value;
-        if (symbol && state.indicators[symbol]) {
-            runTechnicalAnalysis();
-        }
-    }
-
-    // Watchlist Functions
-    function addToWatchlist() {
-        const symbol = document.getElementById('stockSymbol').value.toUpperCase();
-        if (!symbol) {
-            showToast('Please enter a stock symbol', 'error');
-            return;
-        }
-        
-        if (!state.watchlist.includes(symbol)) {
-            state.watchlist.push(symbol);
-            saveWatchlist();
-            showToast(`${symbol} added to watchlist`, 'success');
-        } else {
-            showToast(`${symbol} already in watchlist`, 'info');
-        }
-    }
-
-    function loadWatchlist() {
-        const saved = localStorage.getItem('stockWatchlist');
-        if (saved) {
-            state.watchlist = JSON.parse(saved);
-        }
-    }
-
-    function saveWatchlist() {
-        localStorage.setItem('stockWatchlist', JSON.stringify(state.watchlist));
-    }
-
-    // Run Complete Demo
-    function runDemo() {
-        showToast('Starting complete demo...', 'info');
-        
-        const demoSteps = [
-            () => { switchTab('webscraping'); simulateAdvancedScraping(); },
-            () => { switchTab('stocks'); getStockData(); },
-            () => { switchTab('analytics'); runTechnicalAnalysis(); },
-            () => { switchTab('predictions'); predictStockPrice(); },
-            () => { switchTab('visualization'); createAdvancedComparison(); },
-            () => { switchTab('code'); showAdvancedCodeExample(); },
-            () => { 
-                switchTab('overview'); 
-                showToast('✅ Demo completed successfully!', 'success');
-            }
-        ];
-        
-        let step = 0;
-        function runNextStep() {
-            if (step < demoSteps.length) {
-                demoSteps[step]();
-                step++;
-                setTimeout(runNextStep, 2000);
-            }
-        }
-        
-        runNextStep();
-    }
-
-    // Initialize on load
     showAdvancedCodeExample();
 </script>
 </body>
