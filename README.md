@@ -222,7 +222,7 @@ This repository showcases my comprehensive journey through the **IBM Data Analys
 | Platform | Purpose | Live Demo |
 |----------|---------|-----------|
 | **PyAnalytics** | Interactive Python data analysis with real-time visualizations | [Click to Analyze →](https://willie-conway.github.io/PyAnalytics/) |
-| **PyViz Lab** | Master Python visualization libraries (Plotly, Seaborn, Matplotlib) | [Click to Visualize →](https://willie-conway.github.io/PyViz-Lab/) |
+| **PyViz Lab** | Master Python visualization libraries (Plotly, Seaborn, Matplotlib) | [Click to Visualize →](https://willie-conway.github.io/PyVizLab/) |
 | **PRISM** | Professional market intelligence terminal for stocks, crypto, forex | [Click to Trade →](https://willie-conway.github.io/PRISM/) |
 | **DATA ANALYTICS MASTERY LAB** | Complete OSEMN framework workflow with 13 interactive modules | [Click to Learn →](https://willie-conway.github.io/Data-Analytics-Mastery-Lab/) |
 | **Statistics Fundamentals Glossary** | 64+ essential statistics terms for data professionals | [Click to Reference →](https://willie-conway.github.io/Statistics-Glossary/) |
