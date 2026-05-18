@@ -225,11 +225,11 @@ This repository showcases my comprehensive journey through the **IBM Data Analys
 | **PyViz Lab** | Master Python visualization libraries (Plotly, Seaborn, Matplotlib) | [Click to Visualize →](https://willie-conway.github.io/PyVizLab/) |
 | **PRISM** | Professional market intelligence terminal for stocks, crypto, forex | [Click to Trade →](https://willie-conway.github.io/PRISM/) |
 | **DATA ANALYTICS MASTERY LAB** | Complete OSEMN framework workflow with 13 interactive modules | [Click to Learn →](https://willie-conway.github.io/DATA-ANALYTICS-MASTERY-LAB/) |
-| **Statistics Fundamentals Glossary** | 64+ essential statistics terms for data professionals | [Click to Reference →](https://willie-conway.github.io/Statistics-Glossary/) |
-| **SQL Reference** | 55+ SQL terms with syntax examples and interactive previews | [Click to Query →](https://willie-conway.github.io/SQL-Reference/) |
+| **Statistics Fundamentals Glossary** | 64+ essential statistics terms for data professionals | [Click to Reference →](https://willie-conway.github.io/Statistics-Fundamentals/) |
+| **SQL Reference** | 55+ SQL terms with syntax examples and interactive previews | [Click to Query →](https://willie-conway.github.io/Complete-SQL-Glossary/) |
 | **MySQL Simulator Pro** | Browser-based MySQL environment with transactions and JOINs | [Click to Execute →](https://willie-conway.github.io/MySQL-Simulator-Pro/) |
 | **PULSE** | Public health analytics with 6 live authoritative APIs | [Click to Monitor →](https://willie-conway.github.io/PULSE/) |
-| **DW://master** | Data warehousing with AI tutor and SCD simulations | [Click to Warehouse →](https://willie-conway.github.io/DW-master/) |
+| **DW://master** | Data warehousing with AI tutor and SCD simulations | [Click to Warehouse →](https://willie-conway.github.io/DW-Master/) |
 | **RDBMS Glossary** | 147+ relational database terms with importance ratings | [Click to Reference →](https://willie-conway.github.io/RDBMS-Glossary/) |
 | **DataVista** | Production-grade ML platform with real-time data ingestion | [Click to Model →](https://willie-conway.github.io/DataVista/) |
 
