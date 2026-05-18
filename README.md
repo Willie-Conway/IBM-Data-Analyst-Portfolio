@@ -217,6 +217,34 @@ This repository showcases my comprehensive journey through the **IBM Data Analys
 ├── 📜 LICENSE
 └── 📜 README.md
 ```
+### 📊 Data Science & Analytics Interactive Platforms
+
+| Platform | Purpose | Live Demo |
+|----------|---------|-----------|
+| **PyAnalytics** | Interactive Python data analysis with real-time visualizations | [Click to Analyze →](https://willie-conway.github.io/PyAnalytics/) |
+| **PyViz Lab** | Master Python visualization libraries (Plotly, Seaborn, Matplotlib) | [Click to Visualize →](https://willie-conway.github.io/PyViz-Lab/) |
+| **PRISM** | Professional market intelligence terminal for stocks, crypto, forex | [Click to Trade →](https://willie-conway.github.io/PRISM/) |
+| **DATA ANALYTICS MASTERY LAB** | Complete OSEMN framework workflow with 13 interactive modules | [Click to Learn →](https://willie-conway.github.io/Data-Analytics-Mastery-Lab/) |
+| **Statistics Fundamentals Glossary** | 64+ essential statistics terms for data professionals | [Click to Reference →](https://willie-conway.github.io/Statistics-Glossary/) |
+| **SQL Reference** | 55+ SQL terms with syntax examples and interactive previews | [Click to Query →](https://willie-conway.github.io/SQL-Reference/) |
+| **MySQL Simulator Pro** | Browser-based MySQL environment with transactions and JOINs | [Click to Execute →](https://willie-conway.github.io/MySQL-Simulator-Pro/) |
+| **PULSE** | Public health analytics with 6 live authoritative APIs | [Click to Monitor →](https://willie-conway.github.io/PULSE/) |
+| **DW://master** | Data warehousing with AI tutor and SCD simulations | [Click to Warehouse →](https://willie-conway.github.io/DW-master/) |
+| **RDBMS Glossary** | 147+ relational database terms with importance ratings | [Click to Reference →](https://willie-conway.github.io/RDBMS-Glossary/) |
+| **DataVista** | Production-grade ML platform with real-time data ingestion | [Click to Model →](https://willie-conway.github.io/DataVista/) |
+
+---
+
+### 🎯 Quick Stats
+
+| Metric | Count |
+|--------|-------|
+| **Total Platforms** | 11 |
+| **Live APIs Integrated** | 12+ |
+| **Charting Libraries** | Chart.js, Plotly, Recharts, Leaflet |
+| **Core Domains** | Data Analysis, Visualization, ML, SQL, Data Warehousing, Health Analytics |
+
+
 
 ## 🚀 How to Use This Portfolio
 
